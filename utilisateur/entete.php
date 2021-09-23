@@ -10,6 +10,8 @@ require_once "../modeles/roles.php";
 require_once "../modeles/secteur.php";
 require_once "../modeles/solde.php";
 require_once "../modeles/utilisateur.php";
+require_once "../modeles/equipe.php";
+require_once "../modeles/projet.php";
 ?>
 
 <!doctype html>

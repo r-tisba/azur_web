@@ -22,6 +22,10 @@ class Discussion extends Modele
             $requete->execute([$idD]);
             $discussionD = $requete->fetch(PDO::FETCH_ASSOC);
 
+            echo "<pre>";
+            print_r($discussionD);
+            print_r($discussionE);
+            echo "<pre>";
             $discussion = array_merge($discussionE, $discussionD);
 
             $this->idDiscussion = $idD;
@@ -58,31 +62,31 @@ class Discussion extends Modele
 
     public function recupererDiscussions()
     {
-        $requete = getBDD()->prepare("SELECT * FROM discussions");
+        $requete = $this->getBDD()->prepare("SELECT * FROM discussions");
         $requete->execute();
         return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
     public function recupererDiscussion($idDiscussion)
     {
-        $requete = getBDD()->prepare("SELECT * FROM discussions WHERE idDiscussion = ?");
+        $requete = $this->getBDD()->prepare("SELECT * FROM discussions WHERE idDiscussion = ?");
         $requete->execute([$idDiscussion]);
         return $requete->fetch(PDO::FETCH_ASSOC);
     }
     public function creerDiscussion($idEnvoyeur, $idDestinataire)
     {
-        $requete = getBDD()->prepare("INSERT INTO discussions(idEnvoyeur, idDestinataire) VALUES(?, ?)");
+        $requete = $this->getBDD()->prepare("INSERT INTO discussions(idEnvoyeur, idDestinataire) VALUES(?, ?)");
         $requete->execute([$idEnvoyeur, $idDestinataire]);
         return true;
     }
     public function supprimerDiscussion($idDiscussion)
     {
-        $requete = getBDD()->prepare("DELETE FROM discussions WHERE idDiscussion = ?");
+        $requete = $this->getBDD()->prepare("DELETE FROM discussions WHERE idDiscussion = ?");
         $requete->execute([$idDiscussion]);
         return true;
     }
     public function modifierDiscussion($idEnvoyeur, $idDestinataire, $idDiscussion)
     {
-        $requete = getBDD()->prepare("UPDATE discussions SET idEnvoyeur=?, idDestinataire=? WHERE idDiscussion = ?");
+        $requete = $this->getBDD()->prepare("UPDATE discussions SET idEnvoyeur=?, idDestinataire=? WHERE idDiscussion = ?");
         $requete->execute([$idEnvoyeur, $idDestinataire, $idDiscussion]);
         return true;
     }

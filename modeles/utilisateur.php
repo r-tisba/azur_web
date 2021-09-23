@@ -6,7 +6,7 @@ class Utilisateur extends Modele
    private $nom;
    private $prenom;
    private $poste;
-   private $idSecteur;
+   private $idEquipe;
    private $identifiant;
    private $mdp;
    private $idRole;
@@ -26,23 +26,86 @@ class Utilisateur extends Modele
          $this->nom = $infos["nom"];
          $this->prenom = $infos["prenom"];
          $this->poste = $infos["poste"];
-         $this->idSecteur = $infos["idSecteur"];
+         $this->idEquipe = $infos["idEquipe"];
          $this->identifiant = $infos["identifiant"];
          $this->mdp = $infos["mdp"];
          $this->idRole = $infos["idRole"];
-         $this->salaire = $infos["salaire"];
          $this->avatar = $infos["avatar"];
 
-         $requete = $this->getBdd()->prepare("SELECT * FROM discussions WHERE idEmploye = ?");
-         $requete->execute([$idE]);
-         $discussions = $requete->fetchAll(PDO::FETCH_ASSOC);
+         // $requete = $this->getBdd()->prepare("SELECT * FROM discussions WHERE idEmploye = ?");
+         // $requete->execute([$idE]);
+         // $discussions = $requete->fetchAll(PDO::FETCH_ASSOC);
 
-         foreach ($discussions as $discussion) {
-            $objetDiscussion = new Discussion();
-            $objetDiscussion->initialiserDiscussion($discussion["idDiscussion"], $discussion["idEnvoyeur"], $discussion["idDestinataire"]);
-            $this->discussions[] = $objetDiscussion;
-         }
+         // foreach ($discussions as $discussion) {
+         //    $objetDiscussion = new Discussion();
+         //    $objetDiscussion->initialiserDiscussion($discussion["idDiscussion"], $discussion["idEnvoyeur"], $discussion["idDestinataire"]);
+         //    $this->discussions[] = $objetDiscussion;
+         // }
       }
+   }
+
+   public function recupererUtilisateurs()
+   {
+      $requete = $this->getBDD()->prepare("SELECT * FROM utilisateurs");
+      $requete->execute();
+      return $requete->fetchAll(PDO::FETCH_ASSOC);
+   }
+
+   public function recupererUtilisateur($idEmploye)
+   {
+      $requete = $this->getBDD()->prepare("SELECT * FROM utilisateurs WHERE idEmploye = ?");
+      $requete->execute([$idEmploye]);
+      return $requete->fetch(PDO::FETCH_ASSOC);
+   }
+
+   public function recupererInfosConnexion($identifiant)
+   {
+      $requete = $this->getBDD()->prepare("SELECT idEmploye, identifiant, mdp, idRole FROM utilisateurs WHERE identifiant = ?");
+      $requete->execute([$identifiant]);
+      return $requete;
+   }
+
+   public function recupererEquipeRolesUtilisateurs()
+   {
+      $requete = $this->getBDD()->prepare("SELECT * FROM utilisateurs INNER JOIN equipe USING(idEquipe) INNER JOIN roles USING(idRole)");
+      $requete->execute();
+      return $requete->fetchAll(PDO::FETCH_ASSOC);
+   }
+
+   public function mailUnique($email)
+   {
+      $requete = $this->getBDD()->prepare("SELECT email FROM utilisateurs WHERE email = ?");
+      $requete->execute([$email]);
+      return $requete;
+   }
+
+   public function creerUtilisateur($nom, $prenom, $poste, $idEquipe, $mdp)
+   {
+      $salaire = 0;
+      $idRole = 1;
+      $identifiant = strtolower($prenom) . "." . strtolower($nom);
+
+      $requete = $this->getBDD()->prepare("INSERT INTO
+    utilisateurs(nom, prenom, poste, salaire, idEquipe, identifiant, mdp, idRole)
+    VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+      $requete->execute([$nom, $prenom, $poste, $salaire, $idEquipe, $identifiant, $mdp, $idRole]);
+      return true;
+   }
+
+   public function modifierUtilisateur($idEmploye, $nom, $prenom, $poste, $salaire, $idEquipe, $idRole)
+   {
+      $identifiant = strtolower($prenom) . "." . strtolower($nom);
+      $requete = $this->getBDD()->prepare("UPDATE utilisateurs SET nom = ?, prenom = ?, poste = ?, salaire = ?, idEquipe = ?, identifiant=?, idRole=? WHERE idEmploye = ?");
+      $requete->execute([$nom, $prenom, $poste, $salaire, $idEquipe, $identifiant, $idRole, $idEmploye]);
+      return true;
+   }
+
+   public function supprimerUtilisateur($idUtilisateur)
+   {
+      $requete = $this->getBDD()->prepare("DELETE FROM utilisateurs
+    WHERE idUtilisateur = ?");
+      $requete->execute([$idUtilisateur]);
+      return true;
    }
 
    public function getidEmploye()
@@ -61,9 +124,9 @@ class Utilisateur extends Modele
    {
       return $this->poste;
    }
-   public function getidSecteur()
+   public function getidEquipe()
    {
-      return $this->idSecteur;
+      return $this->idEquipe;
    }
    public function getIdentifiant()
    {
@@ -88,78 +151,5 @@ class Utilisateur extends Modele
    public function getMessages()
    {
       return $this->messages;
-   }
-
-   function recupererUtilisateurs()
-   {
-      $requete = $this->getBDD()->prepare("SELECT * FROM utilisateurs");
-      $requete->execute();
-      return $requete->fetchAll(PDO::FETCH_ASSOC);
-   }
-
-   function recupererUtilisateur($idEmploye)
-   {
-      $requete = $this->getBDD()->prepare("SELECT * FROM utilisateurs WHERE idEmploye = ?");
-      $requete->execute([$idEmploye]);
-      return $requete->fetch(PDO::FETCH_ASSOC);
-   }
-
-   function recupererInfosConnexion($identifiant)
-   {
-      $requete = $this->getBDD()->prepare("SELECT idEmploye, identifiant, mdp, idRole FROM utilisateurs WHERE identifiant = ?");
-      $requete->execute([$identifiant]);
-      return $requete;
-   }
-
-   function recupererSecteursRolesUtilisateurs()
-   {
-      $requete = $this->getBDD()->prepare("SELECT * FROM utilisateurs INNER JOIN secteurs USING(idSecteur) INNER JOIN roles USING(idRole)");
-      $requete->execute();
-      return $requete->fetchAll(PDO::FETCH_ASSOC);
-   }
-
-   function mailUnique($email)
-   {
-      $requete = $this->getBDD()->prepare("SELECT email FROM utilisateurs WHERE email = ?");
-      $requete->execute([$email]);
-      return $requete;
-   }
-
-   function creerUtilisateur($nom, $prenom, $poste, $idSecteur, $mdp)
-   {
-      $salaire = 0;
-      $idRole = 1;
-      $identifiant = strtolower($prenom) . "." . strtolower($nom);
-
-      $requete = $this->getBDD()->prepare("INSERT INTO
-    utilisateurs(nom, prenom, poste, salaire, idSecteur, identifiant, mdp, idRole)
-    VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
-      $requete->execute([$nom, $prenom, $poste, $salaire, $idSecteur, $identifiant, $mdp, $idRole]);
-      return true;
-   }
-
-   function modifierUtilisateur($idEmploye, $nom, $prenom, $poste, $salaire, $idSecteur, $idRole)
-   {
-      $identifiant = strtolower($prenom) . "." . strtolower($nom);
-      $requete = $this->getBDD()->prepare("UPDATE utilisateurs SET nom = ?, prenom = ?, poste = ?, salaire = ?, idSecteur = ?, identifiant=?, idRole=? WHERE idEmploye = ?");
-      $requete->execute([$nom, $prenom, $poste, $salaire, $idSecteur, $identifiant, $idRole, $idEmploye]);
-      return true;
-   }
-
-   function supprimerUtilisateur($idUtilisateur)
-   {
-      $requete = $this->getBDD()->prepare("DELETE FROM utilisateurs
-    WHERE idUtilisateur = ?");
-      $requete->execute([$idUtilisateur]);
-      return true;
-   }
-
-   function dateFr($date)
-   {
-      if ($datetime = DateTime::createfromformat("Y-m-d H:i:s", $date)) {
-         return $date = $datetime->format("d/m/Y à H:i");
-      } else if ($datetime = DateTime::createfromformat("Y-m-d", $date)) {
-         return $date = $datetime->format("d/m/Y");
-      }
    }
 }

@@ -29,6 +29,7 @@ class Message extends Modele
         $this->idEmploye = $idEmploye;
     }
 
+
     public function getIdMessage()
     {
         return $this->idMessage;

@@ -20,22 +20,6 @@ class Revenu extends Modele
             $this->date = $revenu["date"];
         }
     }
-    public function getIdRevenu()
-    {
-        return $this->idRevenu;
-    }
-    public function getNomRevenu()
-    {
-        return $this->nomRevenu;
-    }
-    public function getGains()
-    {
-        return $this->gains;
-    }
-    public function getDate()
-    {
-        return $this->date;
-    }
 
     function recupererRevenus()
     {
@@ -67,9 +51,24 @@ class Revenu extends Modele
 
     function modifierRevenu($nomRevenu, $gains, $date, $idRevenu)
     {
-        $requete = $this->getBDD()->prepare("UPDATE revenus SET nomRevenu=?, gains=?, date=?
-    WHERE idRevenu = ?");
+        $requete = $this->getBDD()->prepare("UPDATE revenus SET nomRevenu=?, gains=?, date=? WHERE idRevenu = ?");
         $requete->execute([$nomRevenu, $gains, $date, $idRevenu]);
         return true;
+    }
+    public function getIdRevenu()
+    {
+        return $this->idRevenu;
+    }
+    public function getNomRevenu()
+    {
+        return $this->nomRevenu;
+    }
+    public function getGains()
+    {
+        return $this->gains;
+    }
+    public function getDate()
+    {
+        return $this->date;
     }
 }

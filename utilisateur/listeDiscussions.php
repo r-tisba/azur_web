@@ -2,28 +2,27 @@
 require_once "entete.php";
 require_once "../modeles/modele.php";
 print_r($_SESSION);
-$objetDiscussion = new Discussion($_SESSION["idUtilisateur"]);
-$discussions = $objetDiscussion->recupererDiscussions();
 $idEmploye = $_SESSION["idEmploye"];
+$objetDiscussion = new Discussion($idEmploye);
+$objetUtilisateur = new Utilisateur($idEmploye);
+$discussions = $objetDiscussion->recupererDiscussions();
 ?>
 
 <h1> Liste des discussions en cours : </h1>
-
 <ul class="list-group">
 <div class="container-fluid">
 <div class="row">
-
 <?php
 foreach($discussions as $discussion)
 {
     if($discussion["idEnvoyeur"] == $idEmploye)
     {
         $idContact = $discussion["idDestinataire"];
-        $utilisateur = recupererUtilisateur($idEmploye);
-        $contact = recupererUtilisateur($idContact);
+        $utilisateur = $objetUtilisateur->recupererUtilisateur($idEmploye);
+        $contact = $objetUtilisateur->recupererUtilisateur($idContact);
         printf($contact);
 
-        $dernierMessage = recupererDernierMessage($discussion["idDiscussion"]);
+        $dernierMessage = $objetDiscussion->recupererDernierMessage($discussion["idDiscussion"]);
 
         ?>
 
