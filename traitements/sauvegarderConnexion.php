@@ -28,29 +28,29 @@ if(isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1)
                     $_SESSION["idRole"] = $utilisateur["idRole"];
                     $_SESSION["idEmploye"] = $utilisateur["idEmploye"];
 
-                    header("location:/visiteur/connexion.php?success=connexion");
+                    header("location:../visiteur/index.php?success=connexion");
 
                     ?>
                     <div class="alert alert-success mt-3">
                     Vous êtes connecté<br>
                     Vous allez être redirigé vers la page d'accueil<br>
-                    <a href="/visiteur/connexion.php">Cliquez ici pour une redirection manuelle</a>
+                    <a href="../visiteur/index.php">Cliquez ici pour une redirection manuelle</a>
                     </div>
                     <?php
-                    header("refresh:4;/visiteur/connexion.php");
+                    header("refresh:4;../visiteur/index.php");
 
                 } else {
-                    header("location:/visiteur/connexion.php?error=falsemdp");
+                    header("location:../visiteur/index.php?error=falsemdp");
             }
             } else {
-                header("location:/visiteur/connexion.php?error=falseid");
+                header("location:../visiteur/index.php?error=falseid");
             }
         } else {
-            header("location:/visiteur/connexion.php?error=mdplength");
+            header("location:../visiteur/index.php?error=mdplength");
         }
     } else {
-        header("location:/visiteur/connexion.php?error=missing");
-    } 
+        header("location:../visiteur/index.php?error=missing");
+    }
 } else {
     header("location:/");
 }

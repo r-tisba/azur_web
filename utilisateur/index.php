@@ -7,9 +7,6 @@ if(!isset($_SESSION["identifiant"]))
 }
 
 ?>
-
-
-
 <main>
 
 <div class="album py-3">
@@ -33,7 +30,7 @@ if(!isset($_SESSION["identifiant"]))
             </div>
           </div>
         </div>
-        
+
         <!-- CARD 2 : Messagerie -->
         <div class="col-12 col-lg-4 col-md-6 mb-4">
           <div class="card shadow-sm">
@@ -67,7 +64,7 @@ if(!isset($_SESSION["identifiant"]))
           </div>
         </div>
         <!--"col-12 col-sm-6 col-md-4 col-lg-3"
-        12 colonnes sur petit écran, 6 colonnes pour demi-écran, etc... 
+        12 colonnes sur petit écran, 6 colonnes pour demi-écran, etc...
         -->
         <!--CARD 4 : Emploie du temps -->
         <div class="col-12 col-lg-12 col-md-6">

@@ -17,5 +17,5 @@ function soldeEntreprise()
 
     $compte = $revenu["SUM(gains)"] - $depense["SUM(depense)"] - $salaire["SUM(salaire)"];
     return $compte;
-    
+
 }
