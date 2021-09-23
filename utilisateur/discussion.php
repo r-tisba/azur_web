@@ -61,10 +61,6 @@ foreach($messages as $message)
 </div>
 </div>
 
-
-
-
-
 <?php
 }
 
