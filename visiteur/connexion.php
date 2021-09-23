@@ -5,10 +5,10 @@ require_once "../visiteur/entete.php";
 <div class="container">
     <h1>Connexion</h1>
 
-    <?php if (!empty($_GET["success"]) && $_GET["success"] == "connexion") 
+    <?php if (!empty($_GET["success"]) && $_GET["success"] == "connexion")
     {
         ?>
-        <div class="alert alert-success mt-3">Vous avez bien été connecté <br> 
+        <div class="alert alert-success mt-3">Vous avez bien été connecté <br>
             Vous allez être redirigé vers la page d'accueil<br>
             <a href="index.php">Cliquez ici pour une redirection manuelle</a>
         </div>
@@ -16,11 +16,11 @@ require_once "../visiteur/entete.php";
         header("refresh:5;index.php");
     }
     ?>
-    <?php if (!empty($_GET["error"])) 
+    <?php if (!empty($_GET["error"]))
     {
     ?>
         <div class="alert alert-danger mt-3">
-        <?php switch ($_GET["error"]) 
+        <?php switch ($_GET["error"])
         {
                 case "falsemdp": ?>
                 <?php echo "Le mot de passe n'existe pas"; ?>
@@ -34,11 +34,11 @@ require_once "../visiteur/entete.php";
             <?php case "missing": ?>
                 <?php echo "Au moins un champ n'a pas été saisi"; ?>
                 <?php break;?>
-        <?php 
+        <?php
         }
         ?>
         </div>
-    <?php 
+    <?php
     }
     ?>
 
