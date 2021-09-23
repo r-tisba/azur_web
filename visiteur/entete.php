@@ -30,11 +30,11 @@ require_once "../modeles/modele.php";
         <?php
         if(!empty($_SESSION["identifiant"]) && $_SESSION["idRole"] == 2)
         {
-        ?>   
+        ?>
         <li class="nav-item">
           <a class="nav-item nav-link" href="inscription.php">Inscrire un employé</a>
         </li>
-        <?php  
+        <?php
         }
         ?>
         <!--
@@ -48,28 +48,28 @@ require_once "../modeles/modele.php";
             <a class="nav-item nav-link" href="#">Toujours un autre truc</a>
           </li>
         -->
-      </ul> 
+      </ul>
         <?php
 
         if (isset($_SESSION["identifiant"]) && !empty($_SESSION))
         {
           ?>
-          
+
           <div class="div-inline my-2 my-lg-0">
             <a class="nav-item active nav-link" style="color: #00FF00;">
               <?= "Vous êtes connecté " . $_SESSION["identifiant"]?>
             </a>
           </div>
           <a class="btn btn-outline-danger ml-1" href="../admin/deconnexion.php">Se déconnecter</a>
-          
+
           <?php
         } else {
           ?>
           <a class="btn btn-outline-success ml-auto" href="inscription.php">S'inscrire</a>
-          <a class="btn btn-outline-primary ml-1" href="connexion.php">Se connecter</a> 
+          <a class="btn btn-outline-primary ml-1" href="connexion.php">Se connecter</a>
           <?php
         }
         ?>
-    </div> 
+    </div>
 </nav>
 <div class="container mt-4">

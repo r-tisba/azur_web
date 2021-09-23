@@ -5,7 +5,7 @@ require_once "../visiteur/entete.php";
 <div class="container">
     <h1>Inscription</h1>
 
-    <?php if (!empty($_GET["success"]) && $_GET["success"] == "inscription") 
+    <?php if (!empty($_GET["success"]) && $_GET["success"] == "inscription")
     {
         ?>
         <div class="alert alert-success mt-2">Vous avez bien été inscrit <br>
@@ -14,11 +14,11 @@ require_once "../visiteur/entete.php";
     header("refresh:4;../admin/index.php");
     }
     ?>
-    <?php if (!empty($_GET["error"])) 
+    <?php if (!empty($_GET["error"]))
     {
     ?>
         <div class="alert alert-danger mt-2">
-        <?php switch ($_GET["error"]) 
+        <?php switch ($_GET["error"])
         {
             case "inscriptionsave": ?>
                 <?php echo "Une erreur s'est produite lors de l'enregistrement"; ?>
@@ -32,11 +32,11 @@ require_once "../visiteur/entete.php";
             <?php case "missing": ?>
                 <?php echo "Au moins un champ n'a pas été saisi"; ?>
                 <?php break;?>
-        <?php 
+        <?php
         }
         ?>
         </div>
-    <?php 
+    <?php
     }
     ?>
 
@@ -80,7 +80,6 @@ require_once "../visiteur/entete.php";
             <label for="verifMdp">Vérifier votre mot de passe :</label>
             <input type="password" class="form-control" name="verifMdp" id="verifMdp" placeholder="Saisissez à nouveau votre mot de passe" required/>
         </div>
-        
         <div class="form-group text-center">
             <button type="submit" class="btn btn-primary" name="envoi" id="envoi" value="1">S'inscrire !</button>
         </div>
