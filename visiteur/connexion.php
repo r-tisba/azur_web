@@ -10,10 +10,10 @@ require_once "../visiteur/entete.php";
         ?>
         <div class="alert alert-success mt-3">Vous avez bien été connecté <br>
             Vous allez être redirigé vers la page d'accueil<br>
-            <a href="index.php">Cliquez ici pour une redirection manuelle</a>
+            <a href="../test.php">Cliquez ici pour une redirection manuelle</a>
         </div>
         <?php
-        header("refresh:5;index.php");
+        header("refresh:5;../test.php");
     }
     ?>
     <?php if (!empty($_GET["error"]))

@@ -1,45 +1,93 @@
-/* PERMET D'AFFICHER LE CURSEUR DANS LES INPUTS ET TEXTAREA */
-body{
-  background-attachment: fixed;
-  background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #009dec, #00b4eb, #03c2ec, #29cfeb, #49dbe8, #47e3e8, #4aece6, #52f3e2, #5ffbdd);
-  background-size: 100%;
-}
-
-input
+*, *::before, *::after  /* Selectionne tous les élements */
 {
-  caret-color: black;
+  box-sizing: border-box;
+  padding: 0;
 }
-textarea
+html
 {
-  caret-color: black;
+    scroll-behavior: smooth;
 }
-
-.display-4
-{
-  font-size: 1.4rem;
-}
-
 body
 {
-  caret-color: transparent;
-  /*
-  background: rgb(213, 231, 180);
-  */
+    padding-top: 3.5rem;
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: left;
+    overflow-x: hidden;
+
+    background-attachment: fixed;
+    background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #009dec, #00b4eb, #03c2ec, #29cfeb, #49dbe8, #47e3e8, #4aece6, #52f3e2, #5ffbdd);
+    background-size: 100%;
+    caret-color: transparent;
 }
 
-.navbar.navbar-7 .navbar-toggler-icon 
+.titre
+{
+  font-family: 'Lato', sans-serif;
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+}
+
+/* NAVBAR */
+.navbar.navbar-7 .navbar-toggler-icon
 {
   background-image: url('https://image.flaticon.com/icons/png/512/60/60995.png');
   border-style: ridge;
   border-color: black;
 }
-
 .navbar.navbar-7
 {
   border-style: ridge;
   border-color: black;
   border-radius: 10px;
 }
+.apercu_connexion
+{
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  color: #00FF00 !important;
+}
+
+/* PAGE DE CONNEXION */
+.titre_accueil
+{
+  font-family: 'Lato', sans-serif;
+  text-transform: uppercase;
+  font-size: 40px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+}
+input#identifiant, input#mdp
+{
+  width: 15rem;
+  text-align: center;
+}
+.card_connexion
+{
+  max-width: 20rem;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.alert_connexion
+{
+  text-align: center;
+  width: 30rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+/*
+background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #009dec, #00b4eb, #03c2ec, #29cfeb, #49dbe8, #47e3e8, #4aece6, #52f3e2, #5ffbdd);
+*/
+
 
 .card.shadow-sm
 {
@@ -76,4 +124,19 @@ body
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* PERMET D'AFFICHER LE CURSEUR DANS LES INPUTS ET TEXTAREA */
+input
+{
+  caret-color: black;
+}
+textarea
+{
+  caret-color: black;
+}
+
+.display-4
+{
+  font-size: 1.4rem;
 }
