@@ -10,7 +10,7 @@ class Revenu extends Modele
     public function __construct($idR = null)
     {
         if ($idR != null) {
-            $requete = getBDD()->prepare("SELECT * FROM revenus");
+            $requete = $this->getBDD()->prepare("SELECT * FROM revenus");
             $requete->execute([$idR]);
             $revenu = $requete->fetch(PDO::FETCH_ASSOC);
 
@@ -19,6 +19,41 @@ class Revenu extends Modele
             $this->gains = $revenu["gains"];
             $this->date = $revenu["date"];
         }
+    }
+
+    function recupererRevenus()
+    {
+        $requete = $this->getBDD()->prepare("SELECT * FROM revenus");
+        $requete->execute();
+        return $requete->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function recupererRevenu($idRevenu)
+    {
+        $requete = $this->getBDD()->prepare("SELECT * FROM revenus WHERE idRevenu = ?");
+        $requete->execute([$idRevenu]);
+        return $requete->fetch(PDO::FETCH_ASSOC);
+    }
+
+    function creerRevenu($nomRevenu, $gains, $date)
+    {
+        $requete = $this->getBDD()->prepare("INSERT INTO revenus(nomRevenu, gains, date) VALUES(?, ?, ?)");
+        $requete->execute([$nomRevenu, $gains, $date]);
+        return true;
+    }
+
+    function supprimerRevenu($idRevenu)
+    {
+        $requete = $this->getBDD()->prepare("DELETE FROM revenus WHERE idRevenu = ?");
+        $requete->execute([$idRevenu]);
+        return true;
+    }
+
+    function modifierRevenu($nomRevenu, $gains, $date, $idRevenu)
+    {
+        $requete = $this->getBDD()->prepare("UPDATE revenus SET nomRevenu=?, gains=?, date=? WHERE idRevenu = ?");
+        $requete->execute([$nomRevenu, $gains, $date, $idRevenu]);
+        return true;
     }
     public function getIdRevenu()
     {
@@ -35,41 +70,5 @@ class Revenu extends Modele
     public function getDate()
     {
         return $this->date;
-    }
-
-    function recupererRevenus()
-    {
-        $requete = getBDD()->prepare("SELECT * FROM revenus");
-        $requete->execute();
-        return $requete->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    function recupererRevenu($idRevenu)
-    {
-        $requete = getBDD()->prepare("SELECT * FROM revenus WHERE idRevenu = ?");
-        $requete->execute([$idRevenu]);
-        return $requete->fetch(PDO::FETCH_ASSOC);
-    }
-
-    function creerRevenu($nomRevenu, $gains, $date)
-    {
-        $requete = getBDD()->prepare("INSERT INTO revenus(nomRevenu, gains, date) VALUES(?, ?, ?)");
-        $requete->execute([$nomRevenu, $gains, $date]);
-        return true;
-    }
-
-    function supprimerRevenu($idRevenu)
-    {
-        $requete = getBDD()->prepare("DELETE FROM revenus WHERE idRevenu = ?");
-        $requete->execute([$idRevenu]);
-        return true;
-    }
-
-    function modifierRevenu($nomRevenu, $gains, $date, $idRevenu)
-    {
-        $requete = getBDD()->prepare("UPDATE revenus SET nomRevenu=?, gains=?, date=?
-    WHERE idRevenu = ?");
-        $requete->execute([$nomRevenu, $gains, $date, $idRevenu]);
-        return true;
     }
 }
