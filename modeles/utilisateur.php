@@ -32,9 +32,10 @@ class Utilisateur extends Modele
          $this->idRole = $infos["idRole"];
          $this->avatar = $infos["avatar"];
 
-         // $requete = $this->getBdd()->prepare("SELECT * FROM discussions WHERE idEmploye = ?");
-         // $requete->execute([$idE]);
-         // $discussions = $requete->fetchAll(PDO::FETCH_ASSOC);
+         $requete = $this->getBdd()->prepare("SELECT * FROM discussions WHERE idEnvoyeur = ? OR idDestinataire = ?");
+         $requete->execute([$idE, $idE]);
+
+         $discussions = $requete->fetchAll(PDO::FETCH_ASSOC);
 
          // foreach ($discussions as $discussion) {
          //    $objetDiscussion = new Discussion();
@@ -60,7 +61,7 @@ class Utilisateur extends Modele
 
    public function recupererInfosConnexion($identifiant)
    {
-      $requete = $this->getBDD()->prepare("SELECT idEmploye, identifiant, mdp, idRole FROM utilisateurs WHERE identifiant = ?");
+      $requete = $this->getBDD()->prepare("SELECT idEmploye, identifiant, mdp, idRole, idEquipe FROM utilisateurs WHERE identifiant = ?");
       $requete->execute([$identifiant]);
       return $requete;
    }
@@ -85,9 +86,7 @@ class Utilisateur extends Modele
       $idRole = 1;
       $identifiant = strtolower($prenom) . "." . strtolower($nom);
 
-      $requete = $this->getBDD()->prepare("INSERT INTO
-    utilisateurs(nom, prenom, poste, salaire, idEquipe, identifiant, mdp, idRole)
-    VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+      $requete = $this->getBDD()->prepare("INSERT INTO utilisateurs(nom, prenom, poste, salaire, idEquipe, identifiant, mdp, idRole) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
       $requete->execute([$nom, $prenom, $poste, $salaire, $idEquipe, $identifiant, $mdp, $idRole]);
       return true;
    }
@@ -102,8 +101,7 @@ class Utilisateur extends Modele
 
    public function supprimerUtilisateur($idUtilisateur)
    {
-      $requete = $this->getBDD()->prepare("DELETE FROM utilisateurs
-    WHERE idUtilisateur = ?");
+      $requete = $this->getBDD()->prepare("DELETE FROM utilisateurs WHERE idUtilisateur = ?");
       $requete->execute([$idUtilisateur]);
       return true;
    }

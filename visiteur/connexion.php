@@ -7,10 +7,12 @@ require_once "../visiteur/entete.php";
 
     <?php if (!empty($_GET["success"]) && $_GET["success"] == "connexion")
     {
+        
         ?>
         <div class="alert alert-success mt-3">Vous avez bien été connecté <br>
             Vous allez être redirigé vers la page d'accueil<br>
             <a href="../test.php">Cliquez ici pour une redirection manuelle</a>
+            
         </div>
         <?php
         header("refresh:5;../test.php");

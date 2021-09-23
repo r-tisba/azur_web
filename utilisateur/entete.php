@@ -1,17 +1,6 @@
 <?php
-session_start();
 require_once "../modeles/modele.php";
-require_once "../modeles/application.php";
-require_once "../modeles/depense.php";
-require_once "../modeles/discussion.php";
-require_once "../modeles/message.php";
-require_once "../modeles/revenu.php";
-require_once "../modeles/roles.php";
-require_once "../modeles/secteur.php";
-require_once "../modeles/solde.php";
-require_once "../modeles/utilisateur.php";
-require_once "../modeles/equipe.php";
-require_once "../modeles/projet.php";
+session_start();
 ?>
 
 <!doctype html>
@@ -24,6 +13,8 @@ require_once "../modeles/projet.php";
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="../style/stylePPE.css">
   <link rel="shortcut icon" href="../images/design/logo.png" type="image/x-icon">
+
+  <link rel="stylesheet" href="../style/fontawesome/css/all.css">
 </head>
 
 <body>

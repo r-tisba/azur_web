@@ -11,21 +11,19 @@ class Discussion extends Modele
     public function __construct($idD = null)
     {
         if ($idD !== null) {
-            $sqlE = "SELECT * FROM discussions WHERE idEnvoyeur = ?";
-            $sqlD = "SELECT * FROM discussions WHERE idDestinataire = ?";
+            $sqlEnv = "SELECT * FROM discussions WHERE idEnvoyeur = ?";
+            $sqlDes = "SELECT * FROM discussions WHERE idDestinataire = ?";
 
-            $requete = $this->getBdd()->prepare($sqlE);
+            $requete = $this->getBdd()->prepare($sqlEnv);
             $requete->execute([$idD]);
             $discussionE = $requete->fetch(PDO::FETCH_ASSOC);
+            if(empty($discussionE)) { $discussionE = []; }
 
-            $requete = $this->getBdd()->prepare($sqlD);
+            $requete = $this->getBdd()->prepare($sqlDes);
             $requete->execute([$idD]);
             $discussionD = $requete->fetch(PDO::FETCH_ASSOC);
+            if(empty($discussionD)) { $discussionD = []; }
 
-            echo "<pre>";
-            print_r($discussionD);
-            print_r($discussionE);
-            echo "<pre>";
             $discussion = array_merge($discussionE, $discussionD);
 
             $this->idDiscussion = $idD;

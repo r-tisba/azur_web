@@ -1,6 +1,5 @@
 <?php
 require_once "entete.php";
-print_r($_SESSION);
 $equipe = new Equipe($_SESSION["idEquipe"]);
 
 $projets=$equipe->recupererProjets();

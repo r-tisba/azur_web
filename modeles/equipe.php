@@ -6,20 +6,17 @@ class Equipe extends Modele{
 
     public function __construct($idE = null)
     {
-        if($idE != null)
-        {
         if ($idE != null) {
             $requete = $this->getBdd()->prepare("SELECT * FROM equipe");
             $requete->execute();
             $equipe = $requete->fetchAll(PDO::FETCH_ASSOC);
 
             $this->idEquipe = $idE;
-            $this->nom_equipe = $equipe["nom_equipe"];
             $this->idSecteur = $equipe["idSecteur"];
+            $this->nom_equipe = $equipe["nom_equipe"];
             }
-        }
     }
-    public function recupererEquipe()
+    public function recupererEquipes()
     {
         $requete = $this->getBDD()->prepare("SELECT * FROM equipe");
         $requete->execute();
@@ -42,10 +39,12 @@ class Equipe extends Modele{
     }
     public function recupererProjets(){
         $requete = $this->getBDD()->prepare("SELECT * FROM equipe INNER JOIN projet USING(idEquipe)");
-      $requete->execute();
-      return $requete->fetchAll(PDO::FETCH_ASSOC);
-
+        $requete->execute();
+        return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
-    
+    public function getIdE()
+    {
+        return $this->idEquipe;
+    }
 
 }

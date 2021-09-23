@@ -3,7 +3,7 @@
     <p class="float-end mb-1">
       <a href="index.php">Retour en haut de la page</a>
       <br>
-      &copy; Acu'Gestion, est une création de Raphaël TISBA & Théodore CAVAILLE COLL
+      &copy; Azur est une création de Raphaël TISBA & Théodore CAVAILLE COLL
     </p>
   </div>
 </footer>

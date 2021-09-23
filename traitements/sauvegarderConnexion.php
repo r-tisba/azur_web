@@ -1,6 +1,6 @@
 <?php
 require_once "../modeles/modele.php";
-
+$objetUtilisateur = new Utilisateur();
 if(isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1)
 {
     extract($_POST);
@@ -11,7 +11,7 @@ if(isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1)
         // Vérification que le mot de passe fait au moins 6 caractères
         if(strlen($_POST["mdp"]) >= 6)
         {
-            $requete = recupererInfosConnexion($identifiant);
+            $requete = $objetUtilisateur->recupererInfosConnexion($identifiant);
 
             // Vérification si l'identifiant existe pas
             if($requete->rowCount() > 0)
@@ -28,6 +28,7 @@ if(isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1)
                     $_SESSION["idRole"] = $utilisateur["idRole"];
                     $_SESSION["idUtilisateur"] = $utilisateur["idEmploye"];
                     $_SESSION["idEquipe"] = $utilisateur["idEquipe"];
+                    
 
                     header("location:../visiteur/index.php?success=connexion");
 
