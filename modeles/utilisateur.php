@@ -33,8 +33,9 @@ class Utilisateur extends Modele
          $this->salaire = $infos["salaire"];
          $this->avatar = $infos["avatar"];
 
-         $requete = $this->getBdd()->prepare("SELECT * FROM discussions WHERE idEmploye = ?");
-         $requete->execute([$idE]);
+         $requete = $this->getBdd()->prepare("SELECT * FROM discussions WHERE idEnvoyeur = ? OR idDestinataire = ?");
+         $requete->execute([$idE, $idE]);
+
          $discussions = $requete->fetchAll(PDO::FETCH_ASSOC);
 
          foreach ($discussions as $discussion) {
@@ -86,9 +87,7 @@ class Utilisateur extends Modele
       $idRole = 1;
       $identifiant = strtolower($prenom) . "." . strtolower($nom);
 
-      $requete = $this->getBDD()->prepare("INSERT INTO
-    utilisateurs(nom, prenom, poste, salaire, idSecteur, identifiant, mdp, idRole)
-    VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+      $requete = $this->getBDD()->prepare("INSERT INTO utilisateurs(nom, prenom, poste, salaire, idSecteur, identifiant, mdp, idRole) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
       $requete->execute([$nom, $prenom, $poste, $salaire, $idSecteur, $identifiant, $mdp, $idRole]);
       return true;
    }
@@ -103,8 +102,7 @@ class Utilisateur extends Modele
 
    public function supprimerUtilisateur($idUtilisateur)
    {
-      $requete = $this->getBDD()->prepare("DELETE FROM utilisateurs
-    WHERE idUtilisateur = ?");
+      $requete = $this->getBDD()->prepare("DELETE FROM utilisateurs WHERE idUtilisateur = ?");
       $requete->execute([$idUtilisateur]);
       return true;
    }

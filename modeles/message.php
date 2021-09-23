@@ -42,7 +42,7 @@ class Message extends Modele
         return true;
     }
 
-    public function messages($idDiscussion)
+    public function recupererMessages($idDiscussion)
     {
         $requete = $this->getBDD()->prepare("SELECT * FROM messages LEFT JOIN utilisateurs USING(idEmploye) LEFT JOIN discussions USING(idDiscussion)  WHERE idDiscussion = ?");
         $requete->execute([$idDiscussion]);

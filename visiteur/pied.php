@@ -1,6 +1,6 @@
 <footer class="footer">
     <div class="container">
-        <span class="text-muted">Un forum crée par Raphaël TISBA & Théodore CAVAILLÉ-COLL</span>
+        <span class="text-muted">&copy; Azur est une création de Raphaël TISBA & Théodore CAVAILLE COLL</span>
     </div>
 </footer>
 

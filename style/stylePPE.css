@@ -117,13 +117,45 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
   max-width: 140px;
   height: 140px;
 }
+/* PAGE DISCUSSIONS */
+.card-header
+{
+  padding: 0.3rem 0.5rem;
+}
 .avatar
 {
-  max-width: 86px;
-  height: 86px;
+  max-width: 36px;
+  height: 36px;
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+.icone_poubelle
+{
+  height: 20px;
+  width: 20px;
+}
+.card_discussion
+{
+  color: black;
+}
+.card_discussion:hover
+{
+  color: black;
+  text-decoration: none;
+  text-transform: none;
+}
+.card-footer
+{
+  padding-top: 0.3rem !important;
+  padding-bottom: 0.3rem !important;
+  padding-left: 0.3rem !important;
+}
+.bouton_discussion
+{
+  width: 9.5rem;
+  height: 2rem;
+  font-size: 0.8rem;
 }
 
 /* PERMET D'AFFICHER LE CURSEUR DANS LES INPUTS ET TEXTAREA */
