@@ -14,3 +14,4 @@ require_once "../modeles/utilisateur.php";
 require_once "../modeles/discussions.php";
 require_once "../modeles/messages.php";
 require_once "../modeles/date.php";
+require_once "../modeles/equipe.php";
