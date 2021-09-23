@@ -1,0 +1,79 @@
+/* PERMET D'AFFICHER LE CURSEUR DANS LES INPUTS ET TEXTAREA */
+body{
+  background-attachment: fixed;
+  background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #009dec, #00b4eb, #03c2ec, #29cfeb, #49dbe8, #47e3e8, #4aece6, #52f3e2, #5ffbdd);
+  background-size: 100%;
+}
+
+input
+{
+  caret-color: black;
+}
+textarea
+{
+  caret-color: black;
+}
+
+.display-4
+{
+  font-size: 1.4rem;
+}
+
+body
+{
+  caret-color: transparent;
+  /*
+  background: rgb(213, 231, 180);
+  */
+}
+
+.navbar.navbar-7 .navbar-toggler-icon 
+{
+  background-image: url('https://image.flaticon.com/icons/png/512/60/60995.png');
+  border-style: ridge;
+  border-color: black;
+}
+
+.navbar.navbar-7
+{
+  border-style: ridge;
+  border-color: black;
+  border-radius: 10px;
+}
+
+.card.shadow-sm
+{
+  border-style: solid;
+  border-color: black;
+}
+
+.titreAjout
+{
+  font-size: 2rem;
+}
+
+.imageSecteur
+{
+  width: 100%;
+  height: 15rem;
+}
+
+.imageSecteurGrand
+{
+  width: 100%;
+  height: 100%;
+}
+
+.avatarProfil
+{
+  max-width: 140px;
+  height: 140px;
+}
+.avatar
+{
+  max-width: 86px;
+  height: 86px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
