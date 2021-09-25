@@ -29,12 +29,6 @@ class Message extends Modele
         $this->idEmploye = $idEmploye;
     }
 
-    public function recupererDernierMessage($idDiscussion)
-    {
-        $requete = $this->getBDD()->prepare("SELECT MAX(date), contenu FROM messages WHERE idDiscussion = ?");
-        $requete->execute([$idDiscussion]);
-        return $requete->fetch(PDO::FETCH_ASSOC);
-    }
     public function ajoutMessages($idDiscussion, $contenu, $idEmploye)
     {
         $requete = $this->getBDD()->prepare("INSERT INTO messages(idDiscussion, contenu, date, idEmploye) VALUES(?, ?, ?, ?)");
@@ -49,6 +43,32 @@ class Message extends Modele
         $messages = $requete->fetchAll(PDO::FETCH_ASSOC);
         return $messages;
     }
+
+        // public function recupererDernierMessage($idDiscussion)
+    // {
+    //     $requete = $this->getBDD()->prepare("SELECT MAX(date), contenu FROM messages WHERE idDiscussion = ?");
+    //     $requete->execute([$idDiscussion]);
+    //     return $requete->fetch(PDO::FETCH_ASSOC);
+    // }
+
+    public function recupererDernierMessage($idDiscussion)
+    {
+        $requete = $this->getBDD()->prepare("SELECT t.contenu, max_date FROM messages t INNER JOIN
+        (SELECT contenu, MAX(date) AS max_date FROM messages GROUP BY contenu) a ON a.contenu = t.contenu AND a.max_date = date AND idDiscussion = ?");
+        $requete->execute([$idDiscussion]);
+        return $requete->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function recupererDernierMessageFull($idDiscussion)
+    {
+        $requete = $this->getBDD()->prepare("SELECT t.*, u.*, d.* FROM messages t INNER JOIN
+        (SELECT contenu, MAX(date) AS max_date FROM messages GROUP BY contenu) a ON a.contenu = t.contenu AND a.max_date = date
+        LEFT JOIN utilisateurs u USING(idEmploye) LEFT JOIN discussions d USING(idDiscussion) WHERE idDiscussion = ?");
+        $requete->execute([$idDiscussion]);
+        return $requete->fetch(PDO::FETCH_ASSOC);
+    }
+
+
 
     public function getIdMessage()
     {

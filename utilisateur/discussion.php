@@ -23,15 +23,11 @@ foreach($messages as $message)
         <img src="<?=$message["avatar"];?>" class="d-block ui-w-40 rounded-circle avatar">
     </div>
     <div class="media-body ml-3">
-
-    <a><?=$message["nom"];?></a>
     <a><?=$message["prenom"];?></a>
-
-
+    <a><?=$message["nom"];?></a>
 
     <div class="text-muted small"><?=$service->dateFr($date);?></div>
     </div>
-
 </div>
 </div>
     <div class="card-body">
@@ -92,7 +88,7 @@ if (!empty($_GET["error"]))
     </div>
 
     <div class="form-group text-center">
-        <button type="submit" class="btn btn-primary">Poster le message</button>
+        <button type="submit" class="btn btn-outline-primary">Poster le message</button>
     </div>
     </form>
 <?php

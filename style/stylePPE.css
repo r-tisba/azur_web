@@ -157,6 +157,45 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
   height: 2rem;
   font-size: 0.8rem;
 }
+/* Aperçu message */
+.card_apercu, .card_apercu .card-header
+{
+  border: 0;
+}
+.apercu_avatar
+{
+  display: flex;
+  justify-content: center;
+}
+.avatarGros
+{
+  max-width: 6rem;
+  height: 6rem;
+  display: block;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+@media screen and (max-width: 576px)
+{
+  .avatarGros
+  {
+    max-width: 5rem;
+    height: 5rem;
+    display: block;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
+.apercu_nom
+{
+  font-size: 1.5rem;
+}
+.apercu_message
+{
+  color: #6c757d!important;
+  font-size: 80%;
+  font-weight: 400;
+}
 
 /* PERMET D'AFFICHER LE CURSEUR DANS LES INPUTS ET TEXTAREA */
 input

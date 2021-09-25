@@ -24,23 +24,6 @@ require_once "../modeles/modele.php";
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
-    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2" id="navbarNavDropdown">
-      <div class="navbar-nav mr-auto">
-        <?php
-        if (!empty($_SESSION["identifiant"]) && $_SESSION["idRole"] == 2) {
-        ?>
-          <li class="nav-item">
-            <a class="nav-item nav-link" href="inscription.php">Inscrire un employé</a>
-          </li>
-        <?php
-        }
-        ?>
-        <!-- <a class="nav-item nav-link" href="#">Autre truc</a>
-        <a class="nav-item nav-link" href="#">Encore un autre truc</a>
-        <a class="nav-item nav-link" href="#">Toujours un autre truc</a> -->
-      </div>
-    </div>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarNavDropdown">
       <ul class="navbar-nav ml-auto">
         <?php
