@@ -84,6 +84,10 @@ input#identifiant, input#mdp
   margin-left: auto;
   margin-right: auto;
 }
+.connexion_container
+{
+  text-align: center;
+}
 /*
 background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #009dec, #00b4eb, #03c2ec, #29cfeb, #49dbe8, #47e3e8, #4aece6, #52f3e2, #5ffbdd);
 */
@@ -130,10 +134,23 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
   margin-left: auto;
   margin-right: auto;
 }
+.icone_poubelle, .icone_edit
+{
+  display:inline-flex;
+  font-size: 20px;
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  align-items: center;
+  color:#007bff;
+}
 .icone_poubelle
 {
-  height: 20px;
-  width: 20px;
+  color:#dc3545;
+}
+.icone_poubelle:hover
+{
+  color:#55141b;
 }
 .card_discussion
 {
@@ -161,6 +178,15 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
 .card_apercu, .card_apercu .card-header
 {
   border: 0;
+}
+.apercu_lien
+{
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0;
+  left: 0;
+  z-index: 1;
 }
 .apercu_avatar
 {

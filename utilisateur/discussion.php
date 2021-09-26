@@ -18,17 +18,26 @@ foreach($messages as $message)
 <div class="col-md-12">
 <div class="card mb-4">
 <div class="card-header">
-<div class="media flex-wrap w-100 align-items-center">
-    <div class="avatar">
-        <img src="<?=$message["avatar"];?>" class="d-block ui-w-40 rounded-circle avatar">
-    </div>
-    <div class="media-body ml-3">
-    <a><?=$message["prenom"];?></a>
-    <a><?=$message["nom"];?></a>
+    <div class="media flex-wrap w-100 align-items-center">
+        <div class="avatar">
+            <img src="<?=$message["avatar"];?>" class="d-block ui-w-40 rounded-circle avatar">
+        </div>
+        <div class="media-body ml-3">
+        <a><?=$message["prenom"];?></a>
+        <a><?=$message["nom"];?></a>
 
-    <div class="text-muted small"><?=$service->dateFr($date);?></div>
+        <div class="text-muted small"><?=$service->dateFr($date);?></div>
+        </div>
+        <?php if($message["idEmploye"] == $_SESSION["idUtilisateur"])
+        { ?>
+            <a href="../traitements/modifierMessage.php?id=<?=$message["idMessage"];?>" class="icone_edit mr-2">
+                <i class="far fa-edit"></i>
+                </a>
+            <a href="../traitements/supprimerMessage.php?id=<?=$message["idMessage"];?>" class="icone_poubelle">
+                <i class="far fa-trash-alt"></i>
+            </a>
+        <?php } ?>
     </div>
-</div>
 </div>
     <div class="card-body">
 
@@ -37,8 +46,8 @@ foreach($messages as $message)
         </p>
 
     </div>
-    <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
-        <div class="px-4 pt-3"> <!--gauche--></div>
+    <!-- <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
+        <div class="px-4 pt-3"></div>
         <div class="px-4 pt-3">
             <?php
             if($message["idEmploye"]==$idEmploye)
@@ -50,7 +59,7 @@ foreach($messages as $message)
             }
             ?>
         </div>
-    </div>
+    </div> -->
 
 </div>
 </div>

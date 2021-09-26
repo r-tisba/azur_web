@@ -33,6 +33,7 @@ class Service
 ?>
 
         <div class="container-fluid mt-100">
+        <a href="discussion.php?id=<?=$idDiscussion;?>"><span class="apercu_lien"></span></a>
             <div class="row align-items-center">
                 <div class="col-3 col-md-2 col-lg-2 mb-2 apercu_avatar">
                     <img src="<?= $dernierMessage["avatar"]; ?>" class="img-fluid rounded-circle avatarGros">

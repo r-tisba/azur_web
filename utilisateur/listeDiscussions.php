@@ -20,7 +20,6 @@ foreach($discussions as $discussion)
     if($discussion["idEnvoyeur"] == $idEmploye)
     {
         $idContact = $discussion["idDestinataire"];
-        $idContact = 1;
         $utilisateur = $objetUtilisateur->recupererUtilisateur($idEmploye);
         $contact = $objetUtilisateur->recupererUtilisateur($idContact);
 
@@ -37,7 +36,7 @@ foreach($discussions as $discussion)
             <div class="rondAvatar">
                 <?php if(!empty($contact["avatar"])) { ?>
                     <img src="<?=$contact["avatar"];?>" class="d-block ui-w-40 rounded-circle avatar">
-                <? } else { ?>
+                <?php } else { ?>
                     <img src="../images/avatar/avatarUtilisateur2.png" class="d-block ui-w-25 rounded-circle avatar">
                     <?php } ?>
             </div>
@@ -46,7 +45,7 @@ foreach($discussions as $discussion)
                 Conversation avec :
                 <?php if($contact["idRole"]==2) { ?> <a style="color:blue;"> <?=$contact["prenom"] . " " . $contact["nom"];?></a>
                 <?php } if($contact["idRole"]==1){?><a><?=$contact["prenom"] . " " . $contact["nom"];?></a><?php } ?>
-                <div class="text-muted small">Dernière activité : <?=$service->dateFr($dernierMessage["MIN(date)"]);?></div>
+                <div class="text-muted small">Dernière activité : <?=$service->dateFr($dernierMessage["max_date"]);?></div>
             </div>
             <!-- Top right -->
             <a href="../traitements/supprimerDiscussion.php" class="icone_poubelle">
@@ -55,10 +54,10 @@ foreach($discussions as $discussion)
         </div>
         </div>
         <a href="discussion.php?id=<?=$discussion["idDiscussion"];?>" class="card_discussion">
-            <div class="card-body">
+            <div class="card-body px-2 py-1">
                 <p>
                     <i>Dernier message : </i>
-                    <?=$dernierMessage["contenu"];?>
+                    <?= $service->afficherMessage($discussion["idDiscussion"]); ?>
                 </p>
             </div>
         </a>
@@ -77,8 +76,7 @@ foreach($discussions as $discussion)
     /* Si l'utilisateur de la session n'a pas initié la discussion */
     } else if ($discussion["idDestinataire"] == $idEmploye)
     {
-        $idContact = $discussion["idDestinataire"];
-        $idContact = 1;
+        $idContact = $discussion["idEnvoyeur"];
         $utilisateur = $objetUtilisateur->recupererUtilisateur($idEmploye);
         $contact = $objetUtilisateur->recupererUtilisateur($idContact);
 
@@ -93,11 +91,10 @@ foreach($discussions as $discussion)
         <div class="card-header">
         <div class="media flex-wrap w-100 align-items-center">
             <div class="rondAvatar">
-                <?php if(empty($contact["avatar"])) { ?>
-                    <img src="../images/avatar/avatarUtilisateur2.png" class="d-block rounded-circle avatar">
+            <?php if(!empty($contact["avatar"])) { ?>
+                    <img src="<?=$contact["avatar"];?>" class="d-block ui-w-40 rounded-circle avatar">
                 <?php } else { ?>
-
-                    <img src="<?=$contact["avatar"];?>" class="d-block rounded-circle avatar">
+                    <img src="../images/avatar/avatarUtilisateur2.png" class="d-block ui-w-25 rounded-circle avatar">
                     <?php } ?>
             </div>
 
@@ -113,14 +110,13 @@ foreach($discussions as $discussion)
             </a>
         </div>
         </div>
-        <!-- <a href="discussion.php?id=<?=$discussion["idDiscussion"];?>" class="card_discussion"> -->
-            <div class="card-body px-2 py-1">
-                <p>
-                    <i>Dernier message : </i>
-                    <?= $service->afficherMessage($discussion["idDiscussion"]); ?>
-                </p>
-            </div>
-        <!-- </a> -->
+        <a href="discussion.php?id=<?=$discussion["idDiscussion"];?>" class="card_discussion">
+        <div class="card-body px-2 py-1">
+            <p>
+                <i>Dernier message : </i>
+                <?= $service->afficherMessage($discussion["idDiscussion"]); ?>
+            </p>
+        </div>
             <!-- <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
                 <div class="">
                     <a href="discussion.php?id=<?=$discussion["idDiscussion"];?>" class="btn btn-outline-primary p-2 bouton_discussion" id="bouton">Accéder à la discussion</a>

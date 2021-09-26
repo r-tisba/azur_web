@@ -58,7 +58,7 @@ require_once "../modeles/modele.php";
         <?php
         } else {
         ?>
-          <a class="btn btn-outline-primary ml-1" href="../visiteur/connexion.php">Se connecter</a>
+          <a class="btn btn-outline-success ml-1" href="../visiteur/connexion.php">Se connecter</a>
         <?php
         }
         ?>
