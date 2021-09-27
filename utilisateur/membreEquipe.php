@@ -1,11 +1,11 @@
 <?php
 require_once "entete.php";
 require_once "../modeles/modele.php";
-$utilisateur = new Utilisateur($_SESSION["idEmploye"]);
+$utilisateur = new Utilisateur($_SESSION["idUtilisateur"]);
 
 $employes=$utilisateur->recupererEquipeRolesUtilisateurs();
 
-if(!isset($_SESSION["idEmploye"]))
+if(!isset($_SESSION["idUtilisateur"]))
 {
   header("location:../visiteur/index.php");
 }

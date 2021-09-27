@@ -2,9 +2,9 @@
 require_once "entete.php";
 $equipe = new Equipe($_SESSION["idEquipe"]);
 
-$projets=$equipe->recupererProjets();
+$projets=$equipe->recupererProjets($_SESSION["idEquipe"]);
 
-if(!isset($_SESSION["idEmploye"]))
+if(!isset($_SESSION["idUtilisateur"]))
 {
   header("location:../visiteur/index.php");
 }
