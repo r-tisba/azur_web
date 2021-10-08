@@ -80,14 +80,15 @@ class Utilisateur extends Modele
       return $requete;
    }
 
-   public function creerUtilisateur($nom, $prenom, $poste, $idEquipe, $mdp)
+   public function creerUtilisateur($nom, $prenom, $poste, $mdp)
    {
       $salaire = 0;
       $idRole = 1;
+      $idEquipe = 0;
       $identifiant = strtolower($prenom) . "." . strtolower($nom);
 
-      $requete = $this->getBDD()->prepare("INSERT INTO utilisateurs(nom, prenom, poste, salaire, idEquipe, identifiant, mdp, idRole) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
-      $requete->execute([$nom, $prenom, $poste, $salaire, $idEquipe, $identifiant, $mdp, $idRole]);
+      $requete = $this->getBDD()->prepare("INSERT INTO utilisateurs(nom, prenom, poste, idEquipe, identifiant, mdp, idRole) VALUES(?, ?, ?, ?, ?, ?, ?)");
+      $requete->execute([$nom, $prenom, $poste, $idEquipe, $identifiant, $mdp, $idRole]);
       return true;
    }
 
