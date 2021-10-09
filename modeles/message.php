@@ -43,6 +43,20 @@ class Message extends Modele
         $messages = $requete->fetchAll(PDO::FETCH_ASSOC);
         return $messages;
     }
+    public function recupererMessage($idMessage)
+    {
+        $requete = $this->getBDD()->prepare("SELECT * FROM messages LEFT JOIN utilisateurs USING(idEmploye) LEFT JOIN discussions USING(idDiscussion)  WHERE idMessage = ?");
+        $requete->execute([$idMessage]);
+        $message = $requete->fetch(PDO::FETCH_ASSOC);
+        return $message;
+    }
+    public function recupererIdDiscussionViaMessage($idMessage)
+    {
+        $requete = $this->getBDD()->prepare("SELECT idDiscussion FROM messages WHERE idMessage = ?");
+        $requete->execute([$idMessage]);
+        $idDiscussion = $requete->fetch(PDO::FETCH_ASSOC);
+        return $idDiscussion;
+    }
 
         // public function recupererDernierMessage($idDiscussion)
     // {
@@ -66,6 +80,22 @@ class Message extends Modele
         LEFT JOIN utilisateurs u USING(idEmploye) LEFT JOIN discussions d USING(idDiscussion) WHERE idDiscussion = ?");
         $requete->execute([$idDiscussion]);
         return $requete->fetch(PDO::FETCH_ASSOC);
+    }
+    public function modifierMessage($contenu, $idMessage)
+    {
+        $requete = $this->getBDD()->prepare("UPDATE messages SET contenu = ?, dateModif = ? WHERE idMessage = ?");
+        $requete->execute([$contenu, date("Y-m-d H:i:s"), $idMessage]);
+        return true;
+
+        $this->idMessage=$idMessage;
+    }
+    public function supprimerMessage($idMessage)
+    {
+        $requete = $this->getBDD()->prepare("DELETE FROM messages WHERE idMessage = ?");
+        $requete->execute([$idMessage]);
+        return true;
+
+        $this->idCategorie=$idMessage;
     }
 
 

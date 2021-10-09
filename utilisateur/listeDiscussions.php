@@ -24,9 +24,7 @@ foreach($discussions as $discussion)
         $contact = $objetUtilisateur->recupererUtilisateur($idContact);
 
         $dernierMessage = $objetMessage->recupererDernierMessage($discussion["idDiscussion"]);
-
         ?>
-
         <div class="container-fluid mt-100">
         <div class="row">
         <div class="col-md-12">
@@ -61,12 +59,6 @@ foreach($discussions as $discussion)
                 </p>
             </div>
         </a>
-            <!-- <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
-                <div class="">
-                    <a href="discussion.php?id=<?=$discussion["idDiscussion"];?>" class="btn btn-outline-primary p-2 bouton_discussion" id="bouton">Accéder à la discussion</a>
-                    <a href="supprimerDiscussion.php?id=<?=$discussion["idDiscussion"];?>" class="btn btn-outline-danger p-2 bouton_discussion" id="bouton">Supprimer la discussion</a>
-                </div>
-            </div> -->
         </div>
         </div>
         </div>
@@ -117,12 +109,6 @@ foreach($discussions as $discussion)
                 <?= $service->afficherMessage($discussion["idDiscussion"]); ?>
             </p>
         </div>
-            <!-- <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
-                <div class="">
-                    <a href="discussion.php?id=<?=$discussion["idDiscussion"];?>" class="btn btn-outline-primary p-2 bouton_discussion" id="bouton">Accéder à la discussion</a>
-                    <a href="supprimerDiscussion.php?id=<?=$discussion["idDiscussion"];?>" class="btn btn-outline-danger p-2 bouton_discussion" id="bouton">Supprimer la discussion</a>
-                </div>
-            </div> -->
         </div>
         </div>
         </div>

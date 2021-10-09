@@ -10,13 +10,13 @@ if(($_GET["id"])){
         extract($_POST);
 
         if($objetMessage->ajoutMessages($idDiscussion, $contenu, $idEmploye)==true){
-            header("location:../admin/discussion.php?id=$idDiscussion");
+            header("location:../utilisateur/discussion.php?id=$idDiscussion");
         }else{
-            header("location:../admin/discussion.php?error=fonction");
+            header("location:../utilisateur/discussion.php?error=fonction");
         }
     }else{
-        header("location:../admin/discussion.php?error=post");
+        header("location:../utilisateur/discussion.php?error=post");
     }
 }else{
-    header("location:../admin/discussion.php?error=missing");
+    header("location:../utilisateur/discussion.php?error=missing");
 }

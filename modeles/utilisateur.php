@@ -26,11 +26,9 @@ class Utilisateur extends Modele
          $this->nom = $infos["nom"];
          $this->prenom = $infos["prenom"];
          $this->poste = $infos["poste"];
-         $this->idSecteur = $infos["idSecteur"];
          $this->identifiant = $infos["identifiant"];
          $this->mdp = $infos["mdp"];
          $this->idRole = $infos["idRole"];
-         $this->salaire = $infos["salaire"];
          $this->avatar = $infos["avatar"];
 
          $requete = $this->getBdd()->prepare("SELECT * FROM discussions WHERE idEnvoyeur = ? OR idDestinataire = ?");
