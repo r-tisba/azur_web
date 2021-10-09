@@ -1,4 +1,5 @@
 <?php
+require_once "../modeles/modele.php";
 session_start();
 require_once "../modeles/modele.php";
 ?>

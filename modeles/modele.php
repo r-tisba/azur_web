@@ -1,5 +1,6 @@
 <?php
 
+
 class Modele
 {
     protected function getBdd()
@@ -17,6 +18,8 @@ require_once "../modeles/message.php";
 require_once "../modeles/revenu.php";
 require_once "../modeles/roles.php";
 require_once "../modeles/secteur.php";
-require_once "../modeles/solde.php";
+//require_once "../modeles/solde.php";
 require_once "../modeles/utilisateur.php";
 require_once "../services/fonctions.php";
+require_once "../modeles/equipe.php";
+require_once "../modeles/projet.php";

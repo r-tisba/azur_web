@@ -8,6 +8,8 @@ class Secteur extends Modele
 
     public function __construct($idS = null)
     {
+        if($idS != null)
+        {
         if ($idS != null) {
             $requete = $this->getBdd()->prepare("SELECT * FROM secteurs");
             $requete->execute();
@@ -18,6 +20,7 @@ class Secteur extends Modele
             $this->budget = $secteur["budget"];
         }
     }
+}
 
     public function recupererSecteurs()
     {
@@ -67,4 +70,6 @@ class Secteur extends Modele
     {
         return $this->budget;
     }
+
+
 }

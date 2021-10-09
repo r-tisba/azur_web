@@ -1,9 +1,9 @@
 <?php
-
+/*
 function soldeEntreprise()
 {
 
-    $requete=getBDD()->prepare("SELECT SUM(gains) FROM revenus WHERE date<NOW()");
+    $requete= getBDD()->prepare("SELECT SUM(gains) FROM revenus WHERE date<NOW()");
     $requete->execute();
     $revenu = $requete->fetch(PDO::FETCH_ASSOC);
 
