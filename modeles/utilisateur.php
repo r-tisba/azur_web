@@ -26,7 +26,6 @@ class Utilisateur extends Modele
          $this->nom = $infos["nom"];
          $this->prenom = $infos["prenom"];
          $this->poste = $infos["poste"];
-         $this->idEquipe = $infos["idEquipe"];
          $this->identifiant = $infos["identifiant"];
          $this->mdp = $infos["mdp"];
          $this->idRole = $infos["idRole"];

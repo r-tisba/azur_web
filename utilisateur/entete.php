@@ -1,6 +1,7 @@
 <?php
 require_once "../modeles/modele.php";
 session_start();
+require_once "../modeles/modele.php";
 ?>
 
 <!doctype html>
@@ -27,8 +28,23 @@ session_start();
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav ml-auto">
+    <div class="navbar-collapse collapse" id="navbarNavDropdown">
+      <div class="navbar-nav mr-auto">
+        <?php
+        if (!empty($_SESSION["identifiant"]) && $_SESSION["idRole"] == 2) {
+        ?>
+          <li class="nav-item">
+            <a class="nav-item nav-link" href="inscription.php">Créer un utilisateur</a>
+          </li>
+        <?php
+        }
+        ?>
+        <!-- <a class="nav-item nav-link" href="#">Autre truc</a>
+        <a class="nav-item nav-link" href="#">Encore un autre truc</a>
+        <a class="nav-item nav-link" href="#">Toujours un autre truc</a> -->
+      </div>
+
+      <div class="navbar-nav ml-auto">
         <?php
         if (isset($_SESSION["identifiant"]) && !empty($_SESSION)) {
         ?>
@@ -43,11 +59,11 @@ session_start();
         <?php
         } else {
         ?>
-          <a class="btn btn-outline-primary ml-1" href="../visiteur/connexion.php">Se connecter</a>
+          <a class="btn btn-outline-success ml-1" href="../visiteur/connexion.php">Se connecter</a>
         <?php
         }
         ?>
-      </ul>
+      </div>
     </div>
   </nav>
   <div class="container mt-4">
