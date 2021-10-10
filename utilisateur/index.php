@@ -17,13 +17,13 @@ if(!isset($_SESSION["identifiant"]))
 
         <div class="col-12 col-lg-4 col-md-6 mb-4">
           <div class="card shadow-sm">
-            <div class="card-body">
-            <h5 class="card-title">Salaire</h5>
-            <p class="card-text">Fiche de paye</p>
+            <div class="card-body outil">
+            <h5 class="card-title titreOutil">Salaire</h5>
+            <p class="card-text texteOutil">Vos documents</p>
               <div class="d-flex justify-content-center">
                 <div class="btn-group">
                   <a href="salaire.php">
-                    <img src="https://commsoft.ca/Public/img/uploaded/Employ%C3%A9s_Traitement%20de%20la%20paie_250x250.png" class="imageSecteur"/>
+                    <img src="../images/design/salaire.png" class="imageSecteur"/>
                   </a>
                 </div>
               </div>
@@ -34,12 +34,13 @@ if(!isset($_SESSION["identifiant"]))
         <!-- CARD 2 : Messagerie -->
         <div class="col-12 col-lg-4 col-md-6 mb-4">
           <div class="card shadow-sm">
-          <div class="card-body">
-          <h5 class="card-title">Messagerie</h5>
+          <div class="card-body outil">
+          <h5 class="card-title titreOutil">Messagerie</h5>
+          <p class="card-text texteOutil">Vos discussions</p>
               <div class="d-flex justify-content-center">
                 <div class="btn-group">
                   <a href="listeDiscussions.php">
-                  <img src="https://forfrenchaddicts.com/wp-content/uploads/2020/07/8d338f5acd60bfbc9b5fb1b208c8814f-outlined-email-round-icon-by-vexels.png" class="imageSecteur"/>
+                  <img src="../images/design/messagerie.png" class="imageSecteur"/>
                   </a>
                 </div>
               </div>
@@ -47,16 +48,16 @@ if(!isset($_SESSION["identifiant"]))
           </div>
         </div>
 
-        <!-- CARD 3 : Equipe -->
-        <div class="col-sm-12 col-lg-4 col-md-6 mb-4">
+        <!-- CARD 3 : Equipe/Projet -->
+        <div class="col-12 col-lg-4 col-md-6 mb-4">
           <div class="card shadow-sm">
-            <div class="card-body">
-              <h5 class="card-title">Equipe</h5>
-              <p class="card-text">votre équipe</p>
+            <div class="card-body outil">
+              <h5 class="card-title titreOutil">équipe</h5>
+              <p class="card-text texteOutil">Vos projets en cours</p>
               <div class="d-flex justify-content-center">
                 <div class="btn-group">
                   <a href="equipe.php">
-                  <img src="https://i1.wp.com/leviagermutualise.fr/wp-content/uploads/2016/08/equipe-logo.png" class="imageSecteur"/>
+                  <img src="../images/design/equipe.png" class="imageSecteur"/>
                   </a>
                 </div>
               </div>
@@ -66,16 +67,16 @@ if(!isset($_SESSION["identifiant"]))
         <!--"col-12 col-sm-6 col-md-4 col-lg-3"
         12 colonnes sur petit écran, 6 colonnes pour demi-écran, etc...
         -->
-        <!--CARD 4 : Emploie du temps -->
+        <!--CARD 4 : Emploi du temps -->
         <div class="col-12 col-lg-12 col-md-6">
           <div class="card shadow-sm">
-            <div class="card-body">
-              <h5 class="card-title">Emploie du temps</h5>
-              <p class="card-text">Gérez le budget alloué aux différents secteurs</p>
+            <div class="card-body outil">
+              <h5 class="card-title titreOutil">Emploi du temps</h5>
+              <p class="card-text"></p>
               <div class="d-flex justify-content-center">
                 <div class="btn-group">
                   <a href="epdt.php">
-                    <img src="https://www.axess.fr/sites/default/files/medias/image/2020/12/xBESOIN,P20-,P20Emploi,P20du,P20temps.png.pagespeed.ic.rHZo1MQC6H.png" class="imageSecteurGrand"/>
+                    <img src="../images/design/edt.png" class="imageSecteur"/>
                   </a>
                 </div>
               </div>
