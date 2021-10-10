@@ -88,6 +88,31 @@ class Discussion extends Modele
         $requete->execute([$idEnvoyeur, $idDestinataire, $idDiscussion]);
         return true;
     }
+    public function verifierDiscussion($idEnvoyeur, $idDestinataire)
+    {
+        $requete = $this->getBDD()->prepare("SELECT idDiscussion FROM discussions WHERE idEnvoyeur = ? AND idDestinataire = ?");
+        $requete->execute([$idEnvoyeur, $idDestinataire]);
+        if(empty($requete))
+        {
+            $requete = $this->getBDD()->prepare("SELECT idDiscussion FROM discussions WHERE idEnvoyeur = ? AND idDestinataire = ?");
+            $requete->execute([$idDestinataire, $idEnvoyeur]);
+            if(empty($requete))
+            {
+                return false;
+            } else
+            {
+                return $requete->fetch(PDO::FETCH_ASSOC);;
+            }
+        } else {
+            return $requete->fetch(PDO::FETCH_ASSOC);;
+        }
+    }
+    public function recupererDiscussionViaEnvoyeurDestinataire($idEnvoyeur, $idDestinataire)
+    {
+        $requete = $this->getBDD()->prepare("SELECT idDiscussion FROM discussions WHERE idEnvoyeur = ? AND idDestinataire = ?");
+        $requete->execute([$idEnvoyeur, $idDestinataire]);
+        return $requete->fetch(PDO::FETCH_ASSOC);
+    }
 
     public function getIdDiscussion()
     {

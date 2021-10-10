@@ -49,13 +49,12 @@ require_once "../modeles/modele.php";
         if (isset($_SESSION["identifiant"]) && !empty($_SESSION)) {
         ?>
 
-          <div class="div-inline my-2 my-lg-0">
+          <div class="div-inline my-2 my-sm-0">
             <a class="nav-item active nav-link apercu_connexion">
               <?= "Vous êtes connecté " . $_SESSION["identifiant"] ?>
             </a>
           </div>
           <a class="btn btn-outline-danger ml-1" href="deconnexion.php">Se déconnecter</a>
-
         <?php
         } else {
         ?>
@@ -66,4 +65,4 @@ require_once "../modeles/modele.php";
       </div>
     </div>
   </nav>
-  <div class="container mt-4">
+  <div class="container0 mt-4">

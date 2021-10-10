@@ -1,5 +1,6 @@
 <?php
 require_once "../visiteur/entete.php";
+$objetSecteurs = new Secteur();
 ?>
 
 <div class="container">
@@ -8,10 +9,10 @@ require_once "../visiteur/entete.php";
     <?php if (!empty($_GET["success"]) && $_GET["success"] == "inscription")
     {
         ?>
-        <div class="alert alert-success mt-2">Vous avez bien été inscrit <br>
+        <div class="alert alert-success mt-2">L'utilisateur à bien été inscrit <br>
         Vous allez être redirigé vers l'accueil</div>
     <?php
-    header("refresh:4;../admin/index.php");
+    header("refresh:4;../utilisateur/index.php");
     }
     ?>
     <?php if (!empty($_GET["error"]))
@@ -40,27 +41,24 @@ require_once "../visiteur/entete.php";
     }
     ?>
 
-    <form method="post" action="/traitements/sauvegarderInscription.php">
+    <form method="post" action="../traitements/sauvegarderInscription.php">
+    <div class="form-group">
+            <label for="prenom">Prénom :</label>
+            <input type="text" class="form-control" name="prenom" id="prenom" placeholder="Saisissez votre prénom" value="<?=(isset($_POST["prenom"]) ? $_POST["prenom"] : "")?>" required/>
+        </div>
         <div class="form-group">
             <label for="nom">Nom :</label>
             <input type="text" class="form-control" name="nom" id="nom" placeholder="Saisissez votre nom" value="<?=(isset($_POST["nom"]) ? $_POST["nom"] : "")?>" required/>
         </div>
-
-        <div class="form-group">
-            <label for="prenom">Prénom :</label>
-            <input type="text" class="form-control" name="prenom" id="prenom" placeholder="Saisissez votre prénom" value="<?=(isset($_POST["prenom"]) ? $_POST["prenom"] : "")?>" required/>
-        </div>
-
         <div class="form-group">
             <label for="poste">Poste :</label>
             <input type="text" class="form-control" name="poste" id="poste" placeholder="Saisissez votre poste" value="<?=(isset($_POST["poste"]) ? $_POST["poste"] : "")?>" required/>
         </div>
-
         <div class="form-group">
             <label for="idSecteur">Secteur :</label>
             <select name="idSecteur" id="idSecteur" class="form-control">
             <?php
-                $secteurs = recupererSecteurs();
+                $secteurs = $objetSecteurs->recupererSecteurs();
                 foreach ($secteurs as $secteur)
                 {
                     ?>
@@ -81,7 +79,7 @@ require_once "../visiteur/entete.php";
             <input type="password" class="form-control" name="verifMdp" id="verifMdp" placeholder="Saisissez à nouveau votre mot de passe" required/>
         </div>
         <div class="form-group text-center">
-            <button type="submit" class="btn btn-primary" name="envoi" id="envoi" value="1">S'inscrire !</button>
+            <button type="submit" class="btn btn-outline-primary" name="envoi" id="envoi" value="1">Inscrire l'utilisateur</button>
         </div>
     </form>
 </div>

@@ -18,18 +18,18 @@ if (!empty($_POST))
                 if ($objetutilisateur->creerUtilisateur($_POST["nom"], $_POST["prenom"], $_POST["poste"],
                 $_POST["idSecteur"], $mdp) == true)
                 {
-                    header("location:/utilisateur/inscription.php?success=inscription");
+                    header("location:../utilisateur/inscription.php?success=inscription");
                 } else {
-                    header("location:/utilisateur/inscription.php?error=inscriptionsave");
+                    header("location:../utilisateur/inscription.php?error=inscriptionsave");
                 }
             } else {
-                header("location:/utilisateur/inscription.php?error=mdpnotsame");
+                header("location:../utilisateur/inscription.php?error=mdpnotsame");
             }
         } else {
-            header("location:/utilisateur/inscription.php?error=mdplength");
+            header("location:../utilisateur/inscription.php?error=mdplength");
         }
     } else {
-        header("location:/utilisateur/inscription.php?error=missing");
+        header("location:../utilisateur/inscription.php?error=missing");
     }
 } else {
     header("location:/");

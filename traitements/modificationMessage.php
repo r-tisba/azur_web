@@ -20,6 +20,7 @@ if (!empty($_POST["inputModifMessage"])) {
     $contenu = $_POST["inputModifMessage"];
     $objetMessage->modifierMessage($contenu, $idMessage);
 ?>
+        <div class="alert alert-success mt-2">Message modifié</div>
 <?php
     header("refresh:1;../utilisateur/discussion.php?id=$idDiscussion");
 } else {

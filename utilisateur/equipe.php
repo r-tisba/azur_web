@@ -1,5 +1,5 @@
 <?php
-require_once "entete.php";
+require_once "../utilisateur/entete.php";
 
 if(!isset($_SESSION["identifiant"]))
 {
@@ -19,7 +19,7 @@ if(!isset($_SESSION["identifiant"]))
           <div class="card shadow-sm">
             <div class="card-body">
             <h5 class="card-title">Membre</h5>
-            <p class="card-text">Vos cohéquipier</p>
+            <p class="card-text">Vos coéquipiers</p>
               <div class="d-flex justify-content-center">
                 <div class="btn-group">
                   <a href="membreEquipe.php">
@@ -35,8 +35,8 @@ if(!isset($_SESSION["identifiant"]))
         <div class="col-sm-12 col-lg-4 col-md-6 mb-4">
           <div class="card shadow-sm">
             <div class="card-body">
-              <h5 class="card-title">Prjojet</h5>
-              <p class="card-text">Vos projet</p>
+              <h5 class="card-title">Projet</h5>
+              <p class="card-text">Vos projets</p>
               <div class="d-flex justify-content-center">
                 <div class="btn-group">
                   <a href="projet.php">
@@ -50,7 +50,7 @@ if(!isset($_SESSION["identifiant"]))
         <!--"col-12 col-sm-6 col-md-4 col-lg-3"
         12 colonnes sur petit écran, 6 colonnes pour demi-écran, etc...
         -->
-        
+
 
   </div>
 

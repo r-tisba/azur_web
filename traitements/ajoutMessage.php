@@ -2,21 +2,22 @@
 require_once "../modeles/modele.php";
 session_start();
 $objetMessage = new Message();
-$idEmploye=$_SESSION["idUtilisateur"];
-if(($_GET["id"])){
-    $idDiscussion=$_GET["id"];
+$idEmploye = $_SESSION["idUtilisateur"];
+if (($_GET["id"])) {
+    $idDiscussion = $_GET["id"];
 
-    if (!empty($_POST["contenu"])){
+    if (!empty($_POST["contenu"])) {
         extract($_POST);
 
-        if($objetMessage->ajoutMessages($idDiscussion, $contenu, $idEmploye)==true){
+        if ($objetMessage->ajoutMessages($idDiscussion, $contenu, $idEmploye) == true)
+        {
             header("location:../utilisateur/discussion.php?id=$idDiscussion");
-        }else{
+        } else {
             header("location:../utilisateur/discussion.php?error=fonction");
         }
-    }else{
+    } else {
         header("location:../utilisateur/discussion.php?error=post");
     }
-}else{
+} else {
     header("location:../utilisateur/discussion.php?error=missing");
 }

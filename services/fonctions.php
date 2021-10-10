@@ -1,5 +1,4 @@
 <?php
-
 class Service
 {
     public function dateFr($date)
@@ -30,12 +29,11 @@ class Service
         $service = new Service();
         $dernierMessage = $objetMessage->recupererDernierMessageFull($idDiscussion);
         $date = $dernierMessage["date"];
-?>
-
+        ?>
         <div class="container-fluid mt-100">
-        <a href="discussion.php?id=<?=$idDiscussion;?>"><span class="apercu_lien"></span></a>
+            <a href="discussion.php?id=<?= $idDiscussion; ?>"><span class="apercu_lien"></span></a>
             <div class="row align-items-center">
-                <div class="col-3 col-md-2 col-lg-2 mb-2 apercu_avatar">
+                <div class="col-3 col-md-2 col-lg-2 my-1 apercu_avatar">
                     <img src="<?= $dernierMessage["avatar"]; ?>" class="img-fluid rounded-circle avatarGros">
                 </div>
                 <div class="col-9 col-md-10 col-lg-10 pl-1">
@@ -47,7 +45,7 @@ class Service
 
                                     <!-- <div class="text-muted small"><?= $service->dateFr($date); ?></div> -->
                                 </div>
-                                <div class="text-muted small"><?=$service->heureViaDate($date);?></div>
+                                <div class="text-muted small"><?= $service->heureViaDate($date); ?></div>
                             </div>
                         </div>
                         <div class="card-body pt-1 pl-1">
@@ -59,7 +57,27 @@ class Service
                 </div>
             </div>
         </div>
-
-<?php
+        <?php
+    }
+    public function dispositionMessages($message)
+    {
+        if ($message["idEmploye"] == $_SESSION["idUtilisateur"])
+        {
+        ?>
+            <div class="container-fluid containerMessage_perso col-12">
+                <div class="row">
+                    <div class="col-3 col-md-4"></div>
+                    <div class="col-9 col-md-8">
+                        <div class="card mb-4 cardMessage_perso">
+                        <?php
+            ;
+        } else {
+        ?>
+            <div class="container-fluid containerMessage_interlocuteur">
+                <div class="row">
+                    <div class="col-9 col-md-8">
+                            <div class="card mb-4 cardMessage_interlocuteur">
+        <?php
+        }
     }
 }

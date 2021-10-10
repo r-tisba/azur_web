@@ -24,7 +24,14 @@ body
     background-size: 100%;
     caret-color: transparent;
 }
-
+.container0
+{
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  align-self: center;
+  align-content: center;
+}
 .titre
 {
   font-family: 'Lato', sans-serif;
@@ -108,30 +115,52 @@ input#identifiant, input#mdp
 background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #009dec, #00b4eb, #03c2ec, #29cfeb, #49dbe8, #47e3e8, #4aece6, #52f3e2, #5ffbdd);
 */
 
+/* INDEX */
 
-.card.shadow-sm
+.shadow-sm
 {
+  height: 100%;
   border-style: solid;
   border-color: black;
 }
-
+.titreOutil
+{
+  font-family: 'Lato', sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+}
+.texteOutil
+{
+  font-family: 'Lato', sans-serif;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+.outil
+{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
 .titreAjout
 {
   font-size: 2rem;
 }
-
 .imageSecteur
 {
   width: 100%;
   height: 15rem;
 }
-
 .imageSecteurGrand
 {
   width: 100%;
   height: 100%;
 }
-
 .avatarProfil
 {
   max-width: 140px;
@@ -139,6 +168,98 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
 }
 
 /* PAGE DISCUSSIONS */
+.cardHamburger
+{
+  border: none;
+  background: none;
+}
+.navbarHamburger
+{
+  border-style: ridge;
+  border-color: black;
+  border-radius: 10px;
+  border-width: 1px;
+}
+.hamburger_icon
+{
+  background-image: url(../images/design/hamburger_toggler_noir_light.png);
+  border-style: ridge;
+  border-color: black;
+  border-width: 2px;
+  font-size: 1.9rem;
+}
+
+.containerFil
+{
+  width: 100%;
+  padding-right: 8%;
+  padding-left: 8%;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media screen and (max-width: 576px)
+{
+  .containerFil
+  {
+    width: 100%;
+    padding-right: 2%;
+    padding-left: 2%;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+.cardDiscussion
+{
+  background: none;
+}
+.headerDiscussion
+{
+
+}
+.titreDiscussion
+{
+  font-family: 'Lato', sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  margin-bottom: 0;
+}
+.bodyDiscussion
+{
+
+}
+/*
+.containerMessage_perso
+{
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: 10rem;
+  margin-left: auto;
+}
+.containerMessage_interlocuteur
+{
+  display: flex;
+  justify-content: flex-start;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: 10rem;
+}
+*/
+.cardMessage_perso
+{
+  color: white;
+  background: #14E070;
+}
+.cardMessage_interlocuteur
+{
+  color: white;
+  background: #383838;
+}
 .card-header
 {
   padding: 0.3rem 0.5rem;
@@ -246,6 +367,15 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
   text-transform: uppercase;
   text-align: center;
   font-size: 40px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+}
+.titreCentrePetit
+{
+  font-family: 'Lato', sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 34px;
   font-weight: 300;
   letter-spacing: 0.08em;
 }

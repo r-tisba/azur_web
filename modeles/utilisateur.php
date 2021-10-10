@@ -81,20 +81,19 @@ class Utilisateur extends Modele
 
    public function creerUtilisateur($nom, $prenom, $poste, $idEquipe, $mdp)
    {
-      $salaire = 0;
       $idRole = 1;
       $identifiant = strtolower($prenom) . "." . strtolower($nom);
 
-      $requete = $this->getBDD()->prepare("INSERT INTO utilisateurs(nom, prenom, poste, salaire, idEquipe, identifiant, mdp, idRole) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
-      $requete->execute([$nom, $prenom, $poste, $salaire, $idEquipe, $identifiant, $mdp, $idRole]);
+      $requete = $this->getBDD()->prepare("INSERT INTO utilisateurs(nom, prenom, poste, idEquipe, identifiant, mdp, idRole) VALUES(?, ?, ?, ?, ?, ?, ?)");
+      $requete->execute([$nom, $prenom, $poste, $idEquipe, $identifiant, $mdp, $idRole]);
       return true;
    }
 
-   public function modifierUtilisateur($idEmploye, $nom, $prenom, $poste, $salaire, $idEquipe, $idRole)
+   public function modifierUtilisateur($idEmploye, $nom, $prenom, $poste, $idEquipe, $idRole)
    {
       $identifiant = strtolower($prenom) . "." . strtolower($nom);
-      $requete = $this->getBDD()->prepare("UPDATE utilisateurs SET nom = ?, prenom = ?, poste = ?, salaire = ?, idEquipe = ?, identifiant=?, idRole=? WHERE idEmploye = ?");
-      $requete->execute([$nom, $prenom, $poste, $salaire, $idEquipe, $identifiant, $idRole, $idEmploye]);
+      $requete = $this->getBDD()->prepare("UPDATE utilisateurs SET nom = ?, prenom = ?, poste = ?, idEquipe = ?, identifiant=?, idRole=? WHERE idEmploye = ?");
+      $requete->execute([$nom, $prenom, $poste, $idEquipe, $identifiant, $idRole, $idEmploye]);
       return true;
    }
 
@@ -103,6 +102,20 @@ class Utilisateur extends Modele
       $requete = $this->getBDD()->prepare("DELETE FROM utilisateurs WHERE idUtilisateur = ?");
       $requete->execute([$idUtilisateur]);
       return true;
+   }
+
+   public function recupererInterlocuteur($idDiscussion)
+   {
+      $requete = $this->getBDD()->prepare("SELECT idEnvoyeur, idDestinataire FROM discussions WHERE idDiscussion = ?");
+      $requete->execute([$idDiscussion]);
+      $result = $requete->fetch(PDO::FETCH_ASSOC);
+      if ($_SESSION["idUtilisateur"] == $result["idEnvoyeur"]) {
+         $identifiant = $this->recupererUtilisateur($result["idDestinataire"]);
+         return $identifiant["identifiant"];
+      } else {
+         $identifiant = $this->recupererUtilisateur($result["idEnvoyeur"]);
+         return $identifiant["identifiant"];
+      }
    }
 
    public function getidEmploye()
