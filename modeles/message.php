@@ -35,6 +35,7 @@ class Message extends Modele
         $requete->execute([$idDiscussion, $contenu, date("Y-m-d H:i:s"), $idEmploye]);
         return true;
     }
+    
 
     public function recupererMessages($idDiscussion)
     {
@@ -43,6 +44,7 @@ class Message extends Modele
         $messages = $requete->fetchAll(PDO::FETCH_ASSOC);
         return $messages;
     }
+    
     public function recupererMessage($idMessage)
     {
         $requete = $this->getBDD()->prepare("SELECT * FROM messages LEFT JOIN utilisateurs USING(idEmploye) LEFT JOIN discussions USING(idDiscussion)  WHERE idMessage = ?");
