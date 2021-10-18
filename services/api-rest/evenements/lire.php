@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 "backgroundColor" => $backgroundColor,
                 "borderColor" => $borderColor,
                 "textColor" => $textColor,
-                "idUtilisateur" => $idUtilisateur,
+                "idEmploye" => $idEmploye,
                 "identifiant" => $identifiant,
             ];
 

@@ -3,7 +3,7 @@ class Database
 {
     // Propriétés de la base de données
     private $host = "localhost";
-    private $db_name = "calendrier";
+    private $db_name = "gestion";
     private $username = "root";
     private $password = "";
     public $connexion;
