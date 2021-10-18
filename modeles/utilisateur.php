@@ -82,7 +82,7 @@ class Utilisateur extends Modele
    public function creerUtilisateur($nom, $prenom, $poste, $mdp)
    {
       $idRole = 1;
-      $idEquipe = 0;
+      $idEquipe = 1;
       $identifiant = strtolower($prenom) . "." . strtolower($nom);
 
       $requete = $this->getBDD()->prepare("INSERT INTO utilisateurs(nom, prenom, poste, idEquipe, identifiant, mdp, idRole) VALUES(?, ?, ?, ?, ?, ?, ?)");
@@ -117,6 +117,14 @@ class Utilisateur extends Modele
          $identifiant = $this->recupererUtilisateur($result["idEnvoyeur"]);
          return $identifiant["identifiant"];
       }
+   }
+   public function recupererGroupe($idEquipe)
+   {
+      $requete = $this->getBDD()->prepare("SELECT nom_equipe FROM equipe WHERE idEquipe = ?");
+      $requete->execute([$idEquipe]);
+      $equipe = $requete->fetch(PDO::FETCH_ASSOC);
+      return $equipe["nom_equipe"];
+      
    }
 
    public function getidEmploye()

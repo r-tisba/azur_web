@@ -45,5 +45,6 @@ class Equipe extends Modele{
     {
         return $this->idEquipe;
     }
+    
 
 }

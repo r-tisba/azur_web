@@ -23,3 +23,5 @@ require_once "../modeles/utilisateur.php";
 require_once "../services/fonctions.php";
 require_once "../modeles/equipe.php";
 require_once "../modeles/projet.php";
+require_once "../modeles/messageGroupe.php";
+require_once "../modeles/discussion_groupe.php";
