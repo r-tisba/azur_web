@@ -41,18 +41,24 @@ body
   letter-spacing: 0.08em;
 }
 /* FLECHE RETOUR */
-.fleche
+.div_fleche
 {
-  padding-bottom: 3px;
-  height: 32px;
-  width: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
-.retour
+.icone_retour, .retour
 {
   text-decoration: none;
   color: #373A3C;
   font-size: 1.4rem;
 }
+.icone_actualiser
+{
+  color: #373A3C;
+  font-size: 1.4rem;
+}
+
 a:hover {
   text-decoration: none;
 }
@@ -188,6 +194,10 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
   border-width: 2px;
   font-size: 1.9rem;
 }
+.background_black
+{
+  background: #343a40;
+}
 
 .containerFil
 {
@@ -313,16 +323,23 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
   font-size: 0.8rem;
 }
 /* APERCU MESSAGE */
-.card_apercu, .card_apercu .card-header
+.card_apercu_perso
 {
+  color: white;
+  background: #14E070 !important;
+  border: 0;
+}
+.card_apercu_interlocuteur
+{
+  color: white;
+  background: #00BFFF;
   border: 0;
 }
 .apercu_lien
 {
-  position:absolute;
-  width:100%;
-  height:100%;
-  top:0;
+  position: absolute;
+  width: 100%;
+  height: 74%;
   left: 0;
   z-index: 1;
 }
@@ -339,20 +356,27 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
   margin-left: 1rem;
   margin-right: 1rem;
 }
-@media screen and (max-width: 576px)
+@media screen and (max-width: 768px)
 {
   .avatarGros
   {
-    max-width: 5rem;
-    height: 5rem;
+    max-width: 4.5rem;
+    height: 4.5rem;
     display: block;
     margin-left: 1rem;
     margin-right: 1rem;
   }
 }
+@media screen and (max-width: 576px)
+{
+  .avatarGros
+  {
+    display: none;
+  }
+}
 .apercu_nom
 {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 .apercu_message
 {
@@ -379,6 +403,38 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
   font-weight: 300;
   letter-spacing: 0.08em;
 }
+
+/* PROFIL */
+div.show-image
+{
+  position: relative;
+  margin: 5px;
+  text-align: center;
+}
+.avatarProfil
+{
+  width: 9rem;
+  height: 9rem;
+}
+div.show-image:hover img
+{
+  opacity:0.5;
+}
+div.show-image input
+{
+  display: none;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+div.show-image:hover input
+{
+  display: block;
+}
+
 
 /* PERMET D'AFFICHER LE CURSEUR DANS LES INPUTS ET TEXTAREA */
 input

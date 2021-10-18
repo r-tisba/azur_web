@@ -1,5 +1,5 @@
 <?php
-require_once "entete.php";
+require_once "../utilisateur/entete.php";
 require_once "../modeles/modele.php";
 
 if ($_GET["id"]) {
@@ -18,12 +18,20 @@ $messages = $objetMessage->recupererMessages($idDiscussion);
 $interlocuteur = $objetUtilisateur->recupererInterlocuteur($idDiscussion);
 
 ?>
-<div class="fleche_retour mb-2 ml-4">
-    <a href="../utilisateur/listeDiscussions.php" class="retour">
-        <i class="fas fa-chevron-left"></i>
-        Retour
-    </a>
+<div class="div_fleche">
+    <div class="fleche_retour mb-2 ml-4">
+        <a href="../utilisateur/listeDiscussions.php" class="icone_retour">
+            <i class="fas fa-chevron-left"></i>
+            Retour
+        </a>
+    </div>
+    <div class="fleche_actualiser mr-4">
+        <a href="../utilisateur/discussion.php?id=<?=$idDiscussion;?> " class="icone_actualiser">
+            <i class="fas fa-sync"></i>
+        </a>
+    </div>
 </div>
+
 <?php
 /* GESTION DES ERREURS OU SUCCES */
 if (!empty($_GET["success"]) && $_GET["success"] == "suppression") {
@@ -79,7 +87,8 @@ if (!empty($_GET["error"])) {
         </div>
         <div class="card-body bodyDiscussion">
             <?php
-            foreach ($messages as $message) {
+            foreach ($messages as $message)
+            {
                 $date = $message["date"];
                 /* dispositionMessages() détermine l'affichage du message dans le fil selon son auteur */
                 $service->dispositionMessages($message);

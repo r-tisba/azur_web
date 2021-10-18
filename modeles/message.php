@@ -94,8 +94,12 @@ class Message extends Modele
         $requete = $this->getBDD()->prepare("DELETE FROM messages WHERE idMessage = ?");
         $requete->execute([$idMessage]);
         return true;
-
-        $this->idCategorie=$idMessage;
+    }
+    public function supprimerMessagesDiscussion($idDiscussion)
+    {
+        $requete = $this->getBDD()->prepare("DELETE FROM messages WHERE idDiscussion = ?");
+        $requete->execute([$idDiscussion]);
+        return true;
     }
 
 

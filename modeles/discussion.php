@@ -92,12 +92,15 @@ class Discussion extends Modele
     {
         $requete = $this->getBDD()->prepare("SELECT idDiscussion FROM discussions WHERE idEnvoyeur = ? AND idDestinataire = ?");
         $requete->execute([$idEnvoyeur, $idDestinataire]);
-        if(empty($requete))
+        $n=$requete->rowCount();
+        if($n == 0)
         {
             $requete = $this->getBDD()->prepare("SELECT idDiscussion FROM discussions WHERE idEnvoyeur = ? AND idDestinataire = ?");
             $requete->execute([$idDestinataire, $idEnvoyeur]);
-            if(empty($requete))
+            $n=$requete->rowCount();
+            if($n == 0)
             {
+                // Discussion non trouvé
                 return false;
             } else
             {

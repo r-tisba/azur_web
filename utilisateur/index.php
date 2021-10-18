@@ -75,7 +75,7 @@ if(!isset($_SESSION["identifiant"]))
               <p class="card-text"></p>
               <div class="d-flex justify-content-center">
                 <div class="btn-group">
-                  <a href="epdt.php">
+                  <a href="../utilisateur/calendrier/calendrier.php">
                     <img src="../images/design/edt.png" class="imageSecteur"/>
                   </a>
                 </div>

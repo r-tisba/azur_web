@@ -1,6 +1,6 @@
 <?php
 require_once "../modeles/modele.php";
-$objetutilisateur = new Utilisateur();
+$objetUtilisateur = new Utilisateur();
 
 if (!empty($_POST))
 {

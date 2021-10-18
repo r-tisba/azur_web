@@ -1,7 +1,11 @@
 <?php
 require_once "../modeles/modele.php";
 session_start();
-require_once "../modeles/modele.php";
+
+if(empty($_SESSION["identifiant"]))
+{
+    header("location:index.php");
+}
 ?>
 
 <!doctype html>

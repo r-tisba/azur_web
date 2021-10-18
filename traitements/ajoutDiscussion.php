@@ -4,7 +4,8 @@ session_start();
 $objetMessage = new Message();
 $objetDiscussion = new Discussion();
 $idEmploye = $_SESSION["idUtilisateur"];
-if (($_POST["idDestinataire"]))
+
+if (!empty($_POST["idDestinataire"]))
 {
     $idDestinataire = $_POST["idDestinataire"];
 
@@ -13,15 +14,14 @@ if (($_POST["idDestinataire"]))
         extract($_POST);
 
         /* Vérification de si la discussion entre les deux utilisateurs existent déjà */
-        $verif = $objetDiscussion->verifierDiscussion($_SESSION["idUtilisateur"], $idDestinataire);
-
         /* Si discussion existe déjà, on y envoie le message */
-        if($verif != false)
+        if($objetDiscussion->verifierDiscussion($_SESSION["idUtilisateur"], $idDestinataire) != false)
         {
+            $verif = $objetDiscussion->verifierDiscussion($_SESSION["idUtilisateur"], $idDestinataire);
             $idDiscussion = $verif["idDiscussion"];
             if ($objetMessage->ajoutMessages($idDiscussion, $contenu, $idEmploye) == true)
             {
-                header("location:../utilisateur/discussion.php?id=$idDiscussion");
+               header("location:../utilisateur/discussion.php?id=$idDiscussion");
             } else {
                 header("location:../utilisateur/discussion.php?error=fonction");
             }

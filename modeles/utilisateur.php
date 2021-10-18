@@ -97,14 +97,21 @@ class Utilisateur extends Modele
       $requete->execute([$nom, $prenom, $poste, $idEquipe, $identifiant, $idRole, $idEmploye]);
       return true;
    }
+   public function modifierAvatar($avatar, $idUtilisateur)
+   {
+       $requete = $this->getBDD()->prepare("UPDATE utilisateurs SET avatar = ? WHERE idEmploye = ?");
+       $requete->execute([$avatar, $idUtilisateur]);
+       return true;
 
+       $this->avatar=$avatar;
+       $this->idUtilisateur=$idUtilisateur;
+   }
    public function supprimerUtilisateur($idUtilisateur)
    {
       $requete = $this->getBDD()->prepare("DELETE FROM utilisateurs WHERE idUtilisateur = ?");
       $requete->execute([$idUtilisateur]);
       return true;
    }
-
    public function recupererInterlocuteur($idDiscussion)
    {
       $requete = $this->getBDD()->prepare("SELECT idEnvoyeur, idDestinataire FROM discussions WHERE idDiscussion = ?");
