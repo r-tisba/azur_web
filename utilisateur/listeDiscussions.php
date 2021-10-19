@@ -127,7 +127,6 @@ foreach($discussions as $discussion)
         $idContact = $discussion["idDestinataire"];
         $utilisateur = $objetUtilisateur->recupererUtilisateur($idEmploye);
         $contact = $objetUtilisateur->recupererUtilisateur($idContact);
-
         $dernierMessage = $objetMessage->recupererDernierMessage($discussion["idDiscussion"]);
         ?>
         <div class="container-fluid mt-100">
@@ -178,7 +177,6 @@ foreach($discussions as $discussion)
         $idContact = $discussion["idEnvoyeur"];
         $utilisateur = $objetUtilisateur->recupererUtilisateur($idEmploye);
         $contact = $objetUtilisateur->recupererUtilisateur($idContact);
-
         $dernierMessage = $objetMessage->recupererDernierMessage($discussion["idDiscussion"]);
         ?>
         <div class="container-fluid mt-100">

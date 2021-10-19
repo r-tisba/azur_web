@@ -60,7 +60,7 @@ if (empty($_SESSION["identifiant"])) {
                             <?= "Vous êtes connecté " . $_SESSION["identifiant"] ?>
                         </a>
                     </div>
-                    <a class="btn btn-outline-danger ml-1" href="deconnexion.php">Se déconnecter</a>
+                    <a class="btn btn-outline-danger ml-1" href="../deconnexion.php">Se déconnecter</a>
                 <?php
                 } else {
                 ?>

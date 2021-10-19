@@ -41,8 +41,8 @@ class Message_Groupe extends Modele
         $requete->execute([$idEquipe, $contenu, date("Y-m-d H:i:s"), $idEmploye]);
         return true;
     }
-    
-    
+
+
     public function recupererMessages($idEquipe)
     {
         $requete = $this->getBDD()->prepare("SELECT * FROM messagesgroupe LEFT JOIN utilisateurs USING(idEquipe, idEmploye) WHERE idEquipe = ?");
@@ -50,7 +50,7 @@ class Message_Groupe extends Modele
         $messagesgroupe = $requete->fetchAll(PDO::FETCH_ASSOC);
         return $messagesgroupe;
     }
-    
+
     public function recupererMessage($idMessageGroupe)
     {
         $requete = $this->getBDD()->prepare("SELECT * FROM messagesgroupe LEFT JOIN utilisateurs USING(idEmploye, idEquipe)  WHERE idMessageGroupe = ?");
@@ -65,9 +65,6 @@ class Message_Groupe extends Modele
         $idEquipe = $requete->fetch(PDO::FETCH_ASSOC);
         return $idEquipe;
     }
-
-
-
     public function recupererDernierMessage($idEquipe)
     {
         $requete = $this->getBDD()->prepare("SELECT t.contenu, max_date FROM messagesgroupe t INNER JOIN

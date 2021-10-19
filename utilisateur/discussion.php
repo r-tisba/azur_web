@@ -31,7 +31,6 @@ $interlocuteur = $objetUtilisateur->recupererInterlocuteur($idDiscussion);
         </a>
     </div>
 </div>
-
 <?php
 /* GESTION DES ERREURS OU SUCCES */
 if (!empty($_GET["success"]) && $_GET["success"] == "suppression") {
