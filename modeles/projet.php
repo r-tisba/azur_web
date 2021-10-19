@@ -43,6 +43,13 @@ class Projet extends Modele{
         $requete->execute([$idProjet]);
         return $requete->fetch(PDO::FETCH_ASSOC);
     }
+    public function ajoutProjet($idEquipe, $nom, $dateDebut, $dateFin, $importance)
+    {
+        $fini=0;
+        $requete = $this->getBDD()->prepare("INSERT INTO projet(idEquipe, nom, dateDebut, dateFin, importance, fini) VALUES(?,?,?,?,?,?)");
+        $requete->execute([$idEquipe, $nom, $dateDebut, $dateFin, $importance, $fini]);
+        return true;
+    }
     public function getIdEquipe()
     {
         return $this->idEquipe;
