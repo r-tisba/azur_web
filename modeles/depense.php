@@ -49,8 +49,7 @@ class Depense extends Modele
 
     function modifierDepense($nomDepense, $depense, $date, $idDepense)
     {
-        $requete = $this->getBDD()->prepare("UPDATE depenses SET nomDepense=?, depense=?, date=?
-    WHERE idDepense = ?");
+        $requete = $this->getBDD()->prepare("UPDATE depenses SET nomDepense=?, depense=?, date=? WHERE idDepense = ?");
         $requete->execute([$nomDepense, $depense, $date, $idDepense]);
         return true;
     }

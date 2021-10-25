@@ -1,6 +1,7 @@
 <?php
 
-class Projet extends Modele{
+class Projet extends Modele
+{
     private $idProjet;
     private $idEquipe;
     private $dateDebut;
@@ -12,8 +13,7 @@ class Projet extends Modele{
 
     public function __construct($idP = null)
     {
-        if($idP != null)
-        {
+
         if ($idP != null) {
             $requete = $this->getBdd()->prepare("SELECT * FROM projet");
             $requete->execute();
@@ -27,13 +27,18 @@ class Projet extends Modele{
             $this->nom = $projet["nom"];
             $this->importance = $projet["importance"];
             $this->illustration = $projet["illustration"];
-            }
         }
     }
     public function recupererProjet()
     {
         $requete = $this->getBDD()->prepare("SELECT * FROM projet");
         $requete->execute();
+        return $requete->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function recupererProjets($idEquipe)
+    {
+        $requete = $this->getBDD()->prepare("SELECT * FROM equipe INNER JOIN projet USING(idEquipe) WHERE idEquipe = ?");
+        $requete->execute([$idEquipe]);
         return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -45,7 +50,7 @@ class Projet extends Modele{
     }
     public function ajoutProjet($idEquipe, $nom, $dateDebut, $dateFin, $importance)
     {
-        $fini=0;
+        $fini = 0;
         $requete = $this->getBDD()->prepare("INSERT INTO projet(idEquipe, nom, dateDebut, dateFin, importance, fini) VALUES(?,?,?,?,?,?)");
         $requete->execute([$idEquipe, $nom, $dateDebut, $dateFin, $importance, $fini]);
         return true;
@@ -58,5 +63,4 @@ class Projet extends Modele{
     {
         return $this->nom;
     }
-
 }

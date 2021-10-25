@@ -1,7 +1,7 @@
 <?php
 require_once "../modeles/modele.php";
 require_once "../modeles/message.php";
-session_start();
+require_once "../utilisateur/entete.php";
 $idUtilisateur = $_SESSION["idUtilisateur"];
 $objetMessage = new Message();
 $idDiscussion = $_GET["idDiscussion"];

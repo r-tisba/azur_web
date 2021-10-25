@@ -1,6 +1,6 @@
 <?php
-require_once "../utilisateur/entete.php";
 require_once "../modeles/modele.php";
+require_once "../utilisateur/entete.php";
 $dossier = "../images/avatar/";
 
 $utilisateur = new Utilisateur($_SESSION["idUtilisateur"]);

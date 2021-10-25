@@ -55,7 +55,7 @@ if(!isset($_SESSION["identifiant"]))
           <div class="card shadow-sm">
             <div class="card-body">
               <h5 class="card-title">Messagerie</h5>
-              <p class="card-text">Vôtre messagerie de groupe</p>
+              <p class="card-text">Votre messagerie de groupe</p>
               <div class="d-flex justify-content-center">
                 <div class="btn-group">
                   <a href="messagerieGroupe.php">
@@ -66,11 +66,7 @@ if(!isset($_SESSION["identifiant"]))
             </div>
           </div>
         </div>
-        
-
-
   </div>
-
 </main>
 
 <?php

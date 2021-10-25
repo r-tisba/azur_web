@@ -1,6 +1,6 @@
 <?php
 require_once "../modeles/modele.php";
-session_start();
+require_once "../utilisateur/entete.php";
 $idUtilisateur = $_SESSION["idUtilisateur"];
 $objetMessage = new Message_Groupe();
 $idEquipe = $_GET["idEquipe"];

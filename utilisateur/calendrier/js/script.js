@@ -72,12 +72,10 @@ window.onload = () =>
                         }
                     }
                 })
-
                 calendrier.render()
             }
         }
     }
-
 
     xmlhttp.open('GET', 'http://api-rest.calendrier/evenements/lire.php', true)
     xmlhttp.send(null)

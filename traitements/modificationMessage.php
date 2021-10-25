@@ -1,6 +1,6 @@
 <?php
-require_once "../utilisateur/entete.php";
 require_once "../modeles/modele.php";
+require_once "../utilisateur/entete.php";
 
 if (!isset($_SESSION["idUtilisateur"])) {
     header("location:../visiteur/index.php");

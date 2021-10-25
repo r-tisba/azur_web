@@ -12,7 +12,7 @@ if (isset($_SESSION["identifiant"])) {
     <div class="row py-2">
         <div class="col-lg-6 col-md-8 mx-auto">
             <h1 class="titre_accueil">Azur<h1>
-                    <p class="lead text-muted">Vous devez être connecté pour utiliser l'application</p>
+                    <p class="lead text-petit">Vous devez être connecté pour utiliser l'application</p>
         </div>
     </div>
 </section>

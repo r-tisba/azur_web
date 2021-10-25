@@ -1,8 +1,9 @@
 <?php
-class Equipe extends Modele{
+class Equipe extends Modele
+{
     private $idEquipe;
     private $idSecteur;
-    private $nom_equipe;
+    private $nomEquipe;
 
     public function __construct($idE = null)
     {
@@ -12,7 +13,7 @@ class Equipe extends Modele{
             $equipe = $requete->fetch(PDO::FETCH_ASSOC);
             $this->idEquipe = $idE;
             $this->idSecteur = $equipe["idSecteur"];
-            $this->nom_equipe = $equipe["nom_equipe"];
+            $this->nomEquipe = $equipe["nomEquipe"];
             }
     }
     public function recupererEquipes()
@@ -21,11 +22,16 @@ class Equipe extends Modele{
         $requete->execute();
         return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
-
-    public function recupererSecteur($idSecteur)
+    public function recupererEquipe($idEquipe)
     {
-        $requete = $this->getBDD()->prepare("SELECT * FROM equipe INNER JOIN secteur USING(idSecteur) WHERE idEquipe = ?");
-        $requete->execute([$idSecteur]);
+        $requete = $this->getBDD()->prepare("SELECT * FROM equipe INNER JOIN projet USING(idEquipe) WHERE idEquipe = ?");
+        $requete->execute([$idEquipe]);
+        return $requete->fetch(PDO::FETCH_ASSOC);
+    }
+    public function recupererNomEquipeViaId($idEquipe)
+    {
+        $requete = $this->getBDD()->prepare("SELECT nomEquipe FROM equipe WHERE idEquipe = ?");
+        $requete->execute([$idEquipe]);
         return $requete->fetch(PDO::FETCH_ASSOC);
     }
     public function getIdSecteur()
@@ -34,17 +40,10 @@ class Equipe extends Modele{
     }
     public function getNomEquipe()
     {
-        return $this->nom_equipe;
-    }
-    public function recupererProjets($idEquipe){
-        $requete = $this->getBDD()->prepare("SELECT * FROM equipe INNER JOIN projet USING(idEquipe) WHERE idEquipe = ?");
-        $requete->execute([$idEquipe]);
-        return $requete->fetchAll(PDO::FETCH_ASSOC);
+        return $this->nomEquipe;
     }
     public function getIdE()
     {
         return $this->idEquipe;
     }
-    
-
 }

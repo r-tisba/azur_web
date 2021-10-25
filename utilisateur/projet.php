@@ -2,8 +2,6 @@
 require_once "entete.php";
 $equipe = new Equipe($_SESSION["idEquipe"]);
 
-
-
 $projets=$equipe->recupererProjets($_SESSION["idEquipe"]);
 
 if(!isset($_SESSION["idUtilisateur"]))
@@ -44,7 +42,7 @@ if(!isset($_SESSION["idUtilisateur"]))
                     <label for="dateFin">date fin :</label>
                     <input type="date" class="form-control" name="dateFin" id="dateFin" placeholder="Saisissez la date de fin du projet" value="<?=(isset($_POST["dateFin"]) ? $_POST["dateFin"] : "")?>"/>
                 </div>
-                
+
                 <div class="form-group text-center">
                     <button type="submit" class="btn btn-outline-primary">Ajouter le projet</button>
                 </div>
@@ -62,19 +60,19 @@ if(!isset($_SESSION["idUtilisateur"]))
 <ul class="list-group">
 <div class="container-fluid">
 <div class="row">
-    
+
 <?php
 foreach($projets as $projet)
 {
 ?>
-        
+
     <div class="col-8 col-md-9 mb-4">
         <li class="list-group-item">Nom : <?=$projet["nom"]?></li>
         <li class="list-group-item">A commencer le : <?=$projet["dateDebut"]?></li>
         <li class="list-group-item">A finir le : <?=$projet["dateFin"]?></li>
         <li class="list-group-item">statut : <?php if($projet["fini"]==1){?> le projet est finis <?php }else{ ?> le projet n'est pas finis <?php }?></li>
     </div>
-        
+
     <?php
 }
     ?>

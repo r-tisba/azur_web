@@ -127,10 +127,10 @@ class Utilisateur extends Modele
    }
    public function recupererGroupe($idEquipe)
    {
-      $requete = $this->getBDD()->prepare("SELECT nom_equipe FROM equipe WHERE idEquipe = ?");
+      $requete = $this->getBDD()->prepare("SELECT nomEquipe FROM equipe WHERE idEquipe = ?");
       $requete->execute([$idEquipe]);
       $equipe = $requete->fetch(PDO::FETCH_ASSOC);
-      return $equipe["nom_equipe"];
+      return $equipe["nomEquipe"];
       
    }
 

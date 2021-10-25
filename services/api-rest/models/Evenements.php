@@ -61,11 +61,7 @@ class Evenements
         }
         return false;
     }
-    /**
-     * Lire les événements
-     *
-     * @return void
-     */
+
     public function lire()
     {
         // On écrit la requête
