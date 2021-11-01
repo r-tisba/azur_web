@@ -131,7 +131,7 @@ class Utilisateur extends Modele
       $requete->execute([$idEquipe]);
       $equipe = $requete->fetch(PDO::FETCH_ASSOC);
       return $equipe["nomEquipe"];
-      
+
    }
 
    public function getidEmploye()

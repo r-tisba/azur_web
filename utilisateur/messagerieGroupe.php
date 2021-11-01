@@ -1,14 +1,13 @@
 <?php
 require_once "entete.php";
 require_once "../modeles/modele.php";
-
 if (!empty($_SESSION["idEquipe"])) {
     $idEquipe = $_SESSION["idEquipe"];
 } else {
 ?>
     <div class="alert alert-danger mt-2">Erreur lors de la récupération de l'idEquipe</div>
 <?php
-    header("refresh:2; ../utilisateur/equipe.php");
+    header("refresh:200; ../utilisateur/equipe.php");
 }
 $idEmploye = $_SESSION["idUtilisateur"];
 $objetUtilisateur = new Utilisateur();
