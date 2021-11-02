@@ -13,7 +13,7 @@ class Equipe extends Modele
             $equipe = $requete->fetch(PDO::FETCH_ASSOC);
             $this->idEquipe = $idE;
             $this->idSecteur = $equipe["idSecteur"];
-            $this->nomEquipe = $equipe["nomEquipe"];
+            $this->nom_equipe = $equipe["nomEquipe"];
             }
     }
     public function recupererEquipes()
@@ -22,16 +22,17 @@ class Equipe extends Modele
         $requete->execute();
         return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function recupererEquipe($idEquipe)
-    {
-        $requete = $this->getBDD()->prepare("SELECT * FROM equipe INNER JOIN projet USING(idEquipe) WHERE idEquipe = ?");
-        $requete->execute([$idEquipe]);
-        return $requete->fetch(PDO::FETCH_ASSOC);
-    }
-    public function recupererNomEquipeViaId($idEquipe)
+    public function recupererEquipeRolesUtilisateurs($idEquipe)
+   {
+      $requete = $this->getBDD()->prepare("SELECT * FROM equipe INNER JOIN equipe_employe USING(idEquipe) INNER JOIN utilisateurs USING(idEmploye) INNER JOIN roles USING(idRole) WHERE idEquipe=?");
+      $requete->execute([$idEquipe]);
+      return $requete->fetchAll(PDO::FETCH_ASSOC);
+   }
+
+    public function recupererSecteur($idSecteur)
     {
         $requete = $this->getBDD()->prepare("SELECT nomEquipe FROM equipe WHERE idEquipe = ?");
-        $requete->execute([$idEquipe]);
+        $requete->execute([$idSecteur]);
         return $requete->fetch(PDO::FETCH_ASSOC);
     }
     public function getIdSecteur()
@@ -40,10 +41,18 @@ class Equipe extends Modele
     }
     public function getNomEquipe()
     {
-        return $this->nomEquipe;
+        return $this->nom_equipe;
     }
+    
     public function getIdE()
     {
         return $this->idEquipe;
     }
+    public function recupererProjetEquipe($idEquipe){
+        $requete = $this->getBDD()->prepare("SELECT * FROM equipe INNER JOIN projet USING(idEquipe) WHERE idEquipe = ?");
+        $requete->execute([$idEquipe]);
+        return $requete->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+
 }

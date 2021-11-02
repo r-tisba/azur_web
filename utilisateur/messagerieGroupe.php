@@ -1,8 +1,9 @@
 <?php
 require_once "entete.php";
 require_once "../modeles/modele.php";
-if (!empty($_SESSION["idEquipe"])) {
-    $idEquipe = $_SESSION["idEquipe"];
+
+if (!empty($_GET["id"])) {
+    $idEquipe = $_GET["id"];
 } else {
 ?>
     <div class="alert alert-danger mt-2">Erreur lors de la récupération de l'idEquipe</div>
@@ -12,13 +13,14 @@ if (!empty($_SESSION["idEquipe"])) {
 $idEmploye = $_SESSION["idUtilisateur"];
 $objetUtilisateur = new Utilisateur();
 $objetMessage = new Message_Groupe();
+$groupe= new Equipe($idEquipe);
 $service = new Service();
 $messages = $objetMessage->recupererMessages($idEquipe);
-$equipe = $objetUtilisateur->recupererGroupe($idEquipe);
+$nomGroupe = $groupe->getNomEquipe();
 
 ?>
 <div class="fleche_retour mb-2 ml-4">
-    <a href="../utilisateur/equipe.php" class="retour">
+    <a href="../utilisateur/equipe.php?id=<?=$idEquipe?>" class="retour">
         <i class="fas fa-chevron-left"></i>
         Retour
     </a>
@@ -29,12 +31,15 @@ if (!empty($_GET["success"]) && $_GET["success"] == "suppression") {
 ?>
     <div class="alert alert-success mt-3">La supression a bien été effectué</div>
 <?php
-    header("refresh:2;../utilisateur/messagerieGroupe.php");
+    $idEquipe = $_GET["id"];
+    
+    header("refresh:2;../utilisateur/messagerieGroupe.php?id=$idEquipe");
 } else if (!empty($_GET["success"]) && $_GET["success"] == "modification") {
 ?>
     <div class="alert alert-success mt-3">La modification a bien été effectué</div>
 <?php
-    header("refresh:2; ../utilisateur/messagerieGroupe.php");
+    $idEquipe = $_GET["id"];
+    header("refresh:2; ../utilisateur/messagerieGroupe.php?id=$idEquipe");
 }
 if (!empty($_GET["error"])) {
 ?>
@@ -74,7 +79,7 @@ if (!empty($_GET["error"])) {
 <div class="containerFil mt-2">
     <div class="card cardDiscussion">
         <div class="card-header headerDiscussion">
-            <h1 class="titreDiscussion"><?= $equipe; ?> </h1>
+            <h1 class="titreDiscussion"><?= $nomGroupe; ?> </h1>
         </div>
         <div class="card-body bodyDiscussion">
             <?php
@@ -126,7 +131,7 @@ if (!empty($_GET["error"])) {
     <!-- INPUT NOUVEAU MESSAGE -->
     <form method="post" action="../traitements/ajoutMessageGroupe.php?id=<?=$idEquipe;?>">
         <div class="form-group">
-            <textarea class="form-control" name="contenu" id="contenu" placeholder="Envoyer un message à <?= $equipe; ?>" rows="6"></textarea>
+            <textarea class="form-control" name="contenu" id="contenu" placeholder="Envoyer un message au groupe <?= $nomGroupe; ?>" rows="6"></textarea>
         </div>
 
         <div class="form-group text-center">

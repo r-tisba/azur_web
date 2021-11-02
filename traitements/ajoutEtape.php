@@ -1,14 +1,15 @@
 <?php
 require_once "../modeles/modele.php";
 require_once "../utilisateur/entete.php";
-$projet = new Projet();
+$etape = new Etape();
 $idEmploye = $_SESSION["idUtilisateur"];
 $idEquipe = $_GET["id"];
-if (!empty($_POST["nom"]) && !empty($_POST["importance"]) && !empty($_POST["dateDebut"]) && !empty($_POST["dateFin"]))
+$idProjet = $_GET["idProjet"];
+if (!empty($_POST["nom"]) && !empty($_POST["dateDebut"]) && !empty($_POST["dateFin"]))
 {
         extract($_POST);
 
-        if ($projet->ajoutProjet($idEquipe, $nom, $dateDebut, $dateFin, $importance) == true)
+        if ($etape->creerEtape($idProjet, $dateDebut, $dateFin, $nom) == true)
         {
             header("location:../utilisateur/projet.php?id=$idEquipe");
         } else {

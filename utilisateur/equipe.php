@@ -1,14 +1,19 @@
 <?php
 require_once "../utilisateur/entete.php";
 
-if(!isset($_SESSION["identifiant"]))
+if(!isset($_GET["id"]))
 {
   header("location:../visiteur/index.php");
 }
-
+$idEquipe=$_GET["id"];
 ?>
 <main>
-
+<div class="fleche_retour mb-2 ml-4">
+    <a href="../utilisateur/listeEquipe.php" class="retour">
+        <i class="fas fa-chevron-left"></i>
+        Retour
+    </a>
+</div>
 <div class="album py-3">
     <div class="container">
 
@@ -22,7 +27,7 @@ if(!isset($_SESSION["identifiant"]))
             <p class="card-text">Vos coéquipiers</p>
               <div class="d-flex justify-content-center">
                 <div class="btn-group">
-                  <a href="membreEquipe.php">
+                  <a href="membreEquipe.php?id=<?=$idEquipe?>">
                     <img src="https://svgsilh.com/svg_v2/2324013.svg" class="imageSecteur"/>
                   </a>
                 </div>
@@ -39,7 +44,7 @@ if(!isset($_SESSION["identifiant"]))
               <p class="card-text">Vos projets</p>
               <div class="d-flex justify-content-center">
                 <div class="btn-group">
-                  <a href="projet.php">
+                  <a href="projet.php?id=<?=$idEquipe?>">
                   <img src="https://image.flaticon.com/icons/png/512/1087/1087902.png" class="imageSecteur"/>
                   </a>
                 </div>
@@ -58,7 +63,7 @@ if(!isset($_SESSION["identifiant"]))
               <p class="card-text">Votre messagerie de groupe</p>
               <div class="d-flex justify-content-center">
                 <div class="btn-group">
-                  <a href="messagerieGroupe.php">
+                  <a href="messagerieGroupe.php?id=<?=$idEquipe?>">
                   <img src="https://cdn-0.smartandroid.fr/wp-content/uploads/2020/09/envoyer-message-groupe3.png" class="imageSecteur"/>
                   </a>
                 </div>
