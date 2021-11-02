@@ -50,14 +50,14 @@ if (!empty($_GET["error"]))
 
 <div class="card">
     <div class="card-header">
-        <h1>Charger une image</h1>
+        <h3 class="titreOutil" style="margin: 0">Charger une image</h3>
     </div>
     <div class="card-body">
         <form action="../traitements/modifierAvatar.php" method="post" enctype="multipart/form-data">
-            <b>Sélectionnez votres nouvelle photo de profil :</b>
+            <b>Sélectionnez votre nouvelle image de profil : </b>
             <input type="file" name="image"/>
             <br>
-            <button class="btn btn-outline-primary" type="submit">Modifier la photo de profil</button>
+            <button class="btn btn-outline-primary align-center" type="submit">Modifier la photo de profil</button>
         </form>
     </div>
 </div>

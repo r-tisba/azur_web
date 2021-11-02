@@ -409,40 +409,48 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
 }
 
 /* ---------------- PROFIL ---------------- */
+.container_profil
+{
+  width: 60%;
+}
 div.show-image
 {
-  position: relative;
-  margin: 5px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
 }
-.avatarProfil
+.div_avatar, .avatarProfil
 {
   width: 9rem;
   height: 9rem;
 }
-div.show-image:hover img
+div.div_avatar:hover img
 {
   opacity:0.5;
 }
-div.show-image input
+.icone_camera
 {
-  display: none;
-  margin: 0;
+  display: none !important;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  margin: 0;
+  padding: 0;
+  margin-left: 3.5rem;
+  margin-top: -5.3rem;
+  font-size: 28px;
 }
-div.show-image:hover input
+.div_avatar:hover~.icone_camera
 {
-  display: block;
+  display: block !important;
+}
+.form_infos
+{
+  margin: 0;
 }
 .form_profil_identifiant
 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0;
 }
 .container_profil_annexes
 {

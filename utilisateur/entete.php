@@ -2,9 +2,8 @@
 require_once "../modeles/modele.php";
 session_start();
 
-if(empty($_SESSION["identifiant"]))
-{
-    header("location:index.php");
+if (empty($_SESSION["identifiant"])) {
+  header("location:index.php");
 }
 ?>
 
@@ -34,6 +33,9 @@ if(empty($_SESSION["identifiant"]))
 
     <div class="navbar-collapse collapse" id="navbarNavDropdown">
       <div class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-item nav-link" href="profil.php">Profil</a>
+        </li>
         <?php
         if (!empty($_SESSION["identifiant"]) && $_SESSION["idRole"] == 2) {
         ?>
@@ -59,10 +61,6 @@ if(empty($_SESSION["identifiant"]))
             </a>
           </div>
           <a class="btn btn-outline-danger ml-1" href="deconnexion.php">Se déconnecter</a>
-        <?php
-        } else {
-        ?>
-          <a class="btn btn-outline-success ml-1" href="../visiteur/connexion.php">Se connecter</a>
         <?php
         }
         ?>
