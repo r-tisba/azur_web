@@ -38,12 +38,6 @@ require_once "../modeles/modele.php";
           <a class="btn btn-outline-danger ml-1" href="../deconnexion.php">Se déconnecter</a>
 
         <?php
-        } else {
-        ?>
-          <li class="nav-item">
-            <a class="btn btn-outline-success ml-1" href="connexion.php">Se connecter</a>
-          </li>
-        <?php
         }
         ?>
       </ul>

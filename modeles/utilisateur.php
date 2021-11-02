@@ -131,7 +131,12 @@ class Utilisateur extends Modele
       $requete->execute([$idEquipe]);
       $equipe = $requete->fetch(PDO::FETCH_ASSOC);
       return $equipe["nomEquipe"];
-
+   }
+   public function recupererNomRoleViaId($idRole)
+   {
+      $requete = $this->getBDD()->prepare("SELECT nomRole FROM roles WHERE idRole = ?");
+      $requete->execute([$idRole]);
+      return $requete->fetch(PDO::FETCH_ASSOC);
    }
 
    public function getidEmploye()

@@ -7,19 +7,24 @@ if (empty($_SESSION["identifiant"])) {
 $equipe = new Equipe();
 $objetUtilisateur = new Utilisateur($_SESSION["idUtilisateur"]);
 $utilisateur = $objetUtilisateur->recupererUtilisateur($_SESSION["idUtilisateur"]);
-
 $idEquipe = $utilisateur["idEquipe"];
-$utilisateur = $equipe->recupererNomEquipeViaId($idEquipe);
-$nomEquipe = $utilisateur["nomEquipe"];
+$idRole = $utilisateur["idRole"];
+$nomEquipe = $equipe->recupererNomEquipeViaId($idEquipe);
+$nomRole = $objetUtilisateur->recupererNomRoleViaId($idRole);
+$nomEquipe = $nomEquipe["nomEquipe"];
+$nomRole = $nomRole["nomRole"];
 ?>
 
-<div class="container-fluid container_profil">
-    <div class="card card_profil_infos col-8">
+<div class="container container_profil">
+    <div class="card card_profil_infos col-12">
         <div class="card-header">
             <div class="show-image">
-                <img src="<?= $objetUtilisateur->getAvatar(); ?>" class="rounded-circle avatarProfil">
                 <a href="../utilisateur/modifierAvatar.php">
-                    <input class="btn btn-outline-primary" type="button" value="Changer avatar">
+                    <div class="div_avatar">
+                        <img src="<?= $objetUtilisateur->getAvatar(); ?>" class="rounded-circle avatarProfil">
+
+                    </div>
+                    <i class="fas fa-camera icone_camera"></i>
                 </a>
             </div>
             <div class="form-group form_infos">
@@ -32,14 +37,16 @@ $nomEquipe = $utilisateur["nomEquipe"];
             <div class="form-group form_profil">
                 <h3 class="texte_infos_profil">Poste : <?= $objetUtilisateur->getPoste(); ?></h3>
                 <h3 class="texte_infos_profil">Équipe : <?= $nomEquipe; ?></h3>
+                <h3 class="texte_infos_profil">Rôle : <?= $nomRole; ?></h3>
+
             </div>
         </div>
 
 
     </div>
     <!-- <div>
-                    <a href="../admin/modifierPseudo.php" type="submit" class="btn btn-outline-primary">Modifier Pseudo</a>
-                </div> -->
+        <a href="../admin/modifierPseudo.php" type="submit" class="btn btn-outline-primary">Modifier Pseudo</a>
+    </div> -->
 </div>
 <!-- <div class="container-fluid container_profil_annexes">
         <div class="card card_profil_projets col-6">
@@ -60,3 +67,6 @@ $nomEquipe = $utilisateur["nomEquipe"];
         </div>
     </div> -->
 </div>
+
+<?php
+require_once "../utilisateur/pied.php";
