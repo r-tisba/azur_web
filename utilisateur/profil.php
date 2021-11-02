@@ -7,11 +7,10 @@ if (empty($_SESSION["identifiant"])) {
 $equipe = new Equipe();
 $objetUtilisateur = new Utilisateur($_SESSION["idUtilisateur"]);
 $utilisateur = $objetUtilisateur->recupererUtilisateur($_SESSION["idUtilisateur"]);
-$idEquipe = $utilisateur["idEquipe"];
+$idEmploye=$_SESSION["idUtilisateur"];
 $idRole = $utilisateur["idRole"];
-$nomEquipe = $equipe->recupererNomEquipeViaId($idEquipe);
-$nomRole = $objetUtilisateur->recupererNomRoleViaId($idRole);
-$nomEquipe = $nomEquipe["nomEquipe"];
+$equipes = $objetUtilisateur->recupererGroupes($idEmploye);
+$nomRole = $objetUtilisateur->recupererNomRoleViaIdRole($idRole);
 $nomRole = $nomRole["nomRole"];
 ?>
 
@@ -36,7 +35,18 @@ $nomRole = $nomRole["nomRole"];
         <div class="card-body">
             <div class="form-group form_profil">
                 <h3 class="texte_infos_profil">Poste : <?= $objetUtilisateur->getPoste(); ?></h3>
-                <h3 class="texte_infos_profil">Équipe : <?= $nomEquipe; ?></h3>
+                <h3 class="texte_infos_profil">Équipe :
+                    <?php
+                foreach($equipes as $equipe){
+                ?>
+                
+                        <ul>
+                            <li><?= $equipe["nomEquipe"]?></li>
+                        </ul>
+                    <?php
+            }
+
+?>    
                 <h3 class="texte_infos_profil">Rôle : <?= $nomRole; ?></h3>
 
             </div>

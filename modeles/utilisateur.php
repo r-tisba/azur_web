@@ -127,6 +127,12 @@ class Utilisateur extends Modele
       return $equipe;
       
    }
+   public function recupererNomRoleViaIdRole($idRole)
+    {
+        $requete = $this->getBDD()->prepare("SELECT nomRole FROM roles LEFT JOIN utilisateurs USING(idRole) WHERE idEmploye = ?");
+        $requete->execute([$idRole]);
+        return $requete->fetch(PDO::FETCH_ASSOC);
+    }
 
    public function getidEmploye()
    {
