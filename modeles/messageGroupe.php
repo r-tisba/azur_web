@@ -45,7 +45,7 @@ class Message_Groupe extends Modele
     
     public function recupererMessages($idEquipe)
     {
-        $requete = $this->getBDD()->prepare("SELECT * FROM messagesgroupe LEFT JOIN utilisateurs USING(idEquipe, idEmploye) WHERE idEquipe = ?");
+        $requete = $this->getBDD()->prepare("SELECT * FROM messagesgroupe LEFT JOIN equipe_employe USING(idEquipe, idEmploye) LEFT JOIN equipe USING(idEquipe) LEFT JOIN utilisateurs USING(idEmploye) WHERE idEquipe = ?");
         $requete->execute([$idEquipe]);
         $messagesgroupe = $requete->fetchAll(PDO::FETCH_ASSOC);
         return $messagesgroupe;
@@ -53,7 +53,7 @@ class Message_Groupe extends Modele
     
     public function recupererMessage($idMessageGroupe)
     {
-        $requete = $this->getBDD()->prepare("SELECT * FROM messagesgroupe LEFT JOIN utilisateurs USING(idEmploye, idEquipe)  WHERE idMessageGroupe = ?");
+        $requete = $this->getBDD()->prepare("SELECT * FROM messagesgroupe LEFT JOIN utilisateurs USING(idEmploye)  WHERE idMessageGroupe = ?");
         $requete->execute([$idMessageGroupe]);
         $message = $requete->fetch(PDO::FETCH_ASSOC);
         return $message;

@@ -30,14 +30,21 @@ class Projet extends Modele{
             }
         }
     }
-    public function recupererProjet()
+    public function recupererProjets()
     {
         $requete = $this->getBDD()->prepare("SELECT * FROM projet");
         $requete->execute();
         return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function ajoutProjet($idEquipe, $nom, $dateDebut, $dateFin, $importance)
+    {
+        $fini = 0;
+        $requete = $this->getBDD()->prepare("INSERT INTO projet(idEquipe, nom, dateDebut, dateFin, importance, fini) VALUES(?,?,?,?,?,?)");
+        $requete->execute([$idEquipe, $nom, $dateDebut, $dateFin, $importance, $fini]);
+        return true;
+    }
 
-    public function recupererEquipe($idProjet)
+    public function recupererProjetEquipe($idProjet)
     {
         $requete = $this->getBDD()->prepare("SELECT * FROM projet INNER JOIN equipe USING(idProjet)  WHERE idProjet = ?");
         $requete->execute([$idProjet]);

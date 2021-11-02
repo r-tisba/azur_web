@@ -4,21 +4,22 @@ session_start();
 $objetMessage = new Message_Groupe();
 $idEmploye = $_SESSION["idUtilisateur"];
 
+
 if (($_GET["id"])) {
-    $idEquipe = $_SESSION["idEquipe"];
+    $idEquipe = $_GET["id"];
 
     if (!empty($_POST["contenu"])) {
         extract($_POST);
 
         if ($objetMessage->ajoutMessages($idEquipe, $contenu, $idEmploye) == true)
         {
-            header("location:../utilisateur/messagerieGroupe.php?id=$idDiscussion");
+            header("location:../utilisateur/messagerieGroupe.php?id=$idEquipe");
         } else {
-            header("location:../utilisateur/messagerieGroupe.php?error=fonction");
+            header("location:../utilisateur/messagerieGroupe.php?error=fonction&&?id=$idEquipe");
         }
     } else {
-        header("location:../utilisateur/messagerieGroupe.php?error=post");
+        header("location:../utilisateur/messagerieGroupe.php?error=post&&?id=$idEquipe");
     }
 } else {
-    header("location:../utilisateur/messagerieGroupe.php?error=missing");
+    header("location:../utilisateur/messagerieGroupe.php?error=missing&&?id=$idEquipe");
 }

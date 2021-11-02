@@ -60,17 +60,12 @@ class Utilisateur extends Modele
 
    public function recupererInfosConnexion($identifiant)
    {
-      $requete = $this->getBDD()->prepare("SELECT idEmploye, identifiant, mdp, idRole, idEquipe FROM utilisateurs WHERE identifiant = ?");
+      $requete = $this->getBDD()->prepare("SELECT idEmploye, identifiant, mdp, idRole FROM utilisateurs WHERE identifiant = ?");
       $requete->execute([$identifiant]);
       return $requete;
    }
 
-   public function recupererEquipeRolesUtilisateurs()
-   {
-      $requete = $this->getBDD()->prepare("SELECT * FROM utilisateurs INNER JOIN equipe USING(idEquipe) INNER JOIN roles USING(idRole)");
-      $requete->execute();
-      return $requete->fetchAll(PDO::FETCH_ASSOC);
-   }
+   
 
    public function mailUnique($email)
    {
@@ -82,11 +77,10 @@ class Utilisateur extends Modele
    public function creerUtilisateur($nom, $prenom, $poste, $mdp)
    {
       $idRole = 1;
-      $idEquipe = 1;
       $identifiant = strtolower($prenom) . "." . strtolower($nom);
 
-      $requete = $this->getBDD()->prepare("INSERT INTO utilisateurs(nom, prenom, poste, idEquipe, identifiant, mdp, idRole) VALUES(?, ?, ?, ?, ?, ?, ?)");
-      $requete->execute([$nom, $prenom, $poste, $idEquipe, $identifiant, $mdp, $idRole]);
+      $requete = $this->getBDD()->prepare("INSERT INTO utilisateurs(nom, prenom, poste, identifiant, mdp, idRole) VALUES(?, ?, ?, ?, ?, ?)");
+      $requete->execute([$nom, $prenom, $poste, $identifiant, $mdp, $idRole]);
       return true;
    }
 
@@ -125,12 +119,12 @@ class Utilisateur extends Modele
          return $identifiant["identifiant"];
       }
    }
-   public function recupererGroupe($idEquipe)
+   public function recupererGroupes($idEmploye)
    {
-      $requete = $this->getBDD()->prepare("SELECT nom_equipe FROM equipe WHERE idEquipe = ?");
-      $requete->execute([$idEquipe]);
-      $equipe = $requete->fetch(PDO::FETCH_ASSOC);
-      return $equipe["nom_equipe"];
+      $requete = $this->getBDD()->prepare("SELECT * FROM utilisateurs LEFT JOIN equipe_employe USING(idEmploye) LEFT JOIN equipe USING(idEquipe) WHERE idEmploye=?");
+      $requete->execute([$idEmploye]);
+      $equipe = $requete->fetchAll(PDO::FETCH_ASSOC);
+      return $equipe;
       
    }
 

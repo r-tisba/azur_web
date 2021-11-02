@@ -1,16 +1,24 @@
 <?php
 require_once "entete.php";
 require_once "../modeles/modele.php";
-$utilisateur = new Utilisateur($_SESSION["idUtilisateur"]);
-
-$employes=$utilisateur->recupererEquipeRolesUtilisateurs();
-
 if(!isset($_SESSION["idUtilisateur"]))
 {
   header("location:../visiteur/index.php");
 }
+$utilisateur = new Equipe();
+$idEquipe=$_GET["id"];
+
+$employes=$utilisateur->recupererEquipeRolesUtilisateurs($idEquipe);
+
+
 
 ?>
+<div class="fleche_retour mb-2 ml-4">
+    <a href="../utilisateur/equipe.php?id=<?=$idEquipe?>" class="retour">
+        <i class="fas fa-chevron-left"></i>
+        Retour
+    </a>
+</div>
 <div class="container">
 
 <h1> Membre équipe : </h1>

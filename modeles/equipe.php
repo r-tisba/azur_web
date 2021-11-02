@@ -12,7 +12,7 @@ class Equipe extends Modele{
             $equipe = $requete->fetch(PDO::FETCH_ASSOC);
             $this->idEquipe = $idE;
             $this->idSecteur = $equipe["idSecteur"];
-            $this->nom_equipe = $equipe["nom_equipe"];
+            $this->nom_equipe = $equipe["nomEquipe"];
             }
     }
     public function recupererEquipes()
@@ -21,6 +21,12 @@ class Equipe extends Modele{
         $requete->execute();
         return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function recupererEquipeRolesUtilisateurs($idEquipe)
+   {
+      $requete = $this->getBDD()->prepare("SELECT * FROM equipe INNER JOIN equipe_employe USING(idEquipe) INNER JOIN utilisateurs USING(idEmploye) INNER JOIN roles USING(idRole) WHERE idEquipe=?");
+      $requete->execute([$idEquipe]);
+      return $requete->fetchAll(PDO::FETCH_ASSOC);
+   }
 
     public function recupererSecteur($idSecteur)
     {
@@ -36,14 +42,15 @@ class Equipe extends Modele{
     {
         return $this->nom_equipe;
     }
-    public function recupererProjets($idEquipe){
-        $requete = $this->getBDD()->prepare("SELECT * FROM equipe INNER JOIN projet USING(idEquipe) WHERE idEquipe = ?");
-        $requete->execute([$idEquipe]);
-        return $requete->fetchAll(PDO::FETCH_ASSOC);
-    }
+    
     public function getIdE()
     {
         return $this->idEquipe;
+    }
+    public function recupererProjetEquipe($idEquipe){
+        $requete = $this->getBDD()->prepare("SELECT * FROM equipe INNER JOIN projet USING(idEquipe) WHERE idEquipe = ?");
+        $requete->execute([$idEquipe]);
+        return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
     
 
