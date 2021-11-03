@@ -4,14 +4,14 @@ require_once "../modeles/modele.php";
 if (empty($_SESSION["identifiant"])) {
     header("location:index.php");
 }
-$equipe = new Equipe();
+$objetEquipe = new Equipe();
 $objetUtilisateur = new Utilisateur($_SESSION["idUtilisateur"]);
 $utilisateur = $objetUtilisateur->recupererUtilisateur($_SESSION["idUtilisateur"]);
-$idEmploye=$_SESSION["idUtilisateur"];
+$idUtilisateur = $_SESSION["idUtilisateur"];
 $idRole = $utilisateur["idRole"];
-$equipes = $objetUtilisateur->recupererGroupes($idEmploye);
 $nomRole = $objetUtilisateur->recupererNomRoleViaIdRole($idRole);
 $nomRole = $nomRole["nomRole"];
+$equipes = $objetUtilisateur->recupererGroupes($idUtilisateur);
 ?>
 
 <div class="container container_profil">
@@ -35,20 +35,43 @@ $nomRole = $nomRole["nomRole"];
         <div class="card-body">
             <div class="form-group form_profil">
                 <h3 class="texte_infos_profil">Poste : <?= $objetUtilisateur->getPoste(); ?></h3>
-                <h3 class="texte_infos_profil">Équipe :
-                    <?php
-                foreach($equipes as $equipe){
-                ?>
-                
-                        <ul>
-                            <li><?= $equipe["nomEquipe"]?></li>
-                        </ul>
-                    <?php
-            }
+                <div class="row div_equipes">
+                    <h3 class="texte_infos_profil">Équipe :</h3>
+                    <div class="div_liste_equipes">
+                        <?php
+                        if (!empty($equipes))
+                        {
+                            foreach ($equipes as $equipe)
+                            {
+                                $idEquipe = $equipe["idEquipe"];
+                                $imageEquipe = $objetEquipe->recupererImage($equipe["idEquipe"]);
+                                ?>
+                                <a href="../utilisateur/equipe.php?id=<?= $idEquipe; ?>">
+                                    <div class="div_image_equipe">
+                                        <?php
+                                        if (!empty($imageEquipe)) {
+                                        ?>
+                                            <img src="<?= $imageEquipe["image"]; ?>" class="miniatureEquipe">
+                                            <?= $equipe["nomEquipe"] ?>
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <img src="../images/design/image_equipe.png">
+                                            <?= $equipe["nomEquipe"] ?>
+                                        <?php
+                                        }
+                                        ?>
+                                    </div>
+                                </a>
+                            <?php
+                            }
+                        }
 
-?>    
+
+                        ?>
+                    </div>
+                </div>
                 <h3 class="texte_infos_profil">Rôle : <?= $nomRole; ?></h3>
-
             </div>
         </div>
 

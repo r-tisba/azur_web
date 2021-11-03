@@ -2,7 +2,7 @@
 require_once "../modeles/modele.php";
 require_once "../utilisateur/entete.php";
 $objetMessage = new Message_Groupe();
-$idEmploye = $_SESSION["idUtilisateur"];
+$idUtilisateur = $_SESSION["idUtilisateur"];
 
 
 if (($_GET["id"])) {
@@ -11,7 +11,7 @@ if (($_GET["id"])) {
     if (!empty($_POST["contenu"])) {
         extract($_POST);
 
-        if ($objetMessage->ajoutMessages($idEquipe, $contenu, $idEmploye) == true)
+        if ($objetMessage->ajoutMessages($idEquipe, $contenu, $idUtilisateur) == true)
         {
             header("location:../utilisateur/messagerieGroupe.php?id=$idEquipe");
         } else {

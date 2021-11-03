@@ -28,7 +28,7 @@ class Service
         $objetMessage = new Message();
         $service = new Service();
         $dernierMessage = $objetMessage->recupererDernierMessageFull($idDiscussion);
-        $idMessage = $dernierMessage["idEmploye"];
+        $idMessage = $dernierMessage["idUtilisateur"];
         $date = $dernierMessage["date"];
 ?>
         <a href="discussion.php?id=<?= $idDiscussion; ?>"><span class="apercu_lien"></span></a>
@@ -72,7 +72,7 @@ class Service
         }
         public function dispositionMessages($message)
         {
-            if ($message["idEmploye"] == $_SESSION["idUtilisateur"]) {
+            if ($message["idUtilisateur"] == $_SESSION["idUtilisateur"]) {
             ?>
                 <div class="container-fluid containerMessage_perso col-12">
                     <div class="row">

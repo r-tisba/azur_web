@@ -47,13 +47,13 @@ class Discussion extends Modele
         $this->idEnvoyeur = $idEnvoyeur;
         $this->idDestinataire = $idDestinataire;
 
-        $requete = $this->getBdd()->prepare("SELECT idMessage, contenu, date, idEmploye FROM messages WHERE idDiscussion = ?");
+        $requete = $this->getBdd()->prepare("SELECT idMessage, contenu, date, idUtilisateur FROM messages WHERE idDiscussion = ?");
         $requete->execute([$idDiscussion]);
         $messagesDiscussion = $requete->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($messagesDiscussion as $messageDiscussion) {
             $objetMessage = new Message();
-            $objetMessage->initialiserMessage($messageDiscussion["idMessage"], $messageDiscussion["contenu"], $messageDiscussion["date"], $messageDiscussion["idEmploye"]);
+            $objetMessage->initialiserMessage($messageDiscussion["idMessage"], $messageDiscussion["contenu"], $messageDiscussion["date"], $messageDiscussion["idUtilisateur"]);
             $this->messages[] = $objetMessage;
         }
     }

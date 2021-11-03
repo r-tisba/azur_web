@@ -1,9 +1,9 @@
 <?php
 require_once "../utilisateur/entete.php";
 require_once "../modeles/modele.php";
-$idEmploye = $_SESSION["idUtilisateur"];
-$objetDiscussion = new Discussion($idEmploye);
-$objetUtilisateur = new Utilisateur($idEmploye);
+$idUtilisateur = $_SESSION["idUtilisateur"];
+$objetDiscussion = new Discussion($idUtilisateur);
+$objetUtilisateur = new Utilisateur($idUtilisateur);
 $objetMessage = new Message();
 $service = new Service();
 $discussions = $objetDiscussion->recupererDiscussions();
@@ -86,7 +86,7 @@ if (!empty($_GET["success"]) && $_GET["success"] == "discussion") {
                                         continue;
                                     } else {
                                         ?>
-                                            <option value="<?=$utilisateur["idEmploye"];?>">
+                                            <option value="<?=$utilisateur["idUtilisateur"];?>">
                                                 <?=$utilisateur["identifiant"] . " | " . $utilisateur["poste"];?>
                                             </option>
                                         <?php
@@ -97,7 +97,7 @@ if (!empty($_GET["success"]) && $_GET["success"] == "discussion") {
                             </div>
                         <!-- ------------------------- INPUT MESSAGE ------------------------- -->
                             <div class="form-group">
-                                <label for="idEmploye">Contenu du message : </label>
+                                <label for="idUtilisateur">Contenu du message : </label>
                                 <textarea class="form-control" name="contenu" id="contenu" placeholder="Saisissez votre message " rows="6"></textarea>
                             </div>
 
@@ -122,10 +122,10 @@ if (!empty($_GET["success"]) && $_GET["success"] == "discussion") {
 foreach($discussions as $discussion)
 {
     /* ------------ Si l'utilisateur de la session a initié la discussion ------------ */
-    if($discussion["idEnvoyeur"] == $idEmploye)
+    if($discussion["idEnvoyeur"] == $idUtilisateur)
     {
         $idContact = $discussion["idDestinataire"];
-        $utilisateur = $objetUtilisateur->recupererUtilisateur($idEmploye);
+        $utilisateur = $objetUtilisateur->recupererUtilisateur($idUtilisateur);
         $contact = $objetUtilisateur->recupererUtilisateur($idContact);
         $dernierMessage = $objetMessage->recupererDernierMessage($discussion["idDiscussion"]);
         ?>
@@ -172,10 +172,10 @@ foreach($discussions as $discussion)
         <?php
 
     /* ------------ Si l'utilisateur de la session n'a pas initié la discussion ------------ */
-    } else if ($discussion["idDestinataire"] == $idEmploye)
+    } else if ($discussion["idDestinataire"] == $idUtilisateur)
     {
         $idContact = $discussion["idEnvoyeur"];
-        $utilisateur = $objetUtilisateur->recupererUtilisateur($idEmploye);
+        $utilisateur = $objetUtilisateur->recupererUtilisateur($idUtilisateur);
         $contact = $objetUtilisateur->recupererUtilisateur($idContact);
         $dernierMessage = $objetMessage->recupererDernierMessage($discussion["idDiscussion"]);
         ?>

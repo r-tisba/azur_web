@@ -2,7 +2,7 @@
 
 class Utilisateur extends Modele
 {
-   private $idEmploye;
+   private $idUtilisateur;
    private $nom;
    private $prenom;
    private $poste;
@@ -18,11 +18,11 @@ class Utilisateur extends Modele
    public function __construct($idE = null)
    {
       if ($idE !== null) {
-         $requete = $this->getBdd()->prepare("SELECT * FROM utilisateurs WHERE idEmploye = ?");
+         $requete = $this->getBdd()->prepare("SELECT * FROM utilisateurs WHERE idUtilisateur = ?");
          $requete->execute([$idE]);
          $infos = $requete->fetch(PDO::FETCH_ASSOC);
 
-         $this->idEmploye = $idE;
+         $this->idUtilisateur = $idE;
          $this->nom = $infos["nom"];
          $this->prenom = $infos["prenom"];
          $this->poste = $infos["poste"];
@@ -50,27 +50,17 @@ class Utilisateur extends Modele
       $requete->execute();
       return $requete->fetchAll(PDO::FETCH_ASSOC);
    }
-
-   public function recupererUtilisateur($idEmploye)
+   public function recupererUtilisateur($idUtilisateur)
    {
-      $requete = $this->getBDD()->prepare("SELECT * FROM utilisateurs WHERE idEmploye = ?");
-      $requete->execute([$idEmploye]);
+      $requete = $this->getBDD()->prepare("SELECT * FROM utilisateurs WHERE idUtilisateur = ?");
+      $requete->execute([$idUtilisateur]);
       return $requete->fetch(PDO::FETCH_ASSOC);
    }
 
    public function recupererInfosConnexion($identifiant)
    {
-      $requete = $this->getBDD()->prepare("SELECT idEmploye, identifiant, mdp, idRole FROM utilisateurs WHERE identifiant = ?");
+      $requete = $this->getBDD()->prepare("SELECT idUtilisateur, identifiant, mdp, idRole FROM utilisateurs WHERE identifiant = ?");
       $requete->execute([$identifiant]);
-      return $requete;
-   }
-
-   
-
-   public function mailUnique($email)
-   {
-      $requete = $this->getBDD()->prepare("SELECT email FROM utilisateurs WHERE email = ?");
-      $requete->execute([$email]);
       return $requete;
    }
 
@@ -83,22 +73,21 @@ class Utilisateur extends Modele
       $requete->execute([$nom, $prenom, $poste, $identifiant, $mdp, $idRole]);
       return true;
    }
-
-   public function modifierUtilisateur($idEmploye, $nom, $prenom, $poste, $idEquipe, $idRole)
+   public function modifierUtilisateur($idUtilisateur, $nom, $prenom, $poste, $idEquipe, $idRole)
    {
       $identifiant = strtolower($prenom) . "." . strtolower($nom);
-      $requete = $this->getBDD()->prepare("UPDATE utilisateurs SET nom = ?, prenom = ?, poste = ?, idEquipe = ?, identifiant=?, idRole=? WHERE idEmploye = ?");
-      $requete->execute([$nom, $prenom, $poste, $idEquipe, $identifiant, $idRole, $idEmploye]);
+      $requete = $this->getBDD()->prepare("UPDATE utilisateurs SET nom = ?, prenom = ?, poste = ?, idEquipe = ?, identifiant=?, idRole=? WHERE idUtilisateur = ?");
+      $requete->execute([$nom, $prenom, $poste, $idEquipe, $identifiant, $idRole, $idUtilisateur]);
       return true;
    }
    public function modifierAvatar($avatar, $idUtilisateur)
    {
-       $requete = $this->getBDD()->prepare("UPDATE utilisateurs SET avatar = ? WHERE idEmploye = ?");
-       $requete->execute([$avatar, $idUtilisateur]);
-       return true;
+      $requete = $this->getBDD()->prepare("UPDATE utilisateurs SET avatar = ? WHERE idUtilisateur = ?");
+      $requete->execute([$avatar, $idUtilisateur]);
+      return true;
 
-       $this->avatar=$avatar;
-       $this->idUtilisateur=$idUtilisateur;
+      $this->avatar = $avatar;
+      $this->idUtilisateur = $idUtilisateur;
    }
    public function supprimerUtilisateur($idUtilisateur)
    {
@@ -106,6 +95,7 @@ class Utilisateur extends Modele
       $requete->execute([$idUtilisateur]);
       return true;
    }
+
    public function recupererInterlocuteur($idDiscussion)
    {
       $requete = $this->getBDD()->prepare("SELECT idEnvoyeur, idDestinataire FROM discussions WHERE idDiscussion = ?");
@@ -119,24 +109,23 @@ class Utilisateur extends Modele
          return $identifiant["identifiant"];
       }
    }
-   public function recupererGroupes($idEmploye)
+   public function recupererGroupes($idUtilisateur)
    {
-      $requete = $this->getBDD()->prepare("SELECT * FROM utilisateurs LEFT JOIN equipe_employe USING(idEmploye) LEFT JOIN equipe USING(idEquipe) WHERE idEmploye=?");
-      $requete->execute([$idEmploye]);
+      $requete = $this->getBDD()->prepare("SELECT * FROM utilisateurs LEFT JOIN composition_equipe USING(idUtilisateur) LEFT JOIN equipe USING(idEquipe) WHERE idUtilisateur = ?");
+      $requete->execute([$idUtilisateur]);
       $equipe = $requete->fetchAll(PDO::FETCH_ASSOC);
       return $equipe;
-      
    }
    public function recupererNomRoleViaIdRole($idRole)
-    {
-        $requete = $this->getBDD()->prepare("SELECT nomRole FROM roles LEFT JOIN utilisateurs USING(idRole) WHERE idEmploye = ?");
-        $requete->execute([$idRole]);
-        return $requete->fetch(PDO::FETCH_ASSOC);
-    }
-
-   public function getidEmploye()
    {
-      return $this->idEmploye;
+      $requete = $this->getBDD()->prepare("SELECT nomRole FROM roles WHERE idRole = ?");
+      $requete->execute([$idRole]);
+      return $requete->fetch(PDO::FETCH_ASSOC);
+   }
+
+   public function getidUtilisateur()
+   {
+      return $this->idUtilisateur;
    }
    public function getNom()
    {

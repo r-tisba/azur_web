@@ -65,7 +65,7 @@ class Evenements
     public function lire()
     {
         // On écrit la requête
-        $sql = "SELECT e.id, e.title, e.description, e.start, e.end, e.url, e.nom_url, e.backgroundColor, e.borderColor, e.textColor, u.idEmploye, u.identifiant FROM " . $this->table . " e LEFT JOIN utilisateurs u ON e.idCreateur = u.idEmploye ORDER BY e.start ASC";
+        $sql = "SELECT e.id, e.title, e.description, e.start, e.end, e.url, e.nom_url, e.backgroundColor, e.borderColor, e.textColor, u.idUtilisateur, u.identifiant FROM " . $this->table . " e LEFT JOIN utilisateurs u ON e.idCreateur = u.idUtilisateur ORDER BY e.start ASC";
         // On prépare la requête
         $query = $this->connexion->prepare($sql);
 
@@ -83,7 +83,7 @@ class Evenements
     public function lireUn()
     {
         // On écrit la requête
-        $sql = "SELECT e.id, e.title, e.description, e.start, e.end, e.url, e.nom_url, e.backgroundColor, e.borderColor, e.textColor, u.idEmploye, u.identifiant FROM " . $this->table . " e LEFT JOIN utilisateurs u ON e.idCreateur = u.idEmploye WHERE u.id = ? LIMIT 0,1";
+        $sql = "SELECT e.id, e.title, e.description, e.start, e.end, e.url, e.nom_url, e.backgroundColor, e.borderColor, e.textColor, u.idUtilisateur, u.identifiant FROM " . $this->table . " e LEFT JOIN utilisateurs u ON e.idCreateur = u.idUtilisateur WHERE u.id = ? LIMIT 0,1";
 
         // On prépare la requête
         $query = $this->connexion->prepare($sql);
@@ -108,7 +108,7 @@ class Evenements
         $this->backgroundColor = $row['backgroundColor'];
         $this->borderColor = $row['borderColor'];
         $this->textColor = $row['textColor'];
-        $this->idEmploye = $row['idEmploye'];
+        $this->idUtilisateur = $row['idUtilisateur'];
         $this->identifiant = $row['identifiant'];
     }
     /**

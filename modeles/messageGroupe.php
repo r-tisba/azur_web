@@ -5,7 +5,7 @@ class Message_Groupe extends Modele
     private $idMessageGroupe;
     private $contenu;
     private $date;
-    private $idEmploye;
+    private $idUtilisateur;
 
     public function __construct($idM = null)
     {
@@ -17,35 +17,35 @@ class Message_Groupe extends Modele
             $this->idMessageGroupe = $idM;
             $this->reponse = $message["contenu"];
             $this->validite = $message["date"];
-            $this->validite = $message["idEmploye"];
+            $this->validite = $message["idUtilisateur"];
         }
     }
 
-    public function initialiserMessage($idMessageGroupe, $contenu, $date, $idEmploye)
+    public function initialiserMessage($idMessageGroupe, $contenu, $date, $idUtilisateur)
     {
         $this->idMessageGroupe = $idMessageGroupe;
         $this->contenu = $contenu;
         $this->date = $date;
-        $this->idEmploye = $idEmploye;
+        $this->idUtilisateur = $idUtilisateur;
     }
-    public function ajoutMessages($idEquipe, $contenu, $idEmploye)
+    public function ajoutMessages($idEquipe, $contenu, $idUtilisateur)
     {
-        $requete = $this->getBDD()->prepare("INSERT INTO messagesgroupe(idEquipe, contenu, date, idEmploye) VALUES(?, ?, ?, ?)");
-        $requete->execute([$idEquipe, $contenu, date("Y-m-d H:i:s"), $idEmploye]);
+        $requete = $this->getBDD()->prepare("INSERT INTO messagesgroupe(idEquipe, contenu, date, idUtilisateur) VALUES(?, ?, ?, ?)");
+        $requete->execute([$idEquipe, $contenu, date("Y-m-d H:i:s"), $idUtilisateur]);
         return true;
     }
 
-    public function messagesgroupe($idEquipe, $contenu, $idEmploye)
+    public function messagesgroupe($idEquipe, $contenu, $idUtilisateur)
     {
-        $requete = $this->getBDD()->prepare("INSERT INTO messagesgroupe(idEquipe, contenu, date, idEmploye) VALUES(?, ?, ?, ?)");
-        $requete->execute([$idEquipe, $contenu, date("Y-m-d H:i:s"), $idEmploye]);
+        $requete = $this->getBDD()->prepare("INSERT INTO messagesgroupe(idEquipe, contenu, date, idUtilisateur) VALUES(?, ?, ?, ?)");
+        $requete->execute([$idEquipe, $contenu, date("Y-m-d H:i:s"), $idUtilisateur]);
         return true;
     }
 
 
     public function recupererMessages($idEquipe)
     {
-        $requete = $this->getBDD()->prepare("SELECT * FROM messagesgroupe LEFT JOIN equipe_employe USING(idEquipe, idEmploye) LEFT JOIN equipe USING(idEquipe) LEFT JOIN utilisateurs USING(idEmploye) WHERE idEquipe = ?");
+        $requete = $this->getBDD()->prepare("SELECT * FROM messagesgroupe LEFT JOIN composition_equipe USING(idEquipe, idUtilisateur) LEFT JOIN equipe USING(idEquipe) LEFT JOIN utilisateurs USING(idUtilisateur) WHERE idEquipe = ?");
         $requete->execute([$idEquipe]);
         $messagesgroupe = $requete->fetchAll(PDO::FETCH_ASSOC);
         return $messagesgroupe;
@@ -53,7 +53,7 @@ class Message_Groupe extends Modele
 
     public function recupererMessage($idMessageGroupe)
     {
-        $requete = $this->getBDD()->prepare("SELECT * FROM messagesgroupe LEFT JOIN utilisateurs USING(idEmploye)  WHERE idMessageGroupe = ?");
+        $requete = $this->getBDD()->prepare("SELECT * FROM messagesgroupe LEFT JOIN utilisateurs USING(idUtilisateur)  WHERE idMessageGroupe = ?");
         $requete->execute([$idMessageGroupe]);
         $message = $requete->fetch(PDO::FETCH_ASSOC);
         return $message;
@@ -77,7 +77,7 @@ class Message_Groupe extends Modele
     {
         $requete = $this->getBDD()->prepare("SELECT t.*, u.*, d.* FROM messagesgroupe t INNER JOIN
         (SELECT contenu, MAX(date) AS max_date FROM messagesgroupe GROUP BY contenu) a ON a.contenu = t.contenu AND a.max_date = date
-        LEFT JOIN utilisateurs u USING(idEmploye) LEFT JOIN discussions_groupe d USING(idEquipe) WHERE idEquipe = ?");
+        LEFT JOIN utilisateurs u USING(idUtilisateur) LEFT JOIN discussions_groupe d USING(idEquipe) WHERE idEquipe = ?");
         $requete->execute([$idEquipe]);
         return $requete->fetch(PDO::FETCH_ASSOC);
     }
@@ -112,8 +112,8 @@ class Message_Groupe extends Modele
     {
         return $this->date;
     }
-    public function getIdEmploye()
+    public function getidUtilisateur()
     {
-        return $this->idEmploye;
+        return $this->idUtilisateur;
     }
 }

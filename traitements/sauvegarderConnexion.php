@@ -26,7 +26,7 @@ if(isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1)
                     @session_start();
                     $_SESSION["identifiant"] = $identifiant;
                     $_SESSION["idRole"] = $utilisateur["idRole"];
-                    $_SESSION["idUtilisateur"] = $utilisateur["idEmploye"];
+                    $_SESSION["idUtilisateur"] = $utilisateur["idUtilisateur"];
                     
 
                     header("location:../visiteur/index.php?success=connexion");

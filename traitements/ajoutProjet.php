@@ -2,7 +2,7 @@
 require_once "../modeles/modele.php";
 require_once "../utilisateur/entete.php";
 $projet = new Projet();
-$idEmploye = $_SESSION["idUtilisateur"];
+$idUtilisateur = $_SESSION["idUtilisateur"];
 $idEquipe = $_GET["id"];
 if (!empty($_POST["nom"]) && !empty($_POST["importance"]) && !empty($_POST["dateDebut"]) && !empty($_POST["dateFin"]))
 {

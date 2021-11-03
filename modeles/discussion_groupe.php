@@ -3,7 +3,7 @@
 class Discussion_Groupe extends Modele
 {
     private $idEquipe;
-    private $idEmploye;
+    private $idUtilisateur;
     private $idDestinataire;
 
     private $discussion = [];
@@ -11,7 +11,7 @@ class Discussion_Groupe extends Modele
     public function __construct($idD = null)
     {
         if ($idD !== null) {
-            $sqlEnv = "SELECT * FROM discussions_groupe WHERE idEmploye = ?";
+            $sqlEnv = "SELECT * FROM discussions_groupe WHERE idUtilisateur = ?";
             $sqlDes = "SELECT * FROM discussions_groupe WHERE idDestinataire = ?";
 
             $requete = $this->getBdd()->prepare($sqlEnv);
@@ -27,7 +27,7 @@ class Discussion_Groupe extends Modele
             $discussion = array_merge($discussionE, $discussionD);
 
             $this->idEquipe = $idD;
-            $this->idEmploye = $discussion["idEmploye"];
+            $this->idUtilisateur = $discussion["idUtilisateur"];
             $this->idDestinataire = $discussion["idDestinataire"];
 
             $requete = $this->getBdd()->prepare("SELECT * FROM messages WHERE idEquipe = ?");
@@ -41,19 +41,19 @@ class Discussion_Groupe extends Modele
         }
     }
 
-    public function initialiserDiscussion($idEquipe, $idEmploye, $idDestinataire)
+    public function initialiserDiscussion($idEquipe, $idUtilisateur, $idDestinataire)
     {
         $this->idEquipe = $idEquipe;
-        $this->idEmploye = $idEmploye;
+        $this->idUtilisateur = $idUtilisateur;
         $this->idDestinataire = $idDestinataire;
 
-        $requete = $this->getBdd()->prepare("SELECT idMessage, contenu, date, idEmploye FROM messages WHERE idEquipe = ?");
+        $requete = $this->getBdd()->prepare("SELECT idMessage, contenu, date, idUtilisateur FROM messages WHERE idEquipe = ?");
         $requete->execute([$idEquipe]);
         $messagesDiscussion = $requete->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($messagesDiscussion as $messageDiscussion) {
             $objetMessage = new Message();
-            $objetMessage->initialiserMessage($messageDiscussion["idMessage"], $messageDiscussion["contenu"], $messageDiscussion["date"], $messageDiscussion["idEmploye"]);
+            $objetMessage->initialiserMessage($messageDiscussion["idMessage"], $messageDiscussion["contenu"], $messageDiscussion["date"], $messageDiscussion["idUtilisateur"]);
             $this->messages[] = $objetMessage;
         }
     }
@@ -70,10 +70,10 @@ class Discussion_Groupe extends Modele
         $requete->execute([$idEquipe]);
         return $requete->fetch(PDO::FETCH_ASSOC);
     }
-    public function creerDiscussion($idEmploye, $idDestinataire)
+    public function creerDiscussion($idUtilisateur, $idDestinataire)
     {
-        $requete = $this->getBDD()->prepare("INSERT INTO discussions_groupe(idEmploye, idDestinataire) VALUES(?, ?)");
-        $requete->execute([$idEmploye, $idDestinataire]);
+        $requete = $this->getBDD()->prepare("INSERT INTO discussions_groupe(idUtilisateur, idDestinataire) VALUES(?, ?)");
+        $requete->execute([$idUtilisateur, $idDestinataire]);
         return true;
     }
     public function supprimerDiscussion($idEquipe)
@@ -82,20 +82,20 @@ class Discussion_Groupe extends Modele
         $requete->execute([$idEquipe]);
         return true;
     }
-    public function modifierDiscussion($idEmploye, $idDestinataire, $idEquipe)
+    public function modifierDiscussion($idUtilisateur, $idDestinataire, $idEquipe)
     {
-        $requete = $this->getBDD()->prepare("UPDATE discussions_groupe SET idEmploye=?, idDestinataire=? WHERE idEquipe = ?");
-        $requete->execute([$idEmploye, $idDestinataire, $idEquipe]);
+        $requete = $this->getBDD()->prepare("UPDATE discussions_groupe SET idUtilisateur=?, idDestinataire=? WHERE idEquipe = ?");
+        $requete->execute([$idUtilisateur, $idDestinataire, $idEquipe]);
         return true;
     }
-    public function verifierDiscussion($idEmploye, $idDestinataire)
+    public function verifierDiscussion($idUtilisateur, $idDestinataire)
     {
-        $requete = $this->getBDD()->prepare("SELECT idEquipe FROM discussions_groupe WHERE idEmploye = ? AND idDestinataire = ?");
-        $requete->execute([$idEmploye, $idDestinataire]);
+        $requete = $this->getBDD()->prepare("SELECT idEquipe FROM discussions_groupe WHERE idUtilisateur = ? AND idDestinataire = ?");
+        $requete->execute([$idUtilisateur, $idDestinataire]);
         if(empty($requete))
         {
-            $requete = $this->getBDD()->prepare("SELECT idEquipe FROM discussions_groupe WHERE idEmploye = ? AND idDestinataire = ?");
-            $requete->execute([$idDestinataire, $idEmploye]);
+            $requete = $this->getBDD()->prepare("SELECT idEquipe FROM discussions_groupe WHERE idUtilisateur = ? AND idDestinataire = ?");
+            $requete->execute([$idDestinataire, $idUtilisateur]);
             if(empty($requete))
             {
                 return false;
@@ -107,10 +107,10 @@ class Discussion_Groupe extends Modele
             return $requete->fetch(PDO::FETCH_ASSOC);;
         }
     }
-    public function recupererDiscussionViaEnvoyeurDestinataire($idEmploye, $idDestinataire)
+    public function recupererDiscussionViaEnvoyeurDestinataire($idUtilisateur, $idDestinataire)
     {
-        $requete = $this->getBDD()->prepare("SELECT idEquipe FROM discussions_groupe WHERE idEmploye = ? AND idDestinataire = ?");
-        $requete->execute([$idEmploye, $idDestinataire]);
+        $requete = $this->getBDD()->prepare("SELECT idEquipe FROM discussions_groupe WHERE idUtilisateur = ? AND idDestinataire = ?");
+        $requete->execute([$idUtilisateur, $idDestinataire]);
         return $requete->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -118,9 +118,9 @@ class Discussion_Groupe extends Modele
     {
         return $this->idEquipe;
     }
-    public function getIdEmploye()
+    public function getidUtilisateur()
     {
-        return $this->idEmploye;
+        return $this->idUtilisateur;
     }
     public function getIdDestinataire()
     {

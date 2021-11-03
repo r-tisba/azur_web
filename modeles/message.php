@@ -5,7 +5,7 @@ class Message extends Modele
     private $idMessage;
     private $contenu;
     private $date;
-    private $idEmploye;
+    private $idUtilisateur;
 
     public function __construct($idM = null)
     {
@@ -15,31 +15,30 @@ class Message extends Modele
             $message = $requete->fetch(PDO::FETCH_ASSOC);
 
             $this->idMessage = $idM;
-            $this->reponse = $message["contenu"];
-            $this->validite = $message["date"];
-            $this->validite = $message["idEmploye"];
+            $this->contenu = $message["contenu"];
+            $this->date = $message["date"];
         }
     }
 
-    public function initialiserMessage($idMessage, $contenu, $date, $idEmploye)
+    public function initialiserMessage($idMessage, $contenu, $date, $idUtilisateur)
     {
         $this->idMessage = $idMessage;
         $this->contenu = $contenu;
         $this->date = $date;
-        $this->idEmploye = $idEmploye;
+        $this->idUtilisateur = $idUtilisateur;
     }
 
-    public function ajoutMessages($idDiscussion, $contenu, $idEmploye)
+    public function ajoutMessages($idDiscussion, $contenu, $idUtilisateur)
     {
-        $requete = $this->getBDD()->prepare("INSERT INTO messages(idDiscussion, contenu, date, idEmploye) VALUES(?, ?, ?, ?)");
-        $requete->execute([$idDiscussion, $contenu, date("Y-m-d H:i:s"), $idEmploye]);
+        $requete = $this->getBDD()->prepare("INSERT INTO messages(idDiscussion, contenu, date, idUtilisateur) VALUES(?, ?, ?, ?)");
+        $requete->execute([$idDiscussion, $contenu, date("Y-m-d H:i:s"), $idUtilisateur]);
         return true;
     }
 
 
     public function recupererMessages($idDiscussion)
     {
-        $requete = $this->getBDD()->prepare("SELECT * FROM messages LEFT JOIN utilisateurs USING(idEmploye) LEFT JOIN discussions USING(idDiscussion)  WHERE idDiscussion = ?");
+        $requete = $this->getBDD()->prepare("SELECT * FROM messages LEFT JOIN utilisateurs USING(idUtilisateur) LEFT JOIN discussions USING(idDiscussion)  WHERE idDiscussion = ?");
         $requete->execute([$idDiscussion]);
         $messages = $requete->fetchAll(PDO::FETCH_ASSOC);
         return $messages;
@@ -47,7 +46,7 @@ class Message extends Modele
 
     public function recupererMessage($idMessage)
     {
-        $requete = $this->getBDD()->prepare("SELECT * FROM messages LEFT JOIN utilisateurs USING(idEmploye) LEFT JOIN discussions USING(idDiscussion)  WHERE idMessage = ?");
+        $requete = $this->getBDD()->prepare("SELECT * FROM messages LEFT JOIN utilisateurs USING(idUtilisateur) LEFT JOIN discussions USING(idDiscussion)  WHERE idMessage = ?");
         $requete->execute([$idMessage]);
         $message = $requete->fetch(PDO::FETCH_ASSOC);
         return $message;
@@ -88,7 +87,7 @@ class Message extends Modele
     {
         $requete = $this->getBDD()->prepare("SELECT t.*, u.*, d.* FROM messages t INNER JOIN
         (SELECT contenu, MAX(date) AS max_date FROM messages GROUP BY contenu) a ON a.contenu = t.contenu AND a.max_date = date
-        LEFT JOIN utilisateurs u USING(idEmploye) LEFT JOIN discussions d USING(idDiscussion) WHERE idDiscussion = ?");
+        LEFT JOIN utilisateurs u USING(idUtilisateur) LEFT JOIN discussions d USING(idDiscussion) WHERE idDiscussion = ?");
         $requete->execute([$idDiscussion]);
         return $requete->fetch(PDO::FETCH_ASSOC);
     }
@@ -127,8 +126,8 @@ class Message extends Modele
     {
         return $this->date;
     }
-    public function getIdEmploye()
+    public function getidUtilisateur()
     {
-        return $this->idEmploye;
+        return $this->idUtilisateur;
     }
 }

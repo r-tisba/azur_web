@@ -3,7 +3,7 @@ require_once "../modeles/modele.php";
 require_once "../utilisateur/entete.php";
 $objetMessage = new Message();
 $objetDiscussion = new Discussion();
-$idEmploye = $_SESSION["idUtilisateur"];
+$idUtilisateur = $_SESSION["idUtilisateur"];
 
 if (!empty($_POST["idDestinataire"]))
 {
@@ -19,7 +19,7 @@ if (!empty($_POST["idDestinataire"]))
         {
             $verif = $objetDiscussion->verifierDiscussion($_SESSION["idUtilisateur"], $idDestinataire);
             $idDiscussion = $verif["idDiscussion"];
-            if ($objetMessage->ajoutMessages($idDiscussion, $contenu, $idEmploye) == true)
+            if ($objetMessage->ajoutMessages($idDiscussion, $contenu, $idUtilisateur) == true)
             {
                header("location:../utilisateur/discussion.php?id=$idDiscussion");
             } else {
@@ -32,7 +32,7 @@ if (!empty($_POST["idDestinataire"]))
                 /* Et on envoie le message */
                 $result = $objetDiscussion->recupererDiscussionViaEnvoyeurDestinataire($_SESSION["idUtilisateur"], $idDestinataire);
                 $idDiscussion = $result["idDiscussion"];
-                if ($objetMessage->ajoutMessages($idDiscussion, $contenu, $idEmploye) == true)
+                if ($objetMessage->ajoutMessages($idDiscussion, $contenu, $idUtilisateur) == true)
                 {
                     header("location:../utilisateur/discussion.php?id=$idDiscussion");
                 } else {

@@ -2,7 +2,7 @@
 require_once "../modeles/modele.php";
 require_once "../utilisateur/entete.php";
 $etape = new Etape();
-$idEmploye = $_SESSION["idUtilisateur"];
+$idUtilisateur = $_SESSION["idUtilisateur"];
 $idEquipe = $_GET["id"];
 if (!empty($_POST["idEtape"]))
 {

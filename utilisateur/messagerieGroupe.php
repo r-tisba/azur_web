@@ -10,7 +10,7 @@ if (!empty($_GET["id"])) {
 <?php
     header("refresh:200; ../utilisateur/equipe.php");
 }
-$idEmploye = $_SESSION["idUtilisateur"];
+$idUtilisateur = $_SESSION["idUtilisateur"];
 $objetUtilisateur = new Utilisateur();
 $objetMessage = new Message_Groupe();
 $groupe= new Equipe($idEquipe);
@@ -99,7 +99,7 @@ if (!empty($_GET["error"])) {
 
                             <div class="text-muted small"><?= $service->dateFr($date); ?></div>
                         </div>
-                        <?php if ($message["idEmploye"] == $_SESSION["idUtilisateur"]) { ?>
+                        <?php if ($message["idUtilisateur"] == $_SESSION["idUtilisateur"]) { ?>
                             <a href="../traitements/modificationMessageGroupe.php?idMessage=<?= $message["idMessageGroupe"]; ?>" class="icone_edit mr-2">
                                 <i class="far fa-edit"></i>
                             </a>
@@ -118,7 +118,7 @@ if (!empty($_GET["error"])) {
         </div>
     </div>
     <!-- Influe sur l'affichage du message selon son auteur -->
-    <?php if ($message["idEmploye"] != $_SESSION["idUtilisateur"]) { ?> <div class="col-3 col-md-4"></div> <?php } ?>
+    <?php if ($message["idUtilisateur"] != $_SESSION["idUtilisateur"]) { ?> <div class="col-3 col-md-4"></div> <?php } ?>
 </div>
 </div>
 <?php

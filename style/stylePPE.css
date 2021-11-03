@@ -462,10 +462,37 @@ div.div_avatar:hover img
   font-weight: 300;
   letter-spacing: 0.04em;
 }
+.form_profil
+{
+  text-align: center;
+}
 .texte_infos_profil
 {
   font-size: 25px;
   font-weight: 300;
+}
+
+/* LISTES EQUIPES */
+.div_equipes
+{
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+.div_liste_equipes
+{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.div_liste_equipes a
+{
+  color: #373A3C;
+  text-decoration: none;
+}
+.miniatureEquipe
+{
+  width: 6rem;
+  height: 5rem;
 }
 
 /* ---------------- PERMET D'AFFICHER LE CURSEUR DANS LES INPUTS ET TEXTAREA ---------------- */

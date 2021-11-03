@@ -2,14 +2,14 @@
 require_once "../modeles/modele.php";
 require_once "../utilisateur/entete.php";
 $objetMessage = new Message();
-$idEmploye = $_SESSION["idUtilisateur"];
+$idUtilisateur = $_SESSION["idUtilisateur"];
 if (($_GET["id"])) {
     $idDiscussion = $_GET["id"];
 
     if (!empty($_POST["contenu"])) {
         extract($_POST);
 
-        if ($objetMessage->ajoutMessages($idDiscussion, $contenu, $idEmploye) == true)
+        if ($objetMessage->ajoutMessages($idDiscussion, $contenu, $idUtilisateur) == true)
         {
             header("location:../utilisateur/discussion.php?id=$idDiscussion");
         } else {
