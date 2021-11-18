@@ -37,7 +37,7 @@ if (empty($_SESSION["identifiant"])) {
         <div class="navbar-collapse collapse" id="navbarNavDropdown">
             <div class="navbar-nav mr-auto">
                 <?php
-                if (!empty($_SESSION["identifiant"]) && $_SESSION["idRole"] == 2) {
+                if (!empty($_SESSION["identifiant"]) && $_SESSION["role"] == "Admin" || $_SESSION["role"] == "SuperAdmin") {
                 ?>
                     <li class="nav-item">
                         <a class="nav-item nav-link" href="inscription.php">Créer un utilisateur</a>

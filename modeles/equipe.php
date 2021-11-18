@@ -9,7 +9,7 @@ class Equipe extends Modele
     public function __construct($idE = null)
     {
         if ($idE != null) {
-            $requete = $this->getBdd()->prepare("SELECT * FROM equipe");
+            $requete = $this->getBdd()->prepare("SELECT * FROM equipes");
             $requete->execute();
             $equipe = $requete->fetch(PDO::FETCH_ASSOC);
             $this->idEquipe = $idE;
@@ -20,13 +20,13 @@ class Equipe extends Modele
     }
     public function recupererEquipes()
     {
-        $requete = $this->getBDD()->prepare("SELECT * FROM equipe");
+        $requete = $this->getBDD()->prepare("SELECT * FROM equipes");
         $requete->execute();
         return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
     public function recupererEquipeRolesUtilisateurs($idEquipe)
    {
-      $requete = $this->getBDD()->prepare("SELECT * FROM equipe INNER JOIN composition_equipe USING(idEquipe) INNER JOIN utilisateurs USING(idUtilisateur) INNER JOIN roles USING(idRole) WHERE idEquipe=?");
+      $requete = $this->getBDD()->prepare("SELECT * FROM equipes INNER JOIN composition_equipes USING(idEquipe) INNER JOIN utilisateurs USING(idUtilisateur) INNER JOIN roles USING(idRole) WHERE idEquipe=?");
       $requete->execute([$idEquipe]);
       return $requete->fetchAll(PDO::FETCH_ASSOC);
    }
@@ -34,25 +34,24 @@ class Equipe extends Modele
     // recuperer et utiliser idSecteur alors qu'on selectionne idEquipe dans la requête ?
     public function recupererSecteur($idSecteur)
     {
-        $requete = $this->getBDD()->prepare("SELECT nomEquipe FROM equipe WHERE idEquipe = ?");
+        $requete = $this->getBDD()->prepare("SELECT nomEquipe FROM equipes WHERE idEquipe = ?");
         $requete->execute([$idSecteur]);
         return $requete->fetch(PDO::FETCH_ASSOC);
     }
 
     public function recupererProjetEquipe($idEquipe)
     {
-        $requete = $this->getBDD()->prepare("SELECT * FROM equipe INNER JOIN projet USING(idEquipe) WHERE idEquipe = ?");
+        $requete = $this->getBDD()->prepare("SELECT * FROM equipes INNER JOIN projet USING(idEquipe) WHERE idEquipe = ?");
         $requete->execute([$idEquipe]);
         return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function recupererImage($idEquipe)
     {
-        $requete = $this->getBDD()->prepare("SELECT image FROM equipe WHERE idEquipe = ?");
+        $requete = $this->getBDD()->prepare("SELECT image FROM equipes WHERE idEquipe = ?");
         $requete->execute([$idEquipe]);
         return $requete->fetch(PDO::FETCH_ASSOC);
     }
-
 
     public function getIdE()
     {

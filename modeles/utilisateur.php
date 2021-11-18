@@ -9,7 +9,7 @@ class Utilisateur extends Modele
    private $idEquipe;
    private $identifiant;
    private $mdp;
-   private $idRole;
+   private $role;
    private $salaire;
    private $avatar;
 
@@ -28,7 +28,7 @@ class Utilisateur extends Modele
          $this->poste = $infos["poste"];
          $this->identifiant = $infos["identifiant"];
          $this->mdp = $infos["mdp"];
-         $this->idRole = $infos["idRole"];
+         $this->role = $infos["role"];
          $this->avatar = $infos["avatar"];
 
          $requete = $this->getBdd()->prepare("SELECT * FROM discussions WHERE idEnvoyeur = ? OR idDestinataire = ?");
@@ -59,25 +59,25 @@ class Utilisateur extends Modele
 
    public function recupererInfosConnexion($identifiant)
    {
-      $requete = $this->getBDD()->prepare("SELECT idUtilisateur, identifiant, mdp, idRole FROM utilisateurs WHERE identifiant = ?");
+      $requete = $this->getBDD()->prepare("SELECT idUtilisateur, identifiant, mdp, role FROM utilisateurs WHERE identifiant = ?");
       $requete->execute([$identifiant]);
       return $requete;
    }
 
    public function creerUtilisateur($nom, $prenom, $poste, $mdp)
    {
-      $idRole = 1;
+      $role = "Utilisateur";
       $identifiant = strtolower($prenom) . "." . strtolower($nom);
 
-      $requete = $this->getBDD()->prepare("INSERT INTO utilisateurs(nom, prenom, poste, identifiant, mdp, idRole) VALUES(?, ?, ?, ?, ?, ?)");
-      $requete->execute([$nom, $prenom, $poste, $identifiant, $mdp, $idRole]);
+      $requete = $this->getBDD()->prepare("INSERT INTO utilisateurs(nom, prenom, poste, identifiant, mdp, role) VALUES(?, ?, ?, ?, ?, ?)");
+      $requete->execute([$nom, $prenom, $poste, $identifiant, $mdp, $role]);
       return true;
    }
-   public function modifierUtilisateur($idUtilisateur, $nom, $prenom, $poste, $idEquipe, $idRole)
+   public function modifierUtilisateur($idUtilisateur, $nom, $prenom, $poste, $idEquipe, $role)
    {
       $identifiant = strtolower($prenom) . "." . strtolower($nom);
-      $requete = $this->getBDD()->prepare("UPDATE utilisateurs SET nom = ?, prenom = ?, poste = ?, idEquipe = ?, identifiant=?, idRole=? WHERE idUtilisateur = ?");
-      $requete->execute([$nom, $prenom, $poste, $idEquipe, $identifiant, $idRole, $idUtilisateur]);
+      $requete = $this->getBDD()->prepare("UPDATE utilisateurs SET nom = ?, prenom = ?, poste = ?, idEquipe = ?, identifiant=?, role=? WHERE idUtilisateur = ?");
+      $requete->execute([$nom, $prenom, $poste, $idEquipe, $identifiant, $role, $idUtilisateur]);
       return true;
    }
    public function modifierAvatar($avatar, $idUtilisateur)
@@ -111,7 +111,7 @@ class Utilisateur extends Modele
    }
    public function recupererGroupes($idUtilisateur)
    {
-      $requete = $this->getBDD()->prepare("SELECT * FROM utilisateurs LEFT JOIN composition_equipe USING(idUtilisateur) LEFT JOIN equipe USING(idEquipe) WHERE idUtilisateur = ?");
+      $requete = $this->getBDD()->prepare("SELECT * FROM utilisateurs LEFT JOIN composition_equipes USING(idUtilisateur) LEFT JOIN equipes USING(idEquipe) WHERE idUtilisateur = ?");
       $requete->execute([$idUtilisateur]);
       $equipe = $requete->fetchAll(PDO::FETCH_ASSOC);
       return $equipe;
@@ -151,9 +151,9 @@ class Utilisateur extends Modele
    {
       return $this->mdp;
    }
-   public function getidRole()
+   public function getRole()
    {
-      return $this->idRole;
+      return $this->role;
    }
    public function getSalaire()
    {

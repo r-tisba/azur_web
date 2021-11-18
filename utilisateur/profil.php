@@ -8,14 +8,16 @@ $objetEquipe = new Equipe();
 $objetUtilisateur = new Utilisateur($_SESSION["idUtilisateur"]);
 $utilisateur = $objetUtilisateur->recupererUtilisateur($_SESSION["idUtilisateur"]);
 $idUtilisateur = $_SESSION["idUtilisateur"];
-$idRole = $utilisateur["idRole"];
+/*
 $nomRole = $objetUtilisateur->recupererNomRoleViaIdRole($idRole);
 $nomRole = $nomRole["nomRole"];
+*/
+$nomRole = $utilisateur["role"];
 $equipes = $objetUtilisateur->recupererGroupes($idUtilisateur);
 ?>
 
 <div class="container container_profil">
-    <div class="card card_profil_infos col-12">
+    <div class="card card_profil_infos col-12 p-0">
         <div class="card-header">
             <div class="show-image">
                 <a href="../utilisateur/modifierAvatar.php">
@@ -35,17 +37,24 @@ $equipes = $objetUtilisateur->recupererGroupes($idUtilisateur);
         <div class="card-body">
             <div class="form-group form_profil">
                 <h3 class="texte_infos_profil">Poste : <?= $objetUtilisateur->getPoste(); ?></h3>
-                <div class="row div_equipes">
-                    <h3 class="texte_infos_profil">Équipe :</h3>
+                <div class="row div_equipes mb-3">
+                    <h3 class="texte_infos_profil mt-2 mb-0">Équipe :</h3>
                     <div class="div_liste_equipes">
                         <?php
+
                         if (!empty($equipes))
                         {
                             foreach ($equipes as $equipe)
                             {
-                                $idEquipe = $equipe["idEquipe"];
-                                $imageEquipe = $objetEquipe->recupererImage($equipe["idEquipe"]);
-                                ?>
+                                if (empty($equipe["idEquipe"]))
+                                {
+                                    ?>
+                                    <p class="texte_infos_profil">Vous ne faites parti d'aucune équipe.</p>
+                                    <?php
+                                } else {
+                                    $idEquipe = $equipe["idEquipe"];
+                                    $imageEquipe = $objetEquipe->recupererImage($equipe["idEquipe"]);
+                                    ?>
                                 <a href="../utilisateur/equipe.php?id=<?= $idEquipe; ?>">
                                     <div class="div_image_equipe">
                                         <?php
@@ -63,11 +72,10 @@ $equipes = $objetUtilisateur->recupererGroupes($idUtilisateur);
                                         ?>
                                     </div>
                                 </a>
-                            <?php
+                                <?php
+                                }
                             }
                         }
-
-
                         ?>
                     </div>
                 </div>

@@ -145,8 +145,8 @@ foreach($discussions as $discussion)
 
                 <div class="media-body ml-3">
                     Conversation avec :
-                    <?php if($contact["idRole"]==2) { ?> <a style="color:blue;"> <?=$contact["prenom"] . " " . $contact["nom"];?></a>
-                    <?php } if($contact["idRole"]==1){?><a><?=$contact["prenom"] . " " . $contact["nom"];?></a><?php } ?>
+                    <?php if($contact["role"]=="Admin" || $contact["role"]=="SuperAdmin") { ?> <a style="color:blue;"> <?=$contact["prenom"] . " " . $contact["nom"];?></a>
+                    <?php } if($contact["role"]=="Utilisateur"){?><a><?=$contact["prenom"] . " " . $contact["nom"];?></a><?php } ?>
                     <div class="text-muted small">Dernière activité : <?=$service->dateFr($dernierMessage["max_date"]);?></div>
                 </div>
                 <!-- Top right -->
@@ -195,8 +195,8 @@ foreach($discussions as $discussion)
 
                 <div class="media-body ml-3">
                     Conversation avec :
-                    <?php if($contact["idRole"]==2) { ?> <a style="color:blue;"> <?=$contact["prenom"] . " " . $contact["nom"];?></a>
-                    <?php } if($contact["idRole"]==1){?><a><?=$contact["prenom"] . " " . $contact["nom"];?></a><?php } ?>
+                    <?php if($contact["role"]=="Admin" || $contact["role"]=="SuperAdmin") { ?> <a style="color:rgb(0,157,236);"> <?=$contact["prenom"] . " " . $contact["nom"];?></a>
+                    <?php } if($contact["role"]=="Utilisateur"){?><a><?=$contact["prenom"] . " " . $contact["nom"];?></a><?php } ?>
                     <div class="text-muted small">Dernière activité : <?=$service->dateFr($dernierMessage["max_date"]);?></div>
                 </div>
                 <!-- Top right -->

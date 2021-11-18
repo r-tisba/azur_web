@@ -45,11 +45,11 @@ class Projet extends Modele
 
     public function recupererProjetEquipe($idProjet)
     {
-        $requete = $this->getBDD()->prepare("SELECT * FROM projet INNER JOIN equipe USING(idProjet)  WHERE idProjet = ?");
+        $requete = $this->getBDD()->prepare("SELECT * FROM projet INNER JOIN equipes USING(idProjet)  WHERE idProjet = ?");
         $requete->execute([$idProjet]);
         return $requete->fetch(PDO::FETCH_ASSOC);
     }
-    
+
     public function getIdEquipe()
     {
         return $this->idEquipe;

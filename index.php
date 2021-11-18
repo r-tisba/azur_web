@@ -1,8 +1,8 @@
 <?php
-if (!empty($_SESSION["idRole"]) && $_SESSION["idRole"] == 2)
+if (!empty($_SESSION["role"]) && $_SESSION["role"] == "Admin" || $_SESSION["role"] == "SuperAdmin")
 {
     header("location:utilisateur/index.php");
-} else if (!empty($_SESSION["idRole"]) && $_SESSION["idRole"] == 1)
+} else if (!empty($_SESSION["role"]) && $_SESSION["role"] == "Utilisateur")
 {
     header("location:utilisateur/index.php");
 } else
