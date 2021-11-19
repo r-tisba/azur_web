@@ -37,7 +37,7 @@ if (!empty($_POST["inputModifMessage"])) {
     <div class="container-fluid mt-100">
         <div class="row">
             <div class="col-md-12">
-                <div class="card mb-4">
+                <div class="card mb-4 cardMessage_perso">
                     <div class="card-header">
                         <div class="media flex-wrap w-100 align-items-center">
                             <div class="avatar">
@@ -47,7 +47,7 @@ if (!empty($_POST["inputModifMessage"])) {
                                 <a><?= $message["prenom"]; ?></a>
                                 <a><?= $message["nom"]; ?></a>
 
-                                <div class="text-muted small"><?= $service->dateFr($date); ?></div>
+                                <div class="text-muted small"><?= $service->dateFrAvecHeure($date); ?></div>
                             </div>
                         </div>
                     </div>

@@ -51,7 +51,7 @@ if (!empty($_POST["inputModifMessage"])) {
                                 <a><?= $message["prenom"]; ?></a>
                                 <a><?= $message["nom"]; ?></a>
 
-                                <div class="text-muted small"><?= $service->dateFr($date); ?></div>
+                                <div class="text-muted small"><?= $service->dateFrAvecHeure($date); ?></div>
                             </div>
                         </div>
                     </div>

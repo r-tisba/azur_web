@@ -129,7 +129,7 @@ foreach($discussions as $discussion)
         $contact = $objetUtilisateur->recupererUtilisateur($idContact);
         $dernierMessage = $objetMessage->recupererDernierMessage($discussion["idDiscussion"]);
         ?>
-        <div class="container-fluid mt-100">
+        <div class="container-fluid">
         <div class="row">
         <div class="col-md-12">
         <div class="card mb-4" style="border: none;">
@@ -147,7 +147,7 @@ foreach($discussions as $discussion)
                     Conversation avec :
                     <?php if($contact["role"]=="Admin" || $contact["role"]=="SuperAdmin") { ?> <a style="color:blue;"> <?=$contact["prenom"] . " " . $contact["nom"];?></a>
                     <?php } if($contact["role"]=="Utilisateur"){?><a><?=$contact["prenom"] . " " . $contact["nom"];?></a><?php } ?>
-                    <div class="text-muted small">Dernière activité : <?=$service->dateFr($dernierMessage["max_date"]);?></div>
+                    <div class="text-muted small">Dernière activité : <?=$service->dateFrAvecHeure($dernierMessage["max_date"]);?></div>
                 </div>
                 <!-- Top right -->
                 <a href="../traitements/supprimerDiscussion.php?idDiscussion=<?=$discussion["idDiscussion"];?>" class="icone_poubelle" onclick="return confirm('Êtes-vous sûr de vouloir supprimer la discussion ? Tous les messages seront également supprimés')">
@@ -179,7 +179,7 @@ foreach($discussions as $discussion)
         $contact = $objetUtilisateur->recupererUtilisateur($idContact);
         $dernierMessage = $objetMessage->recupererDernierMessage($discussion["idDiscussion"]);
         ?>
-        <div class="container-fluid mt-100">
+        <div class="container-fluid">
         <div class="row">
         <div class="col-md-12">
         <div class="card mb-4" style="border: none;">
@@ -197,7 +197,7 @@ foreach($discussions as $discussion)
                     Conversation avec :
                     <?php if($contact["role"]=="Admin" || $contact["role"]=="SuperAdmin") { ?> <a style="color:rgb(0,157,236);"> <?=$contact["prenom"] . " " . $contact["nom"];?></a>
                     <?php } if($contact["role"]=="Utilisateur"){?><a><?=$contact["prenom"] . " " . $contact["nom"];?></a><?php } ?>
-                    <div class="text-muted small">Dernière activité : <?=$service->dateFr($dernierMessage["max_date"]);?></div>
+                    <div class="text-muted small">Dernière activité : <?=$service->dateFrAvecHeure($dernierMessage["max_date"]);?></div>
                 </div>
                 <!-- Top right -->
                 <a href="../traitements/supprimerDiscussion.php?idDiscussion=<?=$discussion["idDiscussion"];?>" class="icone_poubelle" onclick="return confirm('Êtes-vous sûr de vouloir supprimer la discussion ? Tous les messages seront également supprimés')">

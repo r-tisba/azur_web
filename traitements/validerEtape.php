@@ -9,8 +9,8 @@ if (!empty($_POST["idEtape"]))
     extract($_POST);
         if ($etape->validerEtape($idEtape) == true)
         {
-            header("location:../utilisateur/projet.php?id=$idEquipe");
+            header("location:../utilisateur/listeProjets.php?id=$idEquipe");
         }
 }else{
-    header("location:../utilisateur/projet.php?error=missing&id=$idEquipe");
+    header("location:../utilisateur/listeProjets.php?error=missing&id=$idEquipe");
 }

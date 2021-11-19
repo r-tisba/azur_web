@@ -11,11 +11,11 @@ if (!empty($_POST["nom"]) && !empty($_POST["dateDebut"]) && !empty($_POST["dateF
 
         if ($etape->creerEtape($idProjet, $dateDebut, $dateFin, $nom) == true)
         {
-            header("location:../utilisateur/projet.php?id=$idEquipe");
+            header("location:../utilisateur/listeProjets.php?id=$idEquipe");
         } else {
-            header("location:../utilisateur/projet.php?error=fonction&id=$idEquipe");
+            header("location:../utilisateur/listeProjets.php?error=fonction&id=$idEquipe");
         }
 
 } else {
-    header("location:../utilisateur/projet.php?error=missing&id=$idEquipe");
+    header("location:../utilisateur/listeProjets.php?error=missing&id=$idEquipe");
 }

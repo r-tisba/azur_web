@@ -15,7 +15,7 @@ class Projet extends Modele
     {
 
         if ($idP != null) {
-            $requete = $this->getBdd()->prepare("SELECT * FROM projet");
+            $requete = $this->getBdd()->prepare("SELECT * FROM projets");
             $requete->execute();
             $projet = $requete->fetchAll(PDO::FETCH_ASSOC);
 
@@ -31,21 +31,21 @@ class Projet extends Modele
     }
     public function recupererProjets()
     {
-        $requete = $this->getBDD()->prepare("SELECT * FROM projet");
+        $requete = $this->getBDD()->prepare("SELECT * FROM projets");
         $requete->execute();
         return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
     public function ajoutProjet($idEquipe, $nom, $dateDebut, $dateFin, $importance)
     {
         $fini = 0;
-        $requete = $this->getBDD()->prepare("INSERT INTO projet(idEquipe, nom, dateDebut, dateFin, importance, fini) VALUES(?,?,?,?,?,?)");
+        $requete = $this->getBDD()->prepare("INSERT INTO projets(idEquipe, nom, dateDebut, dateFin, importance, fini) VALUES(?,?,?,?,?,?)");
         $requete->execute([$idEquipe, $nom, $dateDebut, $dateFin, $importance, $fini]);
         return true;
     }
 
     public function recupererProjetEquipe($idProjet)
     {
-        $requete = $this->getBDD()->prepare("SELECT * FROM projet INNER JOIN equipes USING(idProjet)  WHERE idProjet = ?");
+        $requete = $this->getBDD()->prepare("SELECT * FROM projets INNER JOIN equipes USING(idProjet)  WHERE idProjet = ?");
         $requete->execute([$idProjet]);
         return $requete->fetch(PDO::FETCH_ASSOC);
     }

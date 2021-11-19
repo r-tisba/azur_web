@@ -13,7 +13,7 @@ class Etape extends Modele
     {
         if($idE != null)
         {
-            $requete = $this->getBdd()->prepare("SELECT * FROM etape");
+            $requete = $this->getBdd()->prepare("SELECT * FROM etapes");
             $requete->execute();
             $etape = $requete->fetchAll(PDO::FETCH_ASSOC);
 
@@ -26,40 +26,77 @@ class Etape extends Modele
         }
     }
 
-    public function creerEtape($idProjet, $dateDebut, $dateFin, $nomEtape){
-        $requete= $this->getBdd()->prepare("INSERT INTO etape(idProjet, dateDebut, dateFin, nomEtape) VALUES(?,?,?,?)");
+    public function recupererEtapesProjet($idProjet)
+    {
+        $requete= $this->getBdd()->prepare("SELECT * FROM etapes INNER JOIN projets USING(idProjet) WHERE idProjet = ?");
+        $requete->execute([$idProjet]);
+        return $requete->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function recupererEtapesProjetNonFini($idProjet)
+    {
+        $requete= $this->getBdd()->prepare("SELECT * FROM etapes INNER JOIN projets USING(idProjet) WHERE idProjet = ? AND etapes.fini = 0");
+        $requete->execute([$idProjet]);
+        return $requete->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function recupererProjetViaEtape($idEtape)
+    {
+        $requete= $this->getBdd()->prepare("SELECT * FROM etapes INNER JOIN projets USING(idProjet) WHERE idEtape = ?");
+        $requete->execute([$idEtape]);
+        return $requete->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function creerEtape($idProjet, $dateDebut, $dateFin, $nomEtape)
+    {
+        $requete= $this->getBdd()->prepare("INSERT INTO etapes(idProjet, dateDebut, dateFin, nomEtape) VALUES(?,?,?,?)");
         $requete->execute([$idProjet, $dateDebut, $dateFin, $nomEtape]);
         return true;
     }
-
-    public function validerEtape($idEtape){
-        $requete = $this->getBdd()->prepare("UPDATE etape SET fini=1 WHERE idEtape=?");
+    public function validerEtape($idEtape)
+    {
+        $requete = $this->getBdd()->prepare("UPDATE etapes SET fini=1 WHERE idEtape=?");
         $requete->execute([$idEtape]);
         return true;
     }
-    public function invaliderEtape($idEtape){
-        $requete = $this->getBdd()->prepare("ALTER TABLE etape SET fini=0 WHERE idEtape=?");
+    public function invaliderEtape($idEtape)
+    {
+        $requete = $this->getBdd()->prepare("ALTER TABLE etapes SET fini=0 WHERE idEtape=?");
         $requete->execute([$idEtape]);
         return true;
     }
-    public function barreProgression($idProjet){
-        $requete = $this->getBdd()->prepare("SELECT COUNT(*) FROM etape WHERE idProjet=?");
+    public function barreProgression($idProjet)
+    {
+        $requete = $this->getBdd()->prepare("SELECT COUNT(*) FROM etapes WHERE idProjet=?");
         $requete->execute([$idProjet]);
         $barreProgression=$requete->fetch(PDO::FETCH_ASSOC);
         return $barreProgression;
     }
-    public function progression($idProjet){
-        $requete = $this->getBdd()->prepare("SELECT COUNT(*) FROM etape WHERE idProjet=? AND fini=1");
+    public function progression($idProjet)
+    {
+        $requete = $this->getBdd()->prepare("SELECT COUNT(*) FROM etapes WHERE idProjet=? AND fini=1");
         $requete->execute([$idProjet]);
         $progression=$requete->fetch(PDO::FETCH_ASSOC);
         return $progression;
     }
-    public function etapeProjet($idProjet){
-        $requete = $this->getBdd()->prepare("SELECT * FROM etape WHERE idProjet=? AND fini=0");
+    public function etapeProjet($idProjet)
+    {
+        $requete = $this->getBdd()->prepare("SELECT * FROM etapes WHERE idProjet=? AND fini=0");
         $requete->execute([$idProjet]);
         $etape=$requete->fetchAll(PDO::FETCH_ASSOC);
         return $etape;
     }
-
-
+    public function etapeEnCours($idEtape)
+    {
+        $requete = $this->getBdd()->prepare("SELECT * FROM etapes
+        WHERE idEtape = ? AND fini = 0 AND ((NOW() >= dateDebut AND NOW() <= dateFin) OR NOW() >= dateDebut AND ISNULL(dateFin))");
+        $requete->execute([$idEtape]);
+        $etape = $requete->fetch(PDO::FETCH_ASSOC);
+        if(empty($etape))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 }

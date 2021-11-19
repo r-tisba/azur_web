@@ -33,6 +33,12 @@ body
   align-self: center;
   align-content: center;
 }
+.container_wrap
+{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 .titre
 {
   font-family: 'Lato', sans-serif;
@@ -169,7 +175,7 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
 .imageSecteurGrand
 {
   width: 100%;
-  height: 100%;
+  height: 22rem;
 }
 .avatarProfil
 {
@@ -408,6 +414,102 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
   letter-spacing: 0.08em;
 }
 
+/* ---------------- GESTION DE PROJET ---------------- */
+.div_lien_projet a
+{
+  color: black;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.header_projet
+{
+  color: white;
+  background-color: #343a40!important;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+}
+.div_titre_projet
+{
+  padding: 0;
+}
+@media screen and (min-width: 768px)
+{
+  .div_titre_projet
+  {
+    display: inline-block;
+    border: 2px solid white;
+    border-left: none;
+    border-top: none;
+    border-bottom: none;
+  }
+}
+.titre_projet
+{
+  color: #00BFFF;
+  text-transform: uppercase;
+  font-size: 40px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  margin-bottom: 0;
+  text-align: center;
+}
+.div_intitule_dateDeb
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.intitule_projet
+{
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  margin-bottom: 0;
+}
+.div_progressbar
+{
+  display: flex;
+  overflow: hidden;
+  border: 1px solid black;
+  height: 1.2rem;
+  font-size: .75rem;
+  border-radius: 0.25rem;
+}
+.liste_etapes_vide
+{
+  text-align: center;
+  font-size: 20px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+}
+.div_etape
+{
+  display: flex;
+  justify-content: space-between;
+
+  font-size: 1.2rem;
+}
+.icone_cercle
+{
+  color: #00BFFF;
+}
+.div_hr
+{
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 100%;
+}
+.hrPerso
+{
+  width: 70%;
+  border-radius: 10px;
+  color: black;
+  background-color: black;
+  opacity: 1 !important;
+}
 /* ---------------- PROFIL ---------------- */
 .texte
 {
@@ -421,6 +523,12 @@ div.show-image
 {
   display: flex;
   justify-content: center;
+}
+.div_avatar a
+{
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 .div_avatar, .avatarProfil
 {
@@ -475,8 +583,6 @@ div.div_avatar:hover img
   font-size: 25px;
   font-weight: 300;
 }
-
-/* LISTES EQUIPES */
 .div_equipes
 {
   flex-direction: column;
@@ -495,9 +601,8 @@ div.div_avatar:hover img
 .miniatureEquipe
 {
   width: 6rem;
-  height: 5rem;
+  height: 5.5rem;
 }
-
 .row_modifAvatar
 {
   text-align: center;

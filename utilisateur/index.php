@@ -18,7 +18,7 @@ if(!isset($_SESSION["identifiant"]))
         <div class="col-12 col-lg-4 col-md-6 mb-4">
           <div class="card shadow-sm">
             <div class="card-body outil">
-            <h5 class="card-title titreOutil">Salaire</h5>
+            <h5 class="card-title titreOutil">Casier virtuel</h5>
             <p class="card-text texteOutil">Vos documents</p>
               <div class="d-flex justify-content-center">
                 <div class="btn-group">
@@ -52,11 +52,11 @@ if(!isset($_SESSION["identifiant"]))
         <div class="col-12 col-lg-4 col-md-6 mb-4">
           <div class="card shadow-sm">
             <div class="card-body outil">
-              <h5 class="card-title titreOutil">Vos équipes</h5>
+              <h5 class="card-title titreOutil">Équipes</h5>
               <p class="card-text texteOutil">Vos projets en cours</p>
               <div class="d-flex justify-content-center">
                 <div class="btn-group">
-                  <a href="listeEquipe.php">
+                  <a href="listeEquipes.php">
                   <img src="../images/design/equipe.png" class="imageSecteur"/>
                   </a>
                 </div>

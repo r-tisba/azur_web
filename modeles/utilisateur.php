@@ -109,7 +109,7 @@ class Utilisateur extends Modele
          return $identifiant["identifiant"];
       }
    }
-   public function recupererGroupes($idUtilisateur)
+   public function recupererEquipesViaIdUtilisateur($idUtilisateur)
    {
       $requete = $this->getBDD()->prepare("SELECT * FROM utilisateurs LEFT JOIN composition_equipes USING(idUtilisateur) LEFT JOIN equipes USING(idEquipe) WHERE idUtilisateur = ?");
       $requete->execute([$idUtilisateur]);

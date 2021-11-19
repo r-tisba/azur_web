@@ -4,6 +4,15 @@ class Service
     public function dateFr($date)
     {
         if ($datetime = DateTime::createfromformat("Y-m-d H:i:s", $date)) {
+            return $date = $datetime->format("d/m/Y");
+        } else if ($datetime = DateTime::createfromformat("Y-m-d", $date)) {
+            return $date = $datetime->format("d/m/Y");
+        }
+    }
+
+    public function dateFrAvecHeure($date)
+    {
+        if ($datetime = DateTime::createfromformat("Y-m-d H:i:s", $date)) {
             return $date = $datetime->format("d/m/Y à H:i");
         } else if ($datetime = DateTime::createfromformat("Y-m-d", $date)) {
             return $date = $datetime->format("d/m/Y");
@@ -53,7 +62,7 @@ class Service
                                     <div class="media-body">
                                         <a class="apercu_nom"><?= $dernierMessage["prenom"]; ?> <?= $dernierMessage["nom"]; ?></a>
 
-                                        <!-- <div class="text-muted small"><?= $service->dateFr($date); ?></div> -->
+                                        <!-- <div class="text-muted small"><?= $service->dateFrAvecHeure($date); ?></div> -->
                                     </div>
                                     <div class="text-muted small"><?= $service->heureViaDate($date); ?></div>
                                 </div>

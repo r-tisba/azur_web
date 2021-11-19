@@ -8,15 +8,16 @@ if (!empty($_GET["id"])) {
 ?>
     <div class="alert alert-danger mt-2">Erreur lors de la récupération de l'idEquipe</div>
 <?php
-    header("refresh:200; ../utilisateur/equipe.php");
+    header("refresh:2; ../utilisateur/equipe.php");
 }
+
 $idUtilisateur = $_SESSION["idUtilisateur"];
+$idEquipe = $_GET["id"];
 $objetUtilisateur = new Utilisateur();
-$objetMessage = new Message_Groupe();
-$groupe= new Equipe($idEquipe);
+$objetMessageGroupe = new Message_Groupe();
 $service = new Service();
-$messages = $objetMessage->recupererMessages($idEquipe);
-$nomGroupe = $groupe->getNomEquipe();
+$messages = $objetMessageGroupe->recupererMessagesEquipe($idEquipe);
+$nomGroupe = $messages[0]["nomEquipe"]
 
 ?>
 <div class="fleche_retour mb-2 ml-4">
@@ -27,18 +28,17 @@ $nomGroupe = $groupe->getNomEquipe();
 </div>
 <?php
 /* GESTION DES ERREURS OU SUCCES */
-if (!empty($_GET["success"]) && $_GET["success"] == "suppression") {
-?>
+if (!empty($_GET["success"]) && $_GET["success"] == "suppression")
+{
+    ?>
     <div class="alert alert-success mt-3">La supression a bien été effectué</div>
-<?php
-    $idEquipe = $_GET["id"];
-    
+    <?php
     header("refresh:2;../utilisateur/messagerieGroupe.php?id=$idEquipe");
-} else if (!empty($_GET["success"]) && $_GET["success"] == "modification") {
-?>
+} else if (!empty($_GET["success"]) && $_GET["success"] == "modification")
+{
+    ?>
     <div class="alert alert-success mt-3">La modification a bien été effectué</div>
-<?php
-    $idEquipe = $_GET["id"];
+    <?php
     header("refresh:2; ../utilisateur/messagerieGroupe.php?id=$idEquipe");
 }
 if (!empty($_GET["error"])) {
@@ -83,11 +83,12 @@ if (!empty($_GET["error"])) {
         </div>
         <div class="card-body bodyDiscussion">
             <?php
-            foreach ($messages as $message) {
+            foreach ($messages as $message)
+            {
                 $date = $message["date"];
                 /* dispositionMessages() détermine l'affichage du message dans le fil selon son auteur */
                 $service->dispositionMessages($message);
-            ?>
+                ?>
                 <div class="card-header">
                     <div class="media flex-wrap w-100 align-items-center">
                         <div class="avatar">
@@ -97,7 +98,7 @@ if (!empty($_GET["error"])) {
                             <a><?= $message["prenom"]; ?></a>
                             <a><?= $message["nom"]; ?></a>
 
-                            <div class="text-muted small"><?= $service->dateFr($date); ?></div>
+                            <div class="text-muted small"><?= $service->dateFrAvecHeure($date); ?></div>
                         </div>
                         <?php if ($message["idUtilisateur"] == $_SESSION["idUtilisateur"]) { ?>
                             <a href="../traitements/modificationMessageGroupe.php?idMessage=<?= $message["idMessageGroupe"]; ?>" class="icone_edit mr-2">

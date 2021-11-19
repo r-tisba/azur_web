@@ -2,8 +2,9 @@
 require_once "../modeles/modele.php";
 session_start();
 
-if (empty($_SESSION["identifiant"])) {
-  header("location:index.php");
+if (!isset($_SESSION["identifiant"]))
+{
+  header("location:../visiteur/index.php");
 }
 ?>
 
@@ -23,7 +24,7 @@ if (empty($_SESSION["identifiant"])) {
 
 <body>
   <nav class="navbar navbar-dark navbar-expand-md bg-dark">
-    <a class="navbar-brand titre" href="index.php">
+    <a class="navbar-brand titre" href="/ap/azur_web/utilisateur/index.php">
       <img src="../images/design/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
       Azur
     </a>
@@ -34,13 +35,13 @@ if (empty($_SESSION["identifiant"])) {
     <div class="navbar-collapse collapse" id="navbarNavDropdown">
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-item nav-link" href="profil.php">Profil</a>
+          <a class="nav-item nav-link" href="/ap/azur_web/utilisateur/profil.php">Profil</a>
         </li>
         <?php
         if (!empty($_SESSION["identifiant"]) && $_SESSION["role"] == "Admin" || $_SESSION["role"] == "SuperAdmin") {
         ?>
           <li class="nav-item">
-            <a class="nav-item nav-link" href="inscription.php">Créer un utilisateur</a>
+            <a class="nav-item nav-link" href="/ap/azur_web/utilisateur/inscription.php">Créer un utilisateur</a>
           </li>
         <?php
         }
@@ -60,7 +61,7 @@ if (empty($_SESSION["identifiant"])) {
               <?= "Vous êtes connecté " . $_SESSION["identifiant"] ?>
             </a>
           </div>
-          <a class="btn btn-outline-danger ml-1" href="deconnexion.php">Se déconnecter</a>
+          <a class="btn btn-outline-danger ml-1" href="/ap/azur_web/utilisateur/deconnexion.php">Se déconnecter</a>
         <?php
         }
         ?>

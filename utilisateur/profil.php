@@ -13,7 +13,7 @@ $nomRole = $objetUtilisateur->recupererNomRoleViaIdRole($idRole);
 $nomRole = $nomRole["nomRole"];
 */
 $nomRole = $utilisateur["role"];
-$equipes = $objetUtilisateur->recupererGroupes($idUtilisateur);
+$equipes = $objetUtilisateur->recupererEquipesViaIdUtilisateur($idUtilisateur);
 ?>
 
 <div class="container container_profil">
@@ -23,7 +23,6 @@ $equipes = $objetUtilisateur->recupererGroupes($idUtilisateur);
                 <a href="../utilisateur/modifierAvatar.php">
                     <div class="div_avatar">
                         <img src="<?= $objetUtilisateur->getAvatar(); ?>" class="rounded-circle avatarProfil">
-
                     </div>
                     <i class="fas fa-camera icone_camera"></i>
                 </a>

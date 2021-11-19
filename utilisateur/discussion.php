@@ -101,7 +101,7 @@ if (!empty($_GET["error"])) {
                             <a><?= $message["prenom"]; ?></a>
                             <a><?= $message["nom"]; ?></a>
 
-                            <div class="text-muted small"><?= $service->dateFr($date); ?></div>
+                            <div class="text-muted small"><?= $service->dateFrAvecHeure($date); ?></div>
                         </div>
                         <?php if ($message["idUtilisateur"] == $_SESSION["idUtilisateur"]) { ?>
                             <a href="../traitements/modificationMessage.php?idMessage=<?= $message["idMessage"]; ?>" class="icone_edit mr-2">
