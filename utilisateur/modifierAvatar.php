@@ -2,6 +2,14 @@
 require_once "../utilisateur/entete.php";
 require_once "../modeles/modele.php";
 ?>
+
+<div class="fleche_retour mb-2 ml-4">
+    <a href="../utilisateur/profil.php" class="retour">
+        <i class="fas fa-chevron-left"></i>
+        Retour
+    </a>
+</div>
+
 <div class="container">
     <div class="row row_modifAvatar">
         <div class="col-8">
@@ -60,9 +68,9 @@ require_once "../modeles/modele.php";
                     <form action="../traitements/modifierAvatar.php" method="post" enctype="multipart/form-data">
                         <div class="row row_form_modifAvatar">
                             <div class="div_import_image">
-                                <input type="file" name="image" />
+                                <input class="input_avatar" type="file" name="image" />
                             </div>
-                            <div class="text-center">
+                            <div class="text-center py-2">
                                 <button class="btn btn-outline-primary align-center" type="submit">Modifier la photo de profil</button>
                             </div>
                         </div>

@@ -2,10 +2,11 @@
 require_once "entete.php";
 
 $idEquipe = $_GET["id"];
-$equipe = new Equipe();
+$objetEquipe = new Equipe();
 $objetEtape = new Etape();
+$objetProjet = new Projet();
 $service = new Service();
-$projets = $equipe->recupererProjetEquipe($idEquipe);
+$projets = $objetProjet->recupererProjetsEquipe($idEquipe);
 ?>
 <div class="fleche_retour mb-2 ml-4">
     <a href="../utilisateur/equipe.php?id=<?= $idEquipe ?>" class="retour">
@@ -15,6 +16,7 @@ $projets = $equipe->recupererProjetEquipe($idEquipe);
 </div>
 <div class="container">
     <!-- ----------------------------- HAMBURGER AJOUT PROJET ----------------------------- -->
+    <!--
     <div class="row">
         <div class="col-md-12 mb-3">
             <div class="card cardHamburger">
@@ -58,7 +60,7 @@ $projets = $equipe->recupererProjetEquipe($idEquipe);
             </div>
         </div>
     </div>
-
+    -->
     <!-- ----------------------------- PROJETS EN COURS ----------------------------- -->
     <h1 class="titreCentrePetit"> Projets en cours : </h1>
 
@@ -102,13 +104,18 @@ $projets = $equipe->recupererProjetEquipe($idEquipe);
                                     </div>
 
                                     <div class="div_liste_etapes mt-3">
-                                        <h3 class="titre">Étape(s) en cours :</h3>
+                                        <h3 class="titre mb-3">Étape(s) en cours :</h3>
                                         <?php
 
                                         $idProjet = $projet["idProjet"];
                                         $etapes = $objetEtape->recupererEtapesProjetNonFini($idProjet);
-                                        $lengthEtapes = count($etapes);
-                                        $count = 0;
+                                        $countEtapesEnCours = 0;
+                                        $compteur = 0;
+
+                                        foreach ($etapes as $etape)
+                                        {
+                                            if($objetEtape->etapeEnCours($etape["idEtape"]) == true) { $countEtapesEnCours++; }
+                                        }
 
                                         if(empty($etapes))
                                         {
@@ -119,23 +126,35 @@ $projets = $equipe->recupererProjetEquipe($idEquipe);
                                             <?php
                                         } else
                                         {
-
                                             foreach ($etapes as $etape)
                                             {
+
                                                 $idProjet = $objetEtape->recupererProjetViaEtape($etape["idEtape"]);
 
                                                 if($objetEtape->etapeEnCours($etape["idEtape"]) == true)
                                                 {
-                                                    $count++;
+                                                    $compteur++;
                                                     ?>
                                                     <div class="div_etape px-4">
                                                         <div class="div_etape_nom">
                                                             <i class="far fa-circle icone_cercle"></i>
                                                             <?= $etape["nomEtape"] ?>
                                                         </div>
-                                                        A finir pour le : <?= $service->dateFr($etape["dateFin"]) ?>
+                                                        A finir pour le :
+                                                        <?php
+                                                        if(!empty($etape["dateFin"]))
+                                                        {
+                                                            print_r($service->dateFr($etape["dateFin"]));
+
+                                                        } else {
+                                                            ?>
+                                                            Date non spécifié
+                                                            <?php
+                                                        }
+                                                        ?>
                                                     </div>
-                                                    <?php if($count != $lengthEtapes)
+                                                    <?php
+                                                    if($countEtapesEnCours != $compteur)
                                                     {
                                                         ?>
                                                         <div class="div_hr my-2">

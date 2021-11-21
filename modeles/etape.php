@@ -6,7 +6,7 @@ class Etape extends Modele
     private $idProjet;
     private $dateDebut;
     private $dateFin;
-    private $fini;
+    private $etatEtape;
     private $nomEtape;
 
     public function __construct($idE = null)
@@ -21,20 +21,19 @@ class Etape extends Modele
             $this->idProjet = $etape["idProjet"];
             $this->dateDebut = $etape["dateDebut"];
             $this->dateFin = $etape["dateFin"];
-            $this->fini = $etape["fini"];
+            $this->etatEtape = $etape["etatEtape"];
             $this->nomEtape = $etape["nomEtape"];
         }
     }
-
     public function recupererEtapesProjet($idProjet)
     {
-        $requete= $this->getBdd()->prepare("SELECT * FROM etapes INNER JOIN projets USING(idProjet) WHERE idProjet = ?");
+        $requete= $this->getBdd()->prepare("SELECT idProjet, idEtape, nomEtape, e.dateDebut, e.dateFin, etatEtape, nom, contexte FROM etapes e INNER JOIN projets p USING(idProjet) WHERE idProjet = ?");
         $requete->execute([$idProjet]);
         return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
     public function recupererEtapesProjetNonFini($idProjet)
     {
-        $requete= $this->getBdd()->prepare("SELECT * FROM etapes INNER JOIN projets USING(idProjet) WHERE idProjet = ? AND etapes.fini = 0");
+        $requete= $this->getBdd()->prepare("SELECT idProjet, idEtape, nomEtape, e.dateDebut, e.dateFin, etatEtape, nom, contexte FROM etapes e INNER JOIN projets p USING(idProjet) WHERE idProjet = ? AND etatEtape = 0");
         $requete->execute([$idProjet]);
         return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -53,13 +52,13 @@ class Etape extends Modele
     }
     public function validerEtape($idEtape)
     {
-        $requete = $this->getBdd()->prepare("UPDATE etapes SET fini=1 WHERE idEtape=?");
+        $requete = $this->getBdd()->prepare("UPDATE etapes SET etatEtape=1 WHERE idEtape=?");
         $requete->execute([$idEtape]);
         return true;
     }
     public function invaliderEtape($idEtape)
     {
-        $requete = $this->getBdd()->prepare("ALTER TABLE etapes SET fini=0 WHERE idEtape=?");
+        $requete = $this->getBdd()->prepare("ALTER TABLE etapes SET etatEtape=0 WHERE idEtape=?");
         $requete->execute([$idEtape]);
         return true;
     }
@@ -72,14 +71,14 @@ class Etape extends Modele
     }
     public function progression($idProjet)
     {
-        $requete = $this->getBdd()->prepare("SELECT COUNT(*) FROM etapes WHERE idProjet=? AND fini=1");
+        $requete = $this->getBdd()->prepare("SELECT COUNT(*) FROM etapes WHERE idProjet=? AND etatEtape=1");
         $requete->execute([$idProjet]);
         $progression=$requete->fetch(PDO::FETCH_ASSOC);
         return $progression;
     }
     public function etapeProjet($idProjet)
     {
-        $requete = $this->getBdd()->prepare("SELECT * FROM etapes WHERE idProjet=? AND fini=0");
+        $requete = $this->getBdd()->prepare("SELECT * FROM etapes WHERE idProjet=? AND etatEtape=0");
         $requete->execute([$idProjet]);
         $etape=$requete->fetchAll(PDO::FETCH_ASSOC);
         return $etape;
@@ -87,7 +86,7 @@ class Etape extends Modele
     public function etapeEnCours($idEtape)
     {
         $requete = $this->getBdd()->prepare("SELECT * FROM etapes
-        WHERE idEtape = ? AND fini = 0 AND ((NOW() >= dateDebut AND NOW() <= dateFin) OR NOW() >= dateDebut AND ISNULL(dateFin))");
+        WHERE idEtape = ? AND etatEtape = 0 AND ((NOW() >= dateDebut AND NOW() <= dateFin) OR NOW() >= dateDebut AND ISNULL(dateFin))");
         $requete->execute([$idEtape]);
         $etape = $requete->fetch(PDO::FETCH_ASSOC);
         if(empty($etape))

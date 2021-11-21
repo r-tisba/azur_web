@@ -39,13 +39,6 @@ class Equipe extends Modele
         return $requete->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function recupererProjetEquipe($idEquipe)
-    {
-        $requete = $this->getBDD()->prepare("SELECT * FROM equipes INNER JOIN projets USING(idEquipe) WHERE idEquipe = ?");
-        $requete->execute([$idEquipe]);
-        return $requete->fetchAll(PDO::FETCH_ASSOC);
-    }
-
     public function recupererImage($idEquipe)
     {
         $requete = $this->getBDD()->prepare("SELECT image FROM equipes WHERE idEquipe = ?");

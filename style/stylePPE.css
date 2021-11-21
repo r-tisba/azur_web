@@ -135,7 +135,12 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
 
 .shadow-sm
 {
+  border-style: solid;
+  border-color: black;
   height: 100%;
+}
+.shadow-sm_edt
+{
   border-style: solid;
   border-color: black;
 }
@@ -156,12 +161,20 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
   font-weight: 400;
   letter-spacing: 0.02em;
 }
-.outil
+.cardOutil
 {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
+}
+.card_edt
+{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  height: 371px;
 }
 .titreAjout
 {
@@ -415,6 +428,7 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
 }
 
 /* ---------------- GESTION DE PROJET ---------------- */
+/* Liste projets */
 .div_lien_projet a
 {
   color: black;
@@ -504,11 +518,138 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
 }
 .hrPerso
 {
-  width: 70%;
+  width: 80%;
   border-radius: 10px;
   color: black;
   background-color: black;
   opacity: 1 !important;
+  margin-top: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+/* Projet */
+
+.container_etape
+{
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+@media screen and (min-width: 768px)
+{
+  .container_etape
+  {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+}
+.div_details_projet
+{
+  margin-bottom: 2rem;
+}
+.div_intitule
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.div_etapes_finies
+{
+  font-size: 1.2rem;
+}
+@media screen and (max-width: 768px)
+{
+  .div_etapes_finies
+  {
+    font-size: 1rem;
+  }
+}
+.icone_termine
+{
+  color: #3BD408;
+  font-size: 1.8rem;
+  margin-right: 20px;
+}
+.hr_vert
+{
+  border-left: 6px solid #3BD408;
+  height: 45px;
+  margin-left: 0.7rem;
+  margin-top: 0.1rem;
+  margin-bottom: 0.2rem;
+}
+.div_etat_nom
+{
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+.div_dates_debut_fin
+{
+  display: flex;
+  justify-content: flex-end;
+  padding: 0;
+}
+@media screen and (max-width: 768px)
+{
+  .div_dates_debut_fin
+  {
+    display: flex;
+    justify-content: flex-end;
+    text-align: right;
+    padding: 0;
+  }
+}
+
+.div_etapes_encours
+{
+  font-size: 1.2rem;
+}
+@media screen and (max-width: 768px)
+{
+  .div_etapes_encours
+  {
+    font-size: 1rem;
+  }
+}
+.icone_encours
+{
+  color: #00BFFF;
+  font-size: 1.8rem;
+  margin-right: 20px;
+}
+.hr_bleu
+{
+  border-left: 6px solid #00BFFF;
+  height: 45px;
+  margin-left: 0.7rem;
+  margin-top: 0.1rem;
+  margin-bottom: 0.2rem;
+}
+
+.div_etapes_futures
+{
+  font-size: 1.2rem;
+}
+@media screen and (max-width: 768px)
+{
+  .div_etapes_futures
+  {
+    font-size: 1rem;
+  }
+}
+.icone_futures
+{
+  color: lightslategray;
+  font-size: 1.8rem;
+  margin-right: 20px;
+}
+.hr_gris
+{
+  border-left: 6px solid lightslategray;
+  height: 45px;
+  margin-left: 0.7rem;
+  margin-top: 0.1rem;
+  margin-bottom: 0.2rem;
 }
 /* ---------------- PROFIL ---------------- */
 .texte
@@ -624,6 +765,15 @@ div.div_avatar:hover img
   align-items: center;
 
   background-color: lightgrey;
+}
+.div_import_image :hover
+{
+  cursor: pointer;
+}
+.input_avatar
+{
+  width: 100%;
+  height: 100%;
 }
 
 /* ---------------- PERMET D'AFFICHER LE CURSEUR DANS LES INPUTS ET TEXTAREA ---------------- */

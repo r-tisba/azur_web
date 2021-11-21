@@ -1,15 +1,14 @@
 <?php
 require_once "entete.php";
 
-if(!isset($_SESSION["identifiant"]))
-{
+if (!isset($_SESSION["identifiant"])) {
   header("location:../visiteur/index.php");
 }
 
 ?>
 <main>
 
-<div class="album py-3">
+  <div class="album py-3">
     <div class="container">
 
       <!-- CARD 1 : Fiche de paye -->
@@ -17,13 +16,13 @@ if(!isset($_SESSION["identifiant"]))
 
         <div class="col-12 col-lg-4 col-md-6 mb-4">
           <div class="card shadow-sm">
-            <div class="card-body outil">
-            <h5 class="card-title titreOutil">Casier virtuel</h5>
-            <p class="card-text texteOutil">Vos documents</p>
+            <div class="card-body cardOutil">
+              <h5 class="card-title titreOutil">Casier virtuel</h5>
+              <p class="card-text texteOutil">Vos documents</p>
               <div class="d-flex justify-content-center">
                 <div class="btn-group">
                   <a href="salaire.php">
-                    <img src="../images/design/salaire.png" class="imageSecteur"/>
+                    <img src="../images/design/salaire.png" class="imageSecteur" />
                   </a>
                 </div>
               </div>
@@ -34,13 +33,13 @@ if(!isset($_SESSION["identifiant"]))
         <!-- CARD 2 : Messagerie -->
         <div class="col-12 col-lg-4 col-md-6 mb-4">
           <div class="card shadow-sm">
-          <div class="card-body outil">
-          <h5 class="card-title titreOutil">Messagerie</h5>
-          <p class="card-text texteOutil">Vos discussions</p>
+            <div class="card-body cardOutil">
+              <h5 class="card-title titreOutil">Messagerie</h5>
+              <p class="card-text texteOutil">Vos discussions</p>
               <div class="d-flex justify-content-center">
                 <div class="btn-group">
                   <a href="listeDiscussions.php">
-                  <img src="../images/design/messagerie.png" class="imageSecteur"/>
+                    <img src="../images/design/messagerie.png" class="imageSecteur" />
                   </a>
                 </div>
               </div>
@@ -51,13 +50,13 @@ if(!isset($_SESSION["identifiant"]))
         <!-- CARD 3 : Equipe/Projet -->
         <div class="col-12 col-lg-4 col-md-6 mb-4">
           <div class="card shadow-sm">
-            <div class="card-body outil">
+            <div class="card-body cardOutil">
               <h5 class="card-title titreOutil">Équipes</h5>
               <p class="card-text texteOutil">Vos projets en cours</p>
               <div class="d-flex justify-content-center">
                 <div class="btn-group">
                   <a href="listeEquipes.php">
-                  <img src="../images/design/equipe.png" class="imageSecteur"/>
+                    <img src="../images/design/equipe.png" class="imageSecteur" />
                   </a>
                 </div>
               </div>
@@ -69,14 +68,13 @@ if(!isset($_SESSION["identifiant"]))
         -->
         <!--CARD 4 : Emploi du temps -->
         <div class="col-12 col-lg-12 col-md-6">
-          <div class="card shadow-sm">
-            <div class="card-body outil">
+          <div class="card shadow-sm_edt">
+            <div class="card-body card_edt">
               <h5 class="card-title titreOutil">Emploi du temps</h5>
-              <p class="card-text"></p>
               <div class="d-flex justify-content-center">
                 <div class="btn-group">
                   <a href="../utilisateur/calendrier/calendrier.php">
-                    <img src="../images/design/edt.png" class="imageSecteur"/>
+                    <img src="../images/design/edt.png" class="imageSecteur" />
                   </a>
                 </div>
               </div>
@@ -84,8 +82,7 @@ if(!isset($_SESSION["identifiant"]))
           </div>
         </div>
 
-  </div>
-
+      </div>
 </main>
 
 <?php

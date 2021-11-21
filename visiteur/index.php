@@ -34,15 +34,11 @@ if (isset($_SESSION["identifiant"])) {
         <div class="alert alert-danger alert_connexion mt-3">
             <?php switch ($_GET["error"]) {
                 case "falsemdp": ?>
-                    <?php echo "Le mot de passe n'existe pas"; ?>
+                    <?php echo "Mot de passe incorrect"; ?>
                     <?php break; ?>
                 <?php
                 case "falseid": ?>
                     <?php echo "L'identifiant n'existe pas"; ?>
-                    <?php break; ?>
-                <?php
-                case "mdplength": ?>
-                    <?php echo "Le mot de passe doit faire au moins 6 caractères"; ?>
                     <?php break; ?>
                 <?php
                 case "missing": ?>

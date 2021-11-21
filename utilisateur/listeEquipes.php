@@ -4,8 +4,14 @@ require_once "entete.php";
 $idUtilisateur = $_SESSION["idUtilisateur"];
 $utilisateur = new Utilisateur();
 $equipes = $utilisateur->recupererEquipesViaIdUtilisateur($idUtilisateur);
-
 ?>
+<div class="fleche_retour mb-2 ml-4">
+    <a href="../utilisateur/index.php" class="retour">
+        <i class="fas fa-chevron-left"></i>
+        Retour
+    </a>
+</div>
+
 <div class="container container_wrap">
 <?php
 foreach ($equipes as $equipe)
