@@ -1,6 +1,8 @@
 <?php
 
-class Discussion_Groupe extends Modele
+/* Classe non appelée ? Probablement inutile. Copie de discussion.php */
+
+class DiscussionGroupe extends Modele
 {
     private $idEquipe;
     private $idUtilisateur;

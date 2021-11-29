@@ -5,6 +5,8 @@ if (!isset($_GET["id"])) {
   header("location:../visiteur/index.php");
 }
 $idEquipe = $_GET["id"];
+$objetEquipe = new Equipe();
+$equipe = $objetEquipe->recupererEquipe($idEquipe);
 ?>
 <main>
   <div class="fleche_retour mb-2 ml-4">
@@ -13,8 +15,12 @@ $idEquipe = $_GET["id"];
       Retour
     </a>
   </div>
-  <div class="album py-3">
-    <div class="container">
+  <div class="container">
+    <div class="col-12 text-center">
+      <h2 class="titreSection hr_titre">Équipe <?= $equipe["nomEquipe"]; ?></h2>
+    </div>
+    <div class="album py-3">
+
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
         <!-- CARD 2 : Projet -->

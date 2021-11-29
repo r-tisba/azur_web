@@ -1,118 +1,116 @@
-// // Variable globale, tableau JSON
-// let evenements = [{
-//     "title": "Fullcalendar",
-//     "start": "2021-10-18 14:00:00",
-//     "end": "2021-10-16 16:00:00",
-//     "backgroundColor": "#7851a9",
-//     "borderColor": "#7851a9"
-// }, {
-//     "title": "Fullcalendar 2",
-//     "start": "2021-10-18 16:30:00",
-//     "end": "2021-10-16 18:30:00",
-//     "backgroundColor": "#839c49",
-//     "borderColor": "#839c49"
-// }]
+// Script présent dans calendrier.php
 
-window.onload = () =>
-{
-    let elementCalendrier = document.getElementById("calendrier")
+// $(document).ready(function(){
+//         var calendar = $('#calendar').fullCalendar({
+//             header:{
+//                 left: 'prev,next today',
+//                 center: 'title',
+//                 right: 'agendaWeek,agendaDay'
+//             },
+//             defaultView: 'agendaWeek',
+//             editable: true,
+//             selectable: true,
+//             allDaySlot: false,
 
-    let xmlhttp = new XMLHttpRequest()
+//             events: "index.php?view=1",
 
-    xmlhttp.onreadystatechange = function()
-    {
-        // Si la transaction s'est terminé
-        if (xmlhttp.readyState == 4)
-        {
-            if (xmlhttp.status == 200 || xmlhttp.status == 0)
-            {
-                let evenements = JSON.parse(xmlhttp.responseText)
 
-                // On instancie le calendrier
-                let calendrier = new FullCalendar.Calendar(elementCalendrier, {
-                    // On appelle les composants
-                    plugins: ['dayGrid', 'timeGrid', 'list', 'interaction'],
-                    defaultView: 'timeGridWeek',
-                    locale: 'fr',
-                    // Position des composants
-                    header: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'dayGridMonth,timeGridWeek,list'
-                    },
-                    buttonText: {
-                        today: 'Aujourd\'hui',
-                        month: 'Mois',
-                        week: 'Semaine',
-                        list: 'Liste'
-                    },
-                    events: evenements,
-                    nowIndicator: true,
-                    editable: true,
-                    eventDrop: (infos) => {
-                        if(!confirm("Êtes vous sûr de vouloir déplacer cet événement ?"))
-                        {
-                            infos.revert();
-                        } else {
-                            /*
-                            start = infos.event.start
-                            end = infos.event.end
-                            evenement = [{
-                                "start": start,
-                                "end": end
-                            }]
-                            modifierEvenement(evenement)
-                            */
-                        }
-                    },
-                    eventResize: (infos) => {
-                        if(!confirm("Êtes vous sûr de vouloir déplacer cet événement ?"))
-                        {
-                            infos.revert();
-                        }
-                    }
-                })
-                calendrier.render()
-            }
-        }
-    }
+//             eventClick:  function(event, jsEvent, view) {
+//                 console.log('eventClick')
+//                 endtime = $.fullCalendar.moment(event.end).format('h:mm');
+//                 starttime = $.fullCalendar.moment(event.start).format('dddd, MMMM Do YYYY, h:mm');
+//                 var mywhen = starttime + ' - ' + endtime;
+//                 $('#modalTitle').html(event.title);
+//                 $('#modalWhen').text(mywhen);
+//                 $('#eventID').val(event.id);
+//                 $('#calendarModal').modal();
+//             },
 
-    xmlhttp.open('GET', 'http://api-rest.calendrier/evenements/lire.php', true)
-    xmlhttp.send(null)
-}
+//             //header and other values
+//             select: function(start, end, jsEvent) {
+//                 console.log('select')
+//                 endtime = $.fullCalendar.moment(end).format('h:mm');
+//                 starttime = $.fullCalendar.moment(start).format('dddd, MMMM Do YYYY, h:mm');
+//                 var mywhen = starttime + ' - ' + endtime;
+//                 start = moment(start).format();
+//                 end = moment(end).format();
+//                 $('#createEventModal #startTime').val(start);
+//                 $('#createEventModal #endTime').val(end);
+//                 $('#createEventModal #when').text(mywhen);
+//                 $('#createEventModal').modal('toggle');
+//            },
+//            eventDrop: function(event, delta){
+//                $.ajax({
+//                    url: 'index.php',
+//                    data: 'action=update&title='+event.title+'&start='+moment(event.start).format()+'&end='+moment(event.end).format()+'&id='+event.id ,
+//                    type: "POST",
+//                    success: function(json) {
+//                    //alert(json);
+//                    }
+//                });
+//            },
+//            eventResize: function(event) {
+//                $.ajax({
+//                    url: 'index.php',
+//                    data: 'action=update&title='+event.title+'&start='+moment(event.start).format()+'&end='+moment(event.end).format()+'&id='+event.id,
+//                    type: "POST",
+//                    success: function(json) {
+//                        //alert(json);
+//                    }
+//                });
+//            }
+//         });
 
-/*
-let evenement = {
-    title: "Evenement Test Ajout",
-    description: "Test de ajout evenement",
-    start: "2021-10-20 10:30:00",
-    end: "2021-10-20 14:00:00",
-    idCreateur: 2
-}
-*/
+//        $('#submitButton').on('click', function(e){
+//            // We don't want this to act as a link so cancel the link action
+//            e.preventDefault();
+//            doSubmit();
+//        });
 
-/*
-// ---------------------------------- CREER ----------------------------------
-let xmlhttp = new XMLHttpRequest();
+//        $('#deleteButton').on('click', function(e){
+//            // We don't want this to act as a link so cancel the link action
+//            e.preventDefault();
+//            doDelete();
+//        });
 
-xmlhttp.open("POST", "http://api-rest.calendrier/evenements/creer.php", true)
-xmlhttp.send(JSON.stringify(evenement));
-*/
+//        function doDelete(){
+//            $("#calendarModal").modal('hide');
+//            var eventID = $('#eventID').val();
+//            $.ajax({
+//                url: 'index.php',
+//                data: 'action=delete&id='+eventID,
+//                type: "POST",
+//                success: function(json) {
+//                    if(json == 1)
+//                         $("#calendar").fullCalendar('removeEvents',eventID);
+//                    else
+//                         return false;
 
-// ---------------------------------- MODIFIER ----------------------------------
-/*
-function modifierEvenement()
-{
-    let xmlhttp = new XMLHttpRequest();
 
-    xmlhttp.open("PUT", "http://api-rest.calendrier/evenements/modifier.php", true)
-    xmlhttp.send(JSON.stringify(evenement));
-}
-*/
-// ---------------------------------- SUPPRIMER ----------------------------------
-/*
-let xmlhttp = new XMLHttpRequest();
+//                }
+//            });
+//        }
+//        function doSubmit(){
+//            $("#createEventModal").modal('hide');
+//            var title = $('#title').val();
+//            var startTime = $('#startTime').val();
+//            var endTime = $('#endTime').val();
 
-xmlhttp.open("DELETE", "http://api-rest.calendrier/evenements/supprimer.php", true)
-xmlhttp.send(JSON.stringify(evenement));
-*/
+//            $.ajax({
+//                url: 'index.php',
+//                data: 'action=add&title='+title+'&start='+startTime+'&end='+endTime,
+//                type: "POST",
+//                success: function(json) {
+//                    $("#calendar").fullCalendar('renderEvent',
+//                    {
+//                        id: json.id,
+//                        title: title,
+//                        start: startTime,
+//                        end: endTime,
+//                    },
+//                    true);
+//                }
+//            });
+
+//        }
+//     });

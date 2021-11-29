@@ -14,7 +14,7 @@ if(getimagesize($_FILES["image"]["tmp_name"]))
     if($_FILES["image"]["size"] <= 3000000)
     {
         // Vérifier le vrai type du fichier
-        if($_FILES["image"]["type"] == "image/png"|| $_FILES["image"]["type"] == "image/jpeg")
+        if($_FILES["image"]["type"] == "image/png" || $_FILES["image"]["type"] == "image/jpg" || $_FILES["image"]["type"] == "image/jpeg")
         {
             if(move_uploaded_file($_FILES["image"]["tmp_name"], $avatar)){
                 $modifAvatar = $utilisateur->modifierAvatar($avatar, $_SESSION["idUtilisateur"]);

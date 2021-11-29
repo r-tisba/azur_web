@@ -47,7 +47,7 @@ body
   font-weight: 300;
   letter-spacing: 0.08em;
 }
-/* ---------------- FLECHE RETOUR & ACTUALISER ---------------- */
+/* -------------------------------- FLECHE RETOUR & ACTUALISER -------------------------------- */
 .div_fleche
 {
   display: flex;
@@ -69,7 +69,7 @@ a:hover {
   text-decoration: none;
 }
 
-/* ---------------- NAVBAR ---------------- */
+/* -------------------------------- NAVBAR -------------------------------- */
 .navbar.navbar-7 .navbar-toggler-icon
 {
   background-image: url('https://image.flaticon.com/icons/png/512/60/60995.png');
@@ -91,7 +91,7 @@ a:hover {
   color: #00FF00 !important;
 }
 
-/* ---------------- PAGE DE CONNEXION ---------------- */
+/* -------------------------------- PAGE DE CONNEXION -------------------------------- */
 .titre_accueil
 {
   font-family: 'Lato', sans-serif;
@@ -131,7 +131,7 @@ input#identifiant, input#mdp
 background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #009dec, #00b4eb, #03c2ec, #29cfeb, #49dbe8, #47e3e8, #4aece6, #52f3e2, #5ffbdd);
 */
 
-/* ---------------- INDEX ---------------- */
+/* -------------------------------- INDEX -------------------------------- */
 
 .shadow-sm
 {
@@ -196,7 +196,7 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
   height: 140px;
 }
 
-/* ---------------- PAGE DISCUSSIONS ---------------- */
+/* -------------------------------- PAGE DISCUSSIONS -------------------------------- */
 .cardHamburger
 {
   border: none;
@@ -345,7 +345,7 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
   height: 2rem;
   font-size: 0.8rem;
 }
-/* ---------------- APERCU MESSAGE ---------------- */
+/* -------------------------------- APERCU MESSAGE -------------------------------- */
 .card_apercu_perso
 {
   color: white;
@@ -407,7 +407,7 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
   font-size: 80%;
   font-weight: 400;
 }
-/* ---------------- MODIF MESSAGE ---------------- */
+/* -------------------------------- MODIF MESSAGE -------------------------------- */
 .titreCentre
 {
   font-family: 'Lato', sans-serif;
@@ -427,8 +427,44 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
   letter-spacing: 0.08em;
 }
 
-/* ---------------- GESTION DE PROJET ---------------- */
-/* Liste projets */
+/* -------------------------------- GESTION DE PROJET -------------------------------- */
+
+/* ---------------- Equipe ---------------- */
+
+.titreSection
+{
+  color: black;
+  font-family: 'Lato', sans-serif;
+  text-transform: uppercase;
+  font-size: 35px;
+  font-weight: 200;
+  letter-spacing: 0.03em;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+.hr_titre
+{
+  align-items: center;
+  display: flex;
+}
+.hr_titre::before
+{
+  border-top: 0.0825em solid;
+  content: "";
+  flex: 1;
+  margin-left: 20%;
+  margin-right: 0.6em;
+}
+.hr_titre::after
+{
+  border-top: 0.0825em solid;
+  content: "";
+  flex: 1;
+  margin-left: 0.6em;
+  margin-right: 20%;
+}
+
+/* ---------------- Liste projets ---------------- */
 .div_lien_projet a
 {
   color: black;
@@ -527,7 +563,7 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
   margin-bottom: 1rem;
 }
 
-/* Projet */
+/* ---------------- Projet ---------------- */
 
 .container_etape
 {
@@ -651,7 +687,7 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
   margin-top: 0.1rem;
   margin-bottom: 0.2rem;
 }
-/* ---------------- PROFIL ---------------- */
+/* -------------------------------- PROFIL -------------------------------- */
 .texte
 {
   margin-bottom: 0;
@@ -758,13 +794,13 @@ div.div_avatar:hover img
 }
 .div_import_image
 {
+  background-color: lightgrey;
   width: 100%;
   height: 12rem;
   display: flex;
-  justify-content: center;
   align-items: center;
-
-  background-color: lightgrey;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 .div_import_image :hover
 {
@@ -776,7 +812,7 @@ div.div_avatar:hover img
   height: 100%;
 }
 
-/* ---------------- PERMET D'AFFICHER LE CURSEUR DANS LES INPUTS ET TEXTAREA ---------------- */
+/* -------------------------------- PERMET D'AFFICHER LE CURSEUR DANS LES INPUTS ET TEXTAREA -------------------------------- */
 input
 {
   caret-color: black;

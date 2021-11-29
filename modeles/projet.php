@@ -13,7 +13,6 @@ class Projet extends Modele
 
     public function __construct($idP = null)
     {
-
         if ($idP != null) {
             $requete = $this->getBdd()->prepare("SELECT * FROM projets");
             $requete->execute();
@@ -63,9 +62,25 @@ class Projet extends Modele
         return $requete->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getIdProjet()
+    {
+        return $this->idProjet;
+    }
     public function getIdEquipe()
     {
         return $this->idEquipe;
+    }
+    public function getDateDebut()
+    {
+        return $this->dateDebut;
+    }
+    public function getDateFin()
+    {
+        return $this->dateFin;
+    }
+    public function getEtatProjet()
+    {
+        return $this->etatProjet;
     }
     public function getNomProjet()
     {

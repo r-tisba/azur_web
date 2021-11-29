@@ -1,4 +1,7 @@
 <?php
+
+/* PAS ENCORE IMPLEMENTE */
+
 /*
 function soldeEntreprise()
 {
