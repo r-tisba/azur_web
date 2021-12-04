@@ -22,7 +22,6 @@ $premier = true;
 
 <div class="container-fluid container_etape">
 
-
     <div class="row">
         <div class="col-md-12 mb-3">
             <div class="card border-0 div_details_projet">
@@ -39,10 +38,23 @@ $premier = true;
                 <div class="card-body">
                     <div class="div_contexte_projet">
                         <h3 class="titreCentrePetit text-center">Contexte du projet</h3>
-                        <?= $projet["contexte"]; ?>
+                        <?php
+                        if(!empty($projet["contexte"]))
+                        { ?>
+                            <div class="text-center">
+                                <?= $projet["contexte"]; ?>
+                            </div>
+                        <?php
+                        }
+                        else
+                        { ?>
+                            <div class="muted">Pas de contexte renseigné</div>
+                        <?php
+                        }
+                         ?>
                     </div>
                     <div class="div_dates_projet mt-3">
-                        <h3 class="titreDiscussion">Période du projet : Du <?= $service->dateFr($projet["dateDebut"]); ?> au <?= $service->dateFr($projet["dateFin"]); ?></h3>
+                        <h3 class="titreDiscussion mt-3">Période du projet : Du <?= $service->dateFr($projet["dateDebut"]); ?> au <?= $service->dateFr($projet["dateFin"]); ?></h3>
                     </div>
                 </div>
             </div>

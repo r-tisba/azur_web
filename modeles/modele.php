@@ -14,7 +14,7 @@ require_once "../modeles/modele.php";
 require_once "../modeles/discussion.php";
 require_once "../modeles/message.php";
 // require_once "../modeles/revenu.php";
-// require_once "../modeles/secteur.php";
+require_once "../modeles/secteur.php";
 //require_once "../modeles/solde.php";
 require_once "../modeles/utilisateur.php";
 require_once "../services/fonctions.php";

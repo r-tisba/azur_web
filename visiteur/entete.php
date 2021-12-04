@@ -1,6 +1,6 @@
 <?php
-session_start();
 require_once "../modeles/modele.php";
+session_start();
 ?>
 
 <!doctype html>
@@ -24,23 +24,9 @@ require_once "../modeles/modele.php";
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarNavDropdown">
-      <ul class="navbar-nav ml-auto">
-        <?php
-        if (isset($_SESSION["identifiant"]) && !empty($_SESSION)) {
-        ?>
 
-          <div class="div-inline my-2 my-lg-0">
-            <a class="nav-item active nav-link">
-              <?php echo "Bonjour " . $_SESSION["identifiant"] . " ! Vous êtes connecté" ?>
-            </a>
-          </div>
-          <a class="btn btn-outline-danger ml-1" href="../deconnexion.php">Se déconnecter</a>
+    <div class="navbar-collapse collapse" id="navbarNavDropdown">
 
-        <?php
-        }
-        ?>
-      </ul>
     </div>
   </nav>
-  <div class="container mt-4">
+  <div class="container0 mt-4">

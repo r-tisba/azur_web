@@ -95,20 +95,26 @@ class Utilisateur extends Modele
       $requete->execute([$idUtilisateur]);
       return true;
    }
-
-   public function recupererInterlocuteur($idDiscussion)
+   public function recupererInterlocuteurProcedure($idDiscussion)
    {
-      $requete = $this->getBDD()->prepare("SELECT idEnvoyeur, idDestinataire FROM discussions WHERE idDiscussion = ?");
-      $requete->execute([$idDiscussion]);
+      $idUtilisateur = $_SESSION["idUtilisateur"];
+      $requete = $this->getBDD()->prepare("CALL recupererInterlocuteur(?, ?)");
+      $requete->execute([$idDiscussion, $idUtilisateur]);
       $result = $requete->fetch(PDO::FETCH_ASSOC);
-      if ($_SESSION["idUtilisateur"] == $result["idEnvoyeur"]) {
-         $identifiant = $this->recupererUtilisateur($result["idDestinataire"]);
-         return $identifiant["identifiant"];
-      } else {
-         $identifiant = $this->recupererUtilisateur($result["idEnvoyeur"]);
-         return $identifiant["identifiant"];
-      }
    }
+   // public function recupererInterlocuteur($idDiscussion)
+   // {
+   //    $requete = $this->getBDD()->prepare("SELECT idEnvoyeur, idDestinataire FROM discussions WHERE idDiscussion = ?");
+   //    $requete->execute([$idDiscussion]);
+   //    $result = $requete->fetch(PDO::FETCH_ASSOC);
+   //    if ($_SESSION["idUtilisateur"] == $result["idEnvoyeur"]) {
+   //       $identifiant = $this->recupererUtilisateur($result["idDestinataire"]);
+   //       return $identifiant["identifiant"];
+   //    } else {
+   //       $identifiant = $this->recupererUtilisateur($result["idEnvoyeur"]);
+   //       return $identifiant["identifiant"];
+   //    }
+   // }
    public function recupererEquipesViaIdUtilisateur($idUtilisateur)
    {
       $requete = $this->getBDD()->prepare("SELECT * FROM utilisateurs LEFT JOIN composition_equipes USING(idUtilisateur) LEFT JOIN equipes USING(idEquipe) WHERE idUtilisateur = ?");

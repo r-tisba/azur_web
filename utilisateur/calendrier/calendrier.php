@@ -46,6 +46,7 @@ require_once "entete_calendrier.php";
             events: 'evenements/load.php',
 
             timeFormat: 'H:mm',
+            dayOfMonthFormat: 'ddd DD/MM',
 
 
             /* ----------------------------- CLICK GRID ----------------------------- */
@@ -203,7 +204,7 @@ require_once "entete_calendrier.php";
                 <div class="modal-body">
                     <div class="control-group">
                         <label class="control-label" for="inputPatient">Titre événement :</label>
-                        <div class="field desc mb-2">
+                        <div class="field desc mb-3">
                             <input class="form-control" id="title" name="title" placeholder="Saisissez le titre de l'événement" type="text" value="">
                         </div>
 
@@ -245,7 +246,7 @@ require_once "entete_calendrier.php";
                 <div id="modalBody" class="modal-body">
                     <div class="control-group">
                         <div class="div_modal_title">
-                            <label class="control-label" for="inputPatient">Titre :</label>
+                            <label class="control-label m-0" for="inputPatient">Titre :</label>
                             <h4 id="modalTitle" class="modal-title p_infos_evenements"></h4>
                         </div>
                         <div class="div_modal_description mb-4">

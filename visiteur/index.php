@@ -18,7 +18,7 @@ if (isset($_SESSION["identifiant"])) {
 </section>
 
 <!-- MESSAGE POST-CONNEXION -->
-<div class="container">
+
     <?php if (!empty($_GET["success"]) && $_GET["success"] == "connexion") {
     ?>
         <div class="alert alert-success alert_connexion mt-3">Vous avez bien été connecté <br>
@@ -54,12 +54,12 @@ if (isset($_SESSION["identifiant"])) {
 
     <!-- FORMULAIRE DE CONNEXION -->
     <form method="post" action="../traitements/sauvegarderConnexion.php">
-        <div class="col-12 text-center">
-            <div class="col-12 align-self-center">
-                <div class="card card-body card_connexion">
+        <div class="col-12 text-center my-4">
+            <div class="card card_connexion">
+                <div class="card-body">
                     <div class="form-group">
                         <label for="identifiant">Identifiant :</label>
-                        <input type="text" class="form-control" name="identifiant" id="identifiant" placeholder="Saisissez votre identifiant" value="<?= (isset($_POST["identifiant"]) ? $_POST["identifiant"] : "") ?>" required />
+                        <input type="text" class="form-control" name="identifiant" id="identifiant" placeholder="Saisissez votre identifiant" value="<?= (isset($_POST["identifiant"]) ? htmlspecialchars($_POST["identifiant"], ENT_QUOTES) : "") ?>" required />
                     </div>
                     <div class="form-group mb-4">
                         <label for="mdp">Mot de passe :</label>
@@ -72,4 +72,6 @@ if (isset($_SESSION["identifiant"])) {
             </div>
         </div>
     </form>
-</div>
+
+<?php
+require_once "../visiteur/pied.php";
