@@ -94,7 +94,6 @@ require_once "entete_calendrier.php";
                     },
                     success: function() {
                         calendrier.fullCalendar('refetchEvents');
-                        alert('Événement mis à jour');
                     }
                 })
             },
@@ -117,7 +116,6 @@ require_once "entete_calendrier.php";
                     },
                     success: function() {
                         calendrier.fullCalendar('refetchEvents');
-                        alert("Événement mis à jour");
                     }
                 });
             },
@@ -129,30 +127,17 @@ require_once "entete_calendrier.php";
             e.preventDefault();
             doSubmit();
         });
-
         $('#deleteButton').on('click', function(e) {
             // We don't want this to act as a link so cancel the link action
             e.preventDefault();
             doDelete();
         });
+        $('#updateButton').on('click', function(e) {
+            // We don't want this to act as a link so cancel the link action
+            e.preventDefault();
+            doUpdate();
+        });
 
-        /* ----------------------------- SUBMIT DU BOUTON SUPPRIMER ----------------------------- */
-        function doDelete() {
-            $("#calendarModal").modal('hide');
-            var id = $('#eventID').val();
-            $.ajax({
-                url: "evenements/delete.php",
-                type: "POST",
-                data: {
-                    id: id
-                },
-                success: function() {
-                    $("#calendar").fullCalendar('removeEvents', eventID);
-                    calendrier.fullCalendar('refetchEvents');
-                    alert("Événement supprimé");
-                }
-            })
-        }
 
         /* ----------------------------- SUBMIT DU BOUTON ENREGISTRER ----------------------------- */
         function doSubmit() {
@@ -173,10 +158,44 @@ require_once "entete_calendrier.php";
                 },
                 success: function() {
                     calendrier.fullCalendar('refetchEvents');
-                    alert("Événement ajouté");
                 }
             });
+        }
+        /* ----------------------------- SUBMIT DU BOUTON SUPPRIMER ----------------------------- */
+        function doDelete() {
+            $("#calendarModal").modal('hide');
+            var id = $('#eventID').val();
+            $.ajax({
+                url: "evenements/delete.php",
+                type: "POST",
+                data: {
+                    id: id
+                },
+                success: function() {
+                    $("#calendar").fullCalendar('removeEvents', eventID);
+                    calendrier.fullCalendar('refetchEvents');
+                }
+            })
+        }
+        /* ----------------------------- SUBMIT DU BOUTON MODIFIER ----------------------------- */
+        function doUpdate() {
+            $("#calendarModal").modal('hide');
+            var id = $('#eventID').val();
+            var select = document.getElementById("select_couleur");
+            var backgroundColor = select.options[select.selectedIndex].value;
 
+            $.ajax({
+                url: "evenements/updateColor.php",
+                type: "POST",
+                data: {
+                    id: id,
+                    backgroundColor: backgroundColor
+                },
+                success: function() {
+                    console.log(backgroundColor);
+                    calendrier.fullCalendar('refetchEvents');
+                }
+            });
         }
     });
 </script>
@@ -254,6 +273,18 @@ require_once "entete_calendrier.php";
                             <h4 id="modalDescription" class="modal-description p_infos_evenements m-0"></h4>
                         </div>
 
+                        <div class="div_modal_couleur mb-4">
+                            <label class="control-label mr-3" for="inputPatient">Couleur :</label>
+                            <h4 id="modalCouleur" class="modal-couleur p_infos_evenements m-0"></h4>
+                            <select class="form-control select_couleur" id="select_couleur">
+                                <option value="" selected disabled hidden></option>
+                                <option class="input_couleur_bleu" value="#007bff">Bleu</option>
+                                <option class="input_couleur_rouge" value="#d9534f">Rouge</option>
+                                <option class="input_couleur_vert" value="#28a745">Vert</option>
+                                <option class="input_couleur_jaune" value="#d29e00">Jaune</option>
+                            </select>
+                        </div>
+
                         <div class="div_modal_date">
                             <label class="control-label" for="when">Le :</label>
                             <div id="modalWhen" class="modalWhen ml-2"></div>
@@ -263,6 +294,7 @@ require_once "entete_calendrier.php";
                 <input type="hidden" id="eventID" />
                 <div class="modal-footer">
                     <button class="btn btn-outline-primary" data-dismiss="modal" aria-hidden="true">Annuler</button>
+                    <button type="submit" class="btn btn-outline-success" id="updateButton">Modifier</button>
                     <button type="submit" class="btn btn-outline-danger" id="deleteButton">Supprimer</button>
                 </div>
             </div>
