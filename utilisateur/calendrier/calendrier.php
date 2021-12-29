@@ -250,7 +250,6 @@ require_once "entete_calendrier.php";
                     <button type="submit" class="btn btn-outline-success" id="submitButton">Enregistrer</button>
                 </div>
             </div>
-
         </div>
     </div>
 

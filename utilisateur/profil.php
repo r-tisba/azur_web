@@ -16,6 +16,21 @@ $nomRole = $utilisateur["role"];
 $equipes = $objetUtilisateur->recupererEquipesViaIdUtilisateur($idUtilisateur);
 ?>
 
+<script>
+$(document).ready(function() {
+    $('#supprButton').on('click', function(e) {
+        e.preventDefault();
+        doDelete();
+    });
+    function doDelete() {
+        $.ajax({
+            type: "POST",
+            url: "../traitements/supprimerCookie.php",
+        })
+    }
+})
+</script>
+
 <div class="container container_profil">
     <div class="card card_profil_infos col-12 p-0">
         <div class="card-header">
@@ -41,12 +56,9 @@ $equipes = $objetUtilisateur->recupererEquipesViaIdUtilisateur($idUtilisateur);
                     <div class="div_liste_equipes">
                         <?php
 
-                        if (!empty($equipes))
-                        {
-                            foreach ($equipes as $equipe)
-                            {
-                                if (empty($equipe["idEquipe"]))
-                                {
+                        if (!empty($equipes)) {
+                            foreach ($equipes as $equipe) {
+                                if (empty($equipe["idEquipe"])) {
                                     ?>
                                     <p class="texte_infos_profil">Vous ne faites parti d'aucune équipe.</p>
                                     <?php
@@ -54,24 +66,24 @@ $equipes = $objetUtilisateur->recupererEquipesViaIdUtilisateur($idUtilisateur);
                                     $idEquipe = $equipe["idEquipe"];
                                     $imageEquipe = $objetEquipe->recupererImage($equipe["idEquipe"]);
                                     ?>
-                                <a href="../utilisateur/equipe.php?id=<?= $idEquipe; ?>">
-                                    <div class="div_image_equipe">
-                                        <?php
-                                        if (!empty($imageEquipe)) {
-                                        ?>
-                                            <img src="<?= $imageEquipe["image"]; ?>" class="miniatureEquipe">
-                                            <?= $equipe["nomEquipe"] ?>
-                                        <?php
-                                        } else {
-                                        ?>
-                                            <img src="../images/design/image_equipe.png">
-                                            <?= $equipe["nomEquipe"] ?>
-                                        <?php
-                                        }
-                                        ?>
-                                    </div>
-                                </a>
-                                <?php
+                                    <a href="../utilisateur/equipe.php?id=<?= $idEquipe; ?>">
+                                        <div class="div_image_equipe">
+                                            <?php
+                                            if (!empty($imageEquipe)) {
+                                            ?>
+                                                <img src="<?= $imageEquipe["image"]; ?>" class="miniatureEquipe">
+                                                <?= $equipe["nomEquipe"] ?>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <img src="../images/design/image_equipe.png">
+                                                <?= $equipe["nomEquipe"] ?>
+                                            <?php
+                                            }
+                                            ?>
+                                        </div>
+                                    </a>
+                                    <?php
                                 }
                             }
                         }
@@ -79,10 +91,11 @@ $equipes = $objetUtilisateur->recupererEquipesViaIdUtilisateur($idUtilisateur);
                     </div>
                 </div>
                 <h3 class="texte_infos_profil">Rôle : <?= $nomRole; ?></h3>
+                <div class="form-group text-center mb-1 mt-4">
+                    <button type="submit" class="btn btn-outline-danger" name="supprButton" id="supprButton">Supprimer les cookies</button>
+                </div>
             </div>
         </div>
-
-
     </div>
     <!-- <div>
         <a href="../admin/modifierPseudo.php" type="submit" class="btn btn-outline-primary">Modifier Pseudo</a>

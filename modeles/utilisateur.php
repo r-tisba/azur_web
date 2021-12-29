@@ -129,6 +129,45 @@ class Utilisateur extends Modele
       return $requete->fetch(PDO::FETCH_ASSOC);
    }
 
+   /* ------------------------------------- TOKEN ------------------------------------- */
+   public function recupererToken($identifiant)
+   {
+      $requete = $this->getBDD()->prepare("SELECT token FROM utilisateurs WHERE identifiant = ?");
+      $requete->execute([$identifiant]);
+      return $requete->fetch(PDO::FETCH_ASSOC);
+   }
+   // Vérifie l'existance du token
+   public function verifierToken($identifiant)
+   {
+      $requete = $this->getBDD()->prepare("SELECT token FROM utilisateurs WHERE identifiant = ?");
+      $requete->execute([$identifiant]);
+      // fetchColumn() est comme rowCount() mais il fonctionne
+      $rows = $requete->fetchColumn();
+      if($rows > 0) { // Token trouvé
+         return true; }
+      else {  // Token non trouvé
+         return false; }
+   }
+   // Vérifie si l'association id-token existe
+   public function verifierAssociationToken($idUtilisateur, $token)
+   {
+      $requete = $this->getBDD()->prepare("SELECT * FROM utilisateurs WHERE idUtilisateur = ? AND token = ?");
+      $requete->execute([$idUtilisateur, $token]);
+      // fetchColumn() est comme rowCount() mais il fonctionne
+      $rows = $requete->fetchColumn();
+      if($rows > 0) { // Association trouvé
+         return true; }
+      else {  // Association non trouvé
+         return false; }
+   }
+   public function creerToken($token, $identifiant)
+   {
+      $requete = $this->getBDD()->prepare("UPDATE utilisateurs SET token = ? WHERE identifiant = ?");
+      $requete->execute([$token, $identifiant]);
+      return true;
+   }
+
+
    public function getidUtilisateur()
    {
       return $this->idUtilisateur;

@@ -4,14 +4,13 @@ require_once "../visiteur/entete.php";
 
 <div class="container connexion_container">
     <h1 class="titre_accueil mb-4">Connexion</h1>
-    <?php if (!empty($_GET["success"]) && $_GET["success"] == "connexion")
-    {
-        
-        ?>
+    <?php if (!empty($_GET["success"]) && $_GET["success"] == "connexion") {
+
+    ?>
         <div class="alert alert-success mt-3">Vous avez bien été connecté <br>
             Vous allez être redirigé vers la page d'accueil<br>
             <a href="../test.php">Cliquez ici pour une redirection manuelle</a>
-            
+
         </div>
     <?php
         header("refresh:5;../test.php");
@@ -56,6 +55,15 @@ require_once "../visiteur/entete.php";
                         <label for="mdp">Mot de passe :</label>
                         <input type="password" class="form-control" name="mdp" id="mdp" placeholder="Saisissez votre mot de passe" required />
                     </div>
+                    <div class="form-group mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="gridCheck">
+                            <label class="form-check-label" for="gridCheck">
+                                Se souvenir de moi
+                            </label>
+                        </div>
+                    </div>
+
                     <div class="form-group text-center ">
                         <button type="submit" class="btn btn-outline-primary" name="envoi" id="envoi" value="1">Connexion</button>
                     </div>

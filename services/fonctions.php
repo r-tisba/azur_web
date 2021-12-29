@@ -32,6 +32,43 @@ class Service
         return trim(htmlspecialchars($string, ENT_QUOTES, 'UTF-8', false));
     }
 
+    public function redirect($url)
+    {
+        if (!headers_sent())
+        {
+            header('refresh:3;Location: '.$url);
+            exit;
+        }
+        else
+        {
+            echo '<script type="text/javascript">';
+            echo 'window.setTimeout(function() { window.location.href="'.$url.'"; }, 4000);';
+            echo '</script>';
+            echo '<noscript>';
+            echo '<meta http-equiv="refresh" content="3; url='.$url.'" />';
+            echo '</noscript>';
+            exit;
+        }
+    }
+    public function redirectNow($url)
+    {
+        if (!headers_sent())
+        {
+            header('Location: '.$url);
+            exit;
+        }
+        else
+        {
+            echo '<script type="text/javascript">';
+            echo 'window.location.href="'.$url.'";';
+            echo '</script>';
+            echo '<noscript>';
+            echo '<meta http-equiv="refresh" content="0; url='.$url.'" />';
+            echo '</noscript>';
+            exit;
+        }
+    }
+
     public function afficherMessage($idDiscussion)
     {
         $objetMessage = new Message();
@@ -84,18 +121,18 @@ class Service
             if ($message["idUtilisateur"] == $_SESSION["idUtilisateur"]) {
             ?>
                 <div class="container-fluid containerMessage_perso col-12">
-                    <div class="row">
-                        <div class="col-3 col-md-4"></div>
-                        <div class="col-9 col-md-8">
-                            <div class="card mb-4 cardMessage_perso">
-                            <?php
+                <div class="row">
+                    <div class="col-3 col-md-4"></div>
+                    <div class="col-9 col-md-8">
+                        <div class="card mb-4 cardMessage_perso">
+                        <?php
                         } else {
                             ?>
-                                <div class="container-fluid containerMessage_interlocuteur">
-                                    <div class="row">
-                                        <div class="col-9 col-md-8">
-                                            <div class="card mb-4 cardMessage_interlocuteur">
-                                    <?php
-                                }
-                            }
+                            <div class="container-fluid containerMessage_interlocuteur">
+                            <div class="row">
+                            <div class="col-9 col-md-8">
+                            <div class="card mb-4 cardMessage_interlocuteur">
+                            <?php
                         }
+        }
+}

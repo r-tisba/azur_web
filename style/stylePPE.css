@@ -49,7 +49,11 @@ body
   font-weight: 300;
   letter-spacing: 0.08em;
 }
-/* -------------------------------- FLECHE RETOUR & ACTUALISER -------------------------------- */
+.bleu_azur
+{
+ color: #007bff;
+}
+/* --------------------------------------------- FLECHE RETOUR & ACTUALISER --------------------------------------------- */
 .div_fleche
 {
   display: flex;
@@ -58,7 +62,7 @@ body
 }
 .icone_retour, .retour
 {
-  text-decoration: none;
+  text-decoration: none !important;
   color: #373A3C;
   font-size: 1.4rem;
 }
@@ -71,7 +75,7 @@ a:hover {
   text-decoration: none;
 }
 
-/* -------------------------------- NAVBAR -------------------------------- */
+/* --------------------------------------------- NAVBAR --------------------------------------------- */
 .navbar.navbar-7 .navbar-toggler-icon
 {
   background-image: url('https://image.flaticon.com/icons/png/512/60/60995.png');
@@ -93,7 +97,7 @@ a:hover {
   color: #00FF00 !important;
 }
 
-/* -------------------------------- PAGE DE CONNEXION -------------------------------- */
+/* --------------------------------------------- PAGE DE CONNEXION --------------------------------------------- */
 .titre_accueil
 {
   font-family: 'Lato', sans-serif;
@@ -133,7 +137,7 @@ input#identifiant, input#mdp
 background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #009dec, #00b4eb, #03c2ec, #29cfeb, #49dbe8, #47e3e8, #4aece6, #52f3e2, #5ffbdd);
 */
 
-/* -------------------------------- INDEX -------------------------------- */
+/* --------------------------------------------- INDEX --------------------------------------------- */
 
 .shadow-sm
 {
@@ -198,7 +202,7 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
   height: 140px;
 }
 
-/* -------------------------------- PAGE DISCUSSIONS -------------------------------- */
+/* --------------------------------------------- PAGE DISCUSSIONS --------------------------------------------- */
 .cardHamburger
 {
   border: none;
@@ -347,7 +351,7 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
   height: 2rem;
   font-size: 0.8rem;
 }
-/* -------------------------------- APERCU MESSAGE -------------------------------- */
+/* --------------------------------------------- APERCU MESSAGE --------------------------------------------- */
 .card_apercu_perso
 {
   color: white;
@@ -409,7 +413,7 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
   font-size: 80%;
   font-weight: 400;
 }
-/* -------------------------------- MODIF MESSAGE -------------------------------- */
+/* --------------------------------------------- MODIF MESSAGE --------------------------------------------- */
 .titreCentre
 {
   font-family: 'Lato', sans-serif;
@@ -429,7 +433,7 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
   letter-spacing: 0.08em;
 }
 
-/* -------------------------------- GESTION DE PROJET -------------------------------- */
+/* --------------------------------------------- GESTION DE PROJET --------------------------------------------- */
 
 /* ---------------- Equipe ---------------- */
 
@@ -695,7 +699,7 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
   margin-top: 0.1rem;
   margin-bottom: 0.2rem;
 }
-/* -------------------------------- PROFIL -------------------------------- */
+/* --------------------------------------------- PROFIL --------------------------------------------- */
 .texte
 {
   margin-bottom: 0;
@@ -818,6 +822,97 @@ div.div_avatar:hover img
 {
   width: 100%;
   height: 100%;
+}
+
+/* --------------------------------------------- MENTIONS LEGALES --------------------------------------------- */
+.titre_page_mentions
+{
+  font-family: 'Lato', sans-serif;
+  text-transform: uppercase;
+  font-size: 60px;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  margin-bottom: 2rem;
+}
+.rouge
+{
+  color: #dc3545;
+  font-weight: bold;
+}
+.hr_titre
+{
+  align-items: center;
+  display: flex;
+}
+.hr_titre::before
+{
+  border-top: 0.0625em solid;
+  content: "";
+  flex: 1;
+  margin-left: 10%;
+  margin-right: 0.6em;
+}
+.hr_titre::after
+{
+  border-top: 0.0625em solid;
+  content: "";
+  flex: 1;
+  margin-left: 0.6em;
+  margin-right: 10%;
+}
+.card_mentions
+{
+  margin-top: 0vh;
+  margin-bottom: 2vh;
+  background-color: #e2e2e2;
+  /* background-color: #272727; */
+  padding: 2%;
+  border-radius: 0.25rem;
+}
+.titre_card_mentions
+{
+  font-family: 'Lato', sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 35px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+.titre_mentions
+{
+  font-family: 'Lato', sans-serif;
+  text-transform: uppercase;
+  font-size: 30px;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  margin-bottom: 5px;
+}
+.couleur
+{
+  /* color: #AA56F0; */
+  color: #dc3545;
+  font-weight: bold;
+}
+.liste
+{
+  padding-left: 2rem;
+}
+.liste li
+{
+  font-size: 1rem;
+  line-height: 30px;
+}
+.liste li::marker
+{
+  color: #dc3545;
+}
+
+/* --------------------------------------------- PIED --------------------------------------------- */
+.div_pied
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* -------------------------------- PERMET D'AFFICHER LE CURSEUR DANS LES INPUTS ET TEXTAREA -------------------------------- */
