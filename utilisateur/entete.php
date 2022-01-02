@@ -2,6 +2,7 @@
 require_once "../modeles/modele.php";
 session_start();
 
+
 if (!isset($_SESSION["identifiant"]))
 {
   header("location:../visiteur/index.php");
@@ -18,7 +19,9 @@ if (!isset($_SESSION["identifiant"]))
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="../style/stylePPE.css">
   <link rel="shortcut icon" href="../images/design/logo.png" type="image/x-icon">
-
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link rel="stylesheet" href="../style/fontawesome/css/all.css">
 </head>
 
@@ -50,7 +53,7 @@ if (!isset($_SESSION["identifiant"]))
         <a class="nav-item nav-link" href="#">Encore un autre truc</a>
         <a class="nav-item nav-link" href="#">Toujours un autre truc</a> -->
       </div>
-
+      
       <div class="navbar-nav ml-auto">
         <?php
         if (isset($_SESSION["identifiant"]) && !empty($_SESSION)) {
@@ -69,3 +72,4 @@ if (!isset($_SESSION["identifiant"]))
     </div>
   </nav>
   <div class="container0 mt-4">
+  

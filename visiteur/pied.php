@@ -1,4 +1,15 @@
 <footer class="text-muted py-5">
+<section class="cookie">
+   <div class="txt">
+      <p class="">
+        Nous utilisons des cookies<br>
+         vous acceptez <a href="#" target="_blanck">Politique des cookies.</a>
+      </p>
+   </div>
+   <div>
+      <a class="btn accept">Accept</a>
+   </div>
+</section>
   <div class="d-flex justify-content-center">
     <p class="float-end mb-1">
       <a href="index.php">Retour en haut de la page</a>

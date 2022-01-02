@@ -1,10 +1,29 @@
 <footer class="text-muted py-5">
+  
   <div class="d-flex justify-content-center">
+    <?php
+    if($cookie=false){
+  ?>
+    <section class="cookie">
+   <div class="txt">
+      <p class="">
+        Nous utilisons des cookies<br>
+         vous acceptez <a href="#" target="_blanck">Politique des cookies.</a>
+      </p>
+   </div>
+   <div>
+      <a class="btn accept" name="accepter" onclick="/traitement/sauvegarderCookie.php">Accept</a>
+   </div>
+</section>
+<?php
+}
+?>
     <p class="float-end mb-1">
       <a href="index.php">Retour en haut de la page</a>
       <br>
       &copy; Azur est une création de Raphaël TISBA & Théodore CAVAILLE COLL
     </p>
+    
   </div>
 </footer>
 
