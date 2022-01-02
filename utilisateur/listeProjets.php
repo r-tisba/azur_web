@@ -98,8 +98,10 @@ $projets = $objetProjet->recupererProjetsEquipe($idEquipe);
 
                                 <div class="card-body">
                                     <div class="div_progressbar">
-                                        <div class="progress-bar" role="progressbar" style="width:<?php if (!empty($progression)) { ?> <?= $progression * 100 / $barreProgression ?><?php } else { ?><?= 0 ?><?php } ?>%; color: black;" aria-valuenow="<?php if (!empty($progression)) { ?> <?= $progression * 100 / $barreProgression ?><?php } else { ?><?= 0 ?><?php } ?>" aria-valuemin="0" aria-valuemax="100">
-                                            <?php if (!empty($progression)) { ?> <?= $progression * 100 / $barreProgression ?><?php } else { ?><?= 0 ?><?php } ?>%
+                                        <div class="progress-bar" role="progressbar" style="width:<?php if (!empty($progression)) { ?> <?= $progression * 100 / $barreProgression ?>%;<?php }elseif($progression){} else { ?><?= 2 ?>%; background : white; <?php } ?>color: black;"
+                                         aria-valuenow="<?php if (!empty($progression)) { ?> <?= $progression * 100 / $barreProgression ?><?php } 
+                                         else { ?><?= 0 ?><?php } ?>" aria-valuemin="0" aria-valuemax="100">
+                                            <?php $valeur_prog=$progression * 100 / $barreProgression; if (!empty($progression)) { ?> <?= variant_int($valeur_prog); ?><?php } else { ?><?= 0 ?><?php } ?>%
                                         </div>
                                     </div>
 
