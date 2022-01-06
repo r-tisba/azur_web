@@ -1,5 +1,11 @@
 <?php
 require_once "../visiteur/entete.php";
+
+if ($_SERVER["REQUEST_URI"] != "/visiteur/index.php") {
+    if (!empty($_SESSION["identifiant"])) {
+      $service->redirectNow("../utilisateur/index.php");
+    }
+}
 ?>
 
 <!-- MESSAGE D'ACCUEIL SI PAS CONNECTE -->
@@ -11,7 +17,6 @@ require_once "../visiteur/entete.php";
         </div>
     </div>
 </section>
-
 <!-- MESSAGE POST-CONNEXION -->
 <?php if (!empty($_GET["success"]))
 {
@@ -56,6 +61,7 @@ if($tokenBool == true)
 {
     ?>
     <div class="alert alert-success alert_connexion mt-3">Vous avez été connecté automatiquement via les cookies<br>
+        Vous pouvez supprimer les cookies dans votre onglet Profil<br>
         Vous allez être redirigé vers la page d'accueil<br>
         <a href="../utilisateur/index.php">Cliquez ici pour une redirection manuelle</a>
     </div>

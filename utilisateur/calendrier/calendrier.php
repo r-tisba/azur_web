@@ -71,6 +71,7 @@ require_once "entete_calendrier.php";
                 $('#modalTitle').html(event.title);
                 $('#modalDescription').html(event.description);
                 $('#modalWhen').text(mywhen);
+                $('#modalWho').text(event.createur);
                 $('#eventID').val(event.id);
                 $('#calendarModal').modal();
             },
@@ -192,7 +193,6 @@ require_once "entete_calendrier.php";
                     backgroundColor: backgroundColor
                 },
                 success: function() {
-                    console.log(backgroundColor);
                     calendrier.fullCalendar('refetchEvents');
                 }
             });
@@ -287,6 +287,11 @@ require_once "entete_calendrier.php";
                         <div class="div_modal_date">
                             <label class="control-label" for="when">Le :</label>
                             <div id="modalWhen" class="modalWhen ml-2"></div>
+                        </div>
+
+                        <div class="div_modal_date">
+                            <label class="control-label" for="when">Par :</label>
+                            <div id="modalWho" class="modalWho ml-2"></div>
                         </div>
                     </div>
                 </div>

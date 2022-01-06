@@ -1,5 +1,5 @@
 <nav class="navbar navbar-dark navbar-expand-md bg-dark flex-row">
-    <a class="navbar-brand titre" href="/ap/azur_web/utilisateur/index.php">
+    <a class="navbar-brand titre" href="/utilisateur/index.php">
         <img src="../../images/design/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
         Azur
     </a>
@@ -10,7 +10,7 @@
     <div class="navbar-collapse collapse" id="navbarNavDropdown">
         <div class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-item nav-link" href="/ap/azur_web/utilisateur/profil.php">Profil</a>
+                <a class="nav-item nav-link" href="/azur_web/utilisateur/profil.php">Profil</a>
             </li>
         </div>
 
@@ -24,7 +24,7 @@
                         <?= "Vous êtes connecté " . $_SESSION["identifiant"] ?>
                     </a>
                 </div>
-                <a class="btn btn-outline-danger ml-1" href="/ap/azur_web/utilisateur/deconnexion.php">Se déconnecter</a>
+                <a class="btn btn-outline-danger ml-1" href="/utilisateur/deconnexion.php">Se déconnecter</a>
             <?php
             }
             ?>

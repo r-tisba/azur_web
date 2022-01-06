@@ -70,19 +70,21 @@ if (!isset($_SESSION["identifiant"])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Azur</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="../style/stylePPE.css">
   <link rel="shortcut icon" href="../images/design/logo.png" type="image/x-icon">
-
   <link rel="stylesheet" href="../style/fontawesome/css/all.css">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../style/stylePPE.css">
 </head>
 
 <body>
   <nav class="navbar navbar-dark navbar-expand-md bg-dark">
-    <a class="navbar-brand titre" href="/ap/azur_web/utilisateur/index.php">
+    <a class="navbar-brand titre" href="./index.php">
       <img src="../images/design/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
       <span class="bleu_azur">Azur</span>
     </a>
@@ -93,7 +95,7 @@ if (!isset($_SESSION["identifiant"])) {
     <div class="navbar-collapse collapse" id="navbarNavDropdown">
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-item nav-link" href="/ap/azur_web/utilisateur/profil.php">Profil</a>
+          <a class="nav-item nav-link" href="/utilisateur/profil.php">Profil</a>
         </li>
         <?php
         if (!empty($_SESSION["identifiant"]) && $_SESSION["role"] == "Admin" || $_SESSION["role"] == "SuperAdmin") {
@@ -104,9 +106,6 @@ if (!isset($_SESSION["identifiant"])) {
         <?php
         }
         ?>
-        <!-- <a class="nav-item nav-link" href="#">Autre truc</a>
-        <a class="nav-item nav-link" href="#">Encore un autre truc</a>
-        <a class="nav-item nav-link" href="#">Toujours un autre truc</a> -->
       </div>
 
       <div class="navbar-nav ml-auto">
@@ -118,7 +117,7 @@ if (!isset($_SESSION["identifiant"])) {
               <?= "Vous êtes connecté " . $_SESSION["identifiant"] ?>
             </a>
           </div>
-          <a class="btn btn-outline-danger ml-1" href="/ap/azur_web/utilisateur/deconnexion.php">Se déconnecter</a>
+          <a class="btn btn-outline-danger ml-1" href="/utilisateur/deconnexion.php">Se déconnecter</a>
         <?php
         }
         ?>
@@ -126,9 +125,8 @@ if (!isset($_SESSION["identifiant"])) {
     </div>
   </nav>
   <div class="container0 mt-4">
-
     <?php
-    if ($_SERVER["REQUEST_URI"] != "/ap/azur_web/utilisateur/mentions-legales.php") {
+    if ($_SERVER["REQUEST_URI"] != "/utilisateur/mentions-legales.php" && $_SERVER["REQUEST_URI"] != "/utilisateur/deconnexion.php") {
     ?>
       <!-- Modal Cookie -->
       <div class="modal fade" id="modalCookie" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">

@@ -11,9 +11,7 @@ $query = "SELECT e.id, e.title, e.description, e.start, e.end, e.url, e.nom_url,
 FROM evenements e LEFT JOIN utilisateurs u ON e.idCreateur = u.idUtilisateur ORDER BY e.start ASC";
 
 $statement = $db->prepare($query);
-
 $statement->execute();
-
 $result = $statement->fetchAll();
 
 foreach ($result as $row)
@@ -30,6 +28,7 @@ foreach ($result as $row)
         'url' => $row["url"],
         'nom_url' => $row["nom_url"],
         'idCreateur' => $row["idCreateur"],
+        'createur' => $row["identifiant"],
     );
 }
 
@@ -57,6 +56,4 @@ function verifAssociationUtilisateurEvenement($idEvenement)
         return false;
     }
 }
-
 ?>
-

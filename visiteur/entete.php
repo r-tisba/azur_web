@@ -138,14 +138,11 @@ $tokenBool = false;
     }
   }
 
-    if (!empty($_SESSION["identifiant"])) {
-      $service->redirectNow("../utilisateur/index.php");
-    }
     ?>
   <div class="container0 mt-4">
 
     <?php
-    if ($_SERVER["REQUEST_URI"] != "/ap/azur_web/visiteur/mentions-legales.php") {
+    if ($_SERVER["REQUEST_URI"] != "/visiteur/mentions-legales.php" && $_SERVER["REQUEST_URI"] != "/utilisateur/deconnexion.php") {
     ?>
       <!-- Modal Cookie -->
       <div class="modal fade" id="modalCookie" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">

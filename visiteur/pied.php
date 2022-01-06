@@ -1,6 +1,6 @@
 <footer class="text-muted pt-5 pb-3">
   <div class="div_pied">
-    <p class="float-end mb-1">
+    <p class="mb-1">
 
       <br>
       &copy; Azur est une création de Raphaël TISBA & Théodore CAVAILLE COLL

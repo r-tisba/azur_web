@@ -102,6 +102,7 @@ a:hover {
 {
   font-family: 'Lato', sans-serif;
   text-transform: uppercase;
+  color: #dc3545;
   font-size: 50px;
   font-weight: 300;
   letter-spacing: 0.08em;
@@ -206,7 +207,7 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
 .cardHamburger
 {
   border: none;
-  background: none;
+  background: none !important;
 }
 .navbarHamburger
 {
@@ -251,10 +252,6 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
 {
   background: none;
 }
-.headerDiscussion
-{
-
-}
 .titreDiscussion
 {
   font-family: 'Lato', sans-serif;
@@ -264,10 +261,6 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
   font-weight: 300;
   letter-spacing: 0.08em;
   margin-bottom: 0;
-}
-.bodyDiscussion
-{
-
 }
 /*
 .containerMessage_perso
@@ -914,7 +907,6 @@ div.div_avatar:hover img
   flex-direction: column;
   align-items: center;
 }
-
 /* -------------------------------- PERMET D'AFFICHER LE CURSEUR DANS LES INPUTS ET TEXTAREA -------------------------------- */
 input
 {

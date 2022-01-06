@@ -46,9 +46,8 @@ if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
                         $resultat = $objetUtilisateur->recupererToken($identifiant);
                         $token = $resultat["token"];
                     }
-                    print_r($_SESSION["idUtilisateur"]);
                     // Création du cookie association id/token
-                    setcookie('id-token', $_SESSION["idUtilisateur"] . '-' . $token, time() + 3600 * 262980, '/', '', true);
+                    setcookie('id-token', $_SESSION["idUtilisateur"] . '-' . $token, time() + 3600 * 262980, '/', '', false);
 
                 }
                 header("location:../visiteur/index.php?success=connexion");

@@ -1,0 +1,85 @@
+GET : http://api-rest.calendrier/evenements/lire.php
+
+POST : http://api-rest.calendrier/evenements/creer.php
+raw => 
+{
+    "title": "Evenement Test Ajout",
+    "description": "Test de ajout evenement",
+    "start": "2021-10-20 10:30:00",
+    "end": "2021-10-20 14:00:00",
+    "idCreateur": 2
+}
+
+PUT : http://api-rest.calendrier/evenements/modifier.php
+raw =>
+{
+    "id": 1,
+    "title": "Rassemblement matin",
+    "description": "Reunion machine à café",
+    "start": "2021-10-18 09:30:00",
+    "end": "2021-10-18 10:30:00"
+} 
+
+DELETE : http://api-rest.calendrier/evenements/supprimer.php
+raw =>
+{
+    "id": ?
+}
+
+
+// ------------------------------------------------------------------------------------------------------------------ TRIGGER EVENEMENTS / PROJETS ------------------------------------------------------------------------------------------------------------------
+
+// -------------------------------------- INSERT --------------------------------------
+/*
+DELIMITER |
+CREATE TRIGGER after_insert_projet AFTER INSERT
+ON projets FOR EACH ROW
+BEGIN
+    INSERT INTO evenements(title, description, start, end, backgroundColor, borderColor, idCreateur)
+    VALUES(CONCAT('Deadline ', NEW.nom), CONCAT('Date de rendu du projet pour : ', NEW.contexte), DATE_SUB(NEW.dateFin, INTERVAL 1 HOUR), NEW.dateFin, "#dc3545", "#dc3545", NULL);
+END |
+
+DATE_ADD(HOUR, -1, NEW.dateDebut)
+
+INSERT INTO `projets`(`idProjet`, `idEquipe`, `dateDebut`, `dateFin`, `etatProjet`, `nom`, `importance`, `illustration`, `intitule`, `contexte`) VALUES (9,2,'2021-11-01 09:30:00','2022-01-28 09:30:01',0,'test',1,NULL,'Intitule TEST','Contexte test du projet test BLABLA')
+
+
+// -------------------------------------- UPDATE --------------------------------------
+DELIMITER |
+CREATE TRIGGER after_update_projet AFTER UPDATE
+ON projets FOR EACH ROW
+BEGIN
+    UPDATE evenements
+    SET title = CONCAT('Deadline ', NEW.nom), description = CONCAT('Date de rendu du projet pour : ', NEW.contexte), start = DATE_SUB(NEW.dateFin, INTERVAL 1 HOUR), end = NEW.dateFin
+    WHERE title = OLD.nom;
+END |
+
+///////////////////////////////////////////////////////////////////////////////////
+
+DELIMITER |
+CREATE TRIGGER after_update_projet AFTER UPDATE
+ON projets FOR EACH ROW
+BEGIN
+    DELETE FROM evenements
+    WHERE title = CONCAT('Deadline ', NEW.nom);
+
+    INSERT INTO evenements(title, description, start, end, backgroundColor, borderColor, idCreateur)
+    VALUES(CONCAT('Deadline ', NEW.nom), CONCAT('Date de rendu du projet pour : ', NEW.contexte), DATE_SUB(NEW.dateFin, INTERVAL 1 HOUR), NEW.dateFin, "#dc3545", "#dc3545", NULL);
+END |
+
+UPDATE projets
+SET dateFin = '2022-01-10 14:30:00',
+	intitule = 'Intitule Test'
+WHERE nom = 'test'
+
+// -------------------------------------- DELETE --------------------------------------
+
+
+DELIMITER |
+CREATE TRIGGER before_delete_projet BEFORE DELETE
+ON projets FOR EACH ROW
+BEGIN
+    DELETE FROM evenements
+    WHERE title = CONCAT('Deadline ', OLD.nom);
+END |
+*/
