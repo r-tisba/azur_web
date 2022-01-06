@@ -9,6 +9,7 @@
       <li><a href="mentions-legales.php">Mentions Légales</a></li>
       </ul>
     </p>
+    
   </div>
 </footer>
 

@@ -2,7 +2,9 @@
 require_once "../modeles/modele.php";
 session_start();
 
-if (!isset($_SESSION["identifiant"])) {
+
+if (!isset($_SESSION["identifiant"]))
+{
   header("location:../visiteur/index.php");
 }
 ?>
