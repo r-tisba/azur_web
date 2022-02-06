@@ -25,58 +25,69 @@ $interlocuteur =  $objetUtilisateur->recupererInterlocuteurProcedure($idDiscussi
             Retour
         </a>
     </div>
-    <div class="fleche_actualiser mr-4">
-        <a href="../utilisateur/discussion.php?id=<?=$idDiscussion;?> " class="icone_actualiser">
-            <i class="fas fa-sync"></i>
-        </a>
-    </div>
+    <?php
+    if (!empty($_GET["error"])) {
+        ?>
+        <div class="fleche_actualiser mr-4">
+            <a href="../utilisateur/discussion.php?id=<?= $idDiscussion; ?>" class="icone_actualiser">
+                <i class="fas fa-sync"></i>
+            </a>
+        </div>
+    <?php
+    }
+    ?>
+</div>
+
+<div class="container">
+    <?php
+    /* GESTION DES ERREURS OU SUCCES */
+    if (!empty($_GET["success"]) && $_GET["success"] == "suppression") {
+    ?>
+        <div class="alert alert-success mt-3">La supression a bien été effectué</div>
+    <?php
+        $service->redirectOneSec("../utilisateur/discussion.php?id=$idDiscussion");
+    } else if (!empty($_GET["success"]) && $_GET["success"] == "modification") {
+    ?>
+        <div class="alert alert-success mt-3">La modification a bien été effectué</div>
+    <?php
+        $service->redirectOneSec("../utilisateur/discussion.php?id=$idDiscussion");
+    }
+    if (!empty($_GET["error"])) {
+    ?>
+        <div class="alert alert-danger mt-2">
+            <?php switch ($_GET["error"]) {
+                case "missing": ?>
+                    <?php echo "Au moins un des champs est vide"; ?>
+                    <?php break; ?>
+                <?php
+                case "post": ?>
+                    <?php echo "Une erreur s'est produite lors de l'envoie du formulaire vérifier que votre message ne soit pas vide"; ?>
+                    <?php break; ?>
+                <?php
+                case "fonction": ?>
+                    <?php echo "Une erreur s'est produite lors de l'envoi du message"; ?>
+                    <?php break; ?>
+                <?php
+                case "modification": ?>
+                    <?php echo "Une erreur s'est produite lors de la modification du message"; ?>
+                    <?php break; ?>
+                <?php
+                case "suppression": ?>
+                    <?php echo "Une erreur s'est produite lors de la suppression"; ?>
+                    <?php break; ?>
+                <?php
+                case "idMessage": ?>
+                    <?php echo "Une erreur s'est produite lors de la récupération de l'idMessage"; ?>
+                    <?php break; ?>
+            <?php
+            }
+            ?>
+        </div>
+    <?php
+    }
+    ?>
 </div>
 <?php
-/* GESTION DES ERREURS OU SUCCES */
-if (!empty($_GET["success"]) && $_GET["success"] == "suppression") {
-?>
-    <div class="alert alert-success mt-3">La supression a bien été effectué</div>
-<?php
-    header("refresh:2;../utilisateur/discussion.php?id=$idDiscussion");
-} else if (!empty($_GET["success"]) && $_GET["success"] == "modification") {
-?>
-    <div class="alert alert-success mt-3">La modification a bien été effectué</div>
-<?php
-    header("refresh:2; ../utilisateur/discussion.php?id=$idDiscussion");
-}
-if (!empty($_GET["error"])) {
-?>
-    <div class="alert alert-danger mt-2">
-        <?php switch ($_GET["error"]) {
-            case "missing": ?>
-                <?php echo "Au moins un des champs est vide"; ?>
-                <?php break; ?>
-            <?php
-            case "post": ?>
-                <?php echo "Une erreur s'est produite lors de l'envoie du formulaire vérifier que votre message ne soit pas vide"; ?>
-                <?php break; ?>
-            <?php
-            case "fonction": ?>
-                <?php echo "Une erreur s'est produite lors de l'envoi du message"; ?>
-                <?php break; ?>
-            <?php
-            case "modification": ?>
-                <?php echo "Une erreur s'est produite lors de la modification du message"; ?>
-                <?php break; ?>
-            <?php
-            case "suppression": ?>
-                <?php echo "Une erreur s'est produite lors de la suppression"; ?>
-                <?php break; ?>
-            <?php
-            case "idMessage": ?>
-                <?php echo "Une erreur s'est produite lors de la récupération de l'idMessage"; ?>
-                <?php break; ?>
-        <?php
-        }
-        ?>
-    </div>
-<?php
-}
 /* BLOC CONVERSATION */
 ?>
 <div class="containerFil mt-2">
@@ -86,8 +97,7 @@ if (!empty($_GET["error"])) {
         </div>
         <div class="card-body bodyDiscussion">
             <?php
-            foreach ($messages as $message)
-            {
+            foreach ($messages as $message) {
                 $date = $message["date"];
                 /* dispositionMessages() détermine l'affichage du message dans le fil selon son auteur */
                 $service->dispositionMessages($message);

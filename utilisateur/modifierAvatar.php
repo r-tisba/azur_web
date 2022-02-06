@@ -20,7 +20,7 @@ require_once "../modeles/modele.php";
             <a href="../utilisateur/profil.php">Cliquez ici pour une redirection manuelle</a>
         </div>
     <?php
-        header("refresh:3;../utilisateur/profil.php");
+        $service->redirect("../utilisateur/profil.php");
     }
 
     if (!empty($_GET["error"])) {

@@ -13,13 +13,13 @@ if (($_GET["id"])) {
 
         if ($objetMessage->ajoutMessages($idEquipe, $contenu, $idUtilisateur) == true)
         {
-            header("location:../utilisateur/messagerieGroupe.php?id=$idEquipe");
+            $service->redirectNow("../utilisateur/messagerieGroupe.php?id=$idEquipe");
         } else {
-            header("location:../utilisateur/messagerieGroupe.php?error=fonction&&?id=$idEquipe");
+            $service->redirectNow("../utilisateur/messagerieGroupe.php?error=fonction&&?id=$idEquipe");
         }
     } else {
-        header("location:../utilisateur/messagerieGroupe.php?error=post&&?id=$idEquipe");
+        $service->redirectNow("../utilisateur/messagerieGroupe.php?error=post&&?id=$idEquipe");
     }
 } else {
-    header("location:../utilisateur/messagerieGroupe.php?error=missing&&?id=$idEquipe");
+    $service->redirectNow("../utilisateur/messagerieGroupe.php?error=missing&&?id=$idEquipe");
 }

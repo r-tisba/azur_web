@@ -3,7 +3,7 @@ require_once "../modeles/modele.php";
 require_once "../utilisateur/entete.php";
 
 if (!isset($_SESSION["idUtilisateur"])) {
-    header("location:../visiteur/index.php");
+    $service->redirectNow("../visiteur/index.php");
 }
 if (!empty($_GET["idMessage"])) {
     $idMessage = $_GET["idMessage"];
@@ -26,7 +26,7 @@ if (!empty($_POST["inputModifMessage"])) {
 ?>
         <div class="alert alert-success mt-2">Message modifié</div>
 <?php
-    header("refresh:1;../utilisateur/discussion.php?id=$idDiscussion");
+    $service->redirectOneSec("../utilisateur/discussion.php?id=$idDiscussion");
 } else {
 ?>
 

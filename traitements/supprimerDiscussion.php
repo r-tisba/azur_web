@@ -12,14 +12,13 @@ if(!empty($_GET["idDiscussion"]))
     {
         if($objetMessage->supprimerMessagesDiscussion($idDiscussion) == true)
         {
-            header("location:../utilisateur/listeDiscussions.php?id=$idDiscussion&success=suppression");
+            $service->redirectNow("../utilisateur/listeDiscussions.php?id=$idDiscussion&success=suppression");
         } else {
-            header("location:../utilisateur/listeDiscussions.php?id=$idDiscussion&error=suppressionMessage");
+            $service->redirectNow("../utilisateur/listeDiscussions.php?id=$idDiscussion&error=suppressionMessage");
         }
-
     } else {
-        header("location:../utilisateur/listeDiscussions.php?id=$idDiscussion&error=suppression");
+        $service->redirectNow("../utilisateur/listeDiscussions.php?id=$idDiscussion&error=suppression");
     }
 } else {
-    header("location:../utilisateur/listeDiscussions.php?id=$idDiscussion&error=idMessage");
+    $service->redirectNow("../utilisateur/listeDiscussions.php?id=$idDiscussion&error=idMessage");
 }

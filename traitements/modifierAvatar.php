@@ -20,21 +20,20 @@ if(getimagesize($_FILES["image"]["tmp_name"]))
                 $modifAvatar = $utilisateur->modifierAvatar($avatar, $_SESSION["idUtilisateur"]);
                 if($modifAvatar == true)
                 {
-                    header("location:../utilisateur/modifierAvatar.php?success=modification");
+                    $service->redirectNow("../utilisateur/modifierAvatar.php?success=modification");
                 } else {
-                    header("location:../utilisateur/modifierAvatar.php?error=ajout");
+                    $service->redirectNow("../utilisateur/modifierAvatar.php?error=ajout");
                 }
             } else {
-                header("location:../utilisateur/modifierAvatar.php?error=fichier");
+                $service->redirectNow("../utilisateur/modifierAvatar.php?error=fichier");
             }
         } else {
-            header("location:../utilisateur/modifierAvatar.php?error=type");
+            $service->redirectNow("../utilisateur/modifierAvatar.php?error=type");
         }
     } else {
-            header("location:../utilisateur/modifierAvatar.php?error=taille");
+        $service->redirectNow("../utilisateur/modifierAvatar.php?error=taille");
     }
 } else {
-    header("location:../utilisateur/modifierAvatar.php?error=image");
+    $service->redirectNow("../utilisateur/modifierAvatar.php?error=image");
 }
-
 ?>

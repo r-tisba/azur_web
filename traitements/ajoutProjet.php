@@ -8,13 +8,13 @@ if (!empty($_POST["nom"]) && !empty($_POST["importance"]) && !empty($_POST["date
 {
         extract($_POST);
 
-        if ($projet->ajoutProjet($idEquipe, $nom, $dateDebut, $dateFin, $importance) == true)
+        if ($projet->ajoutProjet($idEquipe, $nomProjet, $dateDebut, $dateFin, $importance) == true)
         {
-            header("location:../utilisateur/listeProjets.php?id=$idEquipe");
+            $service->redirectNow("../utilisateur/listeProjets.php?id=$idEquipe");
         } else {
-            header("location:../utilisateur/listeProjets.php?error=fonction&id=$idEquipe");
+            $service->redirectNow("../utilisateur/listeProjets.php?error=fonction&id=$idEquipe");
         }
 
 } else {
-    header("location:../utilisateur/listeProjets.php?error=missing&id=$idEquipe");
+    $service->redirectNow("../utilisateur/listeProjets.php?error=missing&id=$idEquipe");
 }

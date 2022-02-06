@@ -11,11 +11,11 @@ if (!empty($_POST["nom"]) && !empty($_POST["dateDebut"]) && !empty($_POST["dateF
 
         if ($etape->creerEtape($idProjet, $dateDebut, $dateFin, $nom) == true)
         {
-            header("location:../utilisateur/listeProjets.php?id=$idEquipe");
+            $service->redirectNow("../utilisateur/listeProjets.php?id=$idEquipe");
         } else {
-            header("location:../utilisateur/listeProjets.php?error=fonction&id=$idEquipe");
+            $service->redirectNow("../utilisateur/listeProjets.php?error=fonction&id=$idEquipe");
         }
 
 } else {
-    header("location:../utilisateur/listeProjets.php?error=missing&id=$idEquipe");
+    $service->redirectNow("../utilisateur/listeProjets.php?error=missing&id=$idEquipe");
 }

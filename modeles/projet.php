@@ -7,7 +7,7 @@ class Projet extends Modele
     private $dateDebut;
     private $dateFin;
     private $etatProjet;
-    private $nom;
+    private $nomProjet;
     private $importance;
     private $illustration;
 
@@ -23,7 +23,7 @@ class Projet extends Modele
             $this->dateDebut = $projet["dateDebut"];
             $this->dateFin = $projet["dateFin"];
             $this->etatProjet = $projet["etatProjet"];
-            $this->nom = $projet["nom"];
+            $this->nomProjet = $projet["nomProjet"];
             $this->importance = $projet["importance"];
             $this->illustration = $projet["illustration"];
         }
@@ -41,11 +41,11 @@ class Projet extends Modele
         return $requete->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function ajoutProjet($idEquipe, $nom, $dateDebut, $dateFin, $importance)
+    public function ajoutProjet($idEquipe, $nomProjet, $dateDebut, $dateFin, $importance)
     {
         $etatProjet = 0;
-        $requete = $this->getBDD()->prepare("INSERT INTO projets(idEquipe, nom, dateDebut, dateFin, importance, etatProjet) VALUES(?,?,?,?,?,?)");
-        $requete->execute([$idEquipe, $nom, $dateDebut, $dateFin, $importance, $etatProjet]);
+        $requete = $this->getBDD()->prepare("INSERT INTO projets(idEquipe, nomProjet, dateDebut, dateFin, importance, etatProjet) VALUES(?,?,?,?,?,?)");
+        $requete->execute([$idEquipe, $nomProjet, $dateDebut, $dateFin, $importance, $etatProjet]);
         return true;
     }
 
@@ -84,6 +84,6 @@ class Projet extends Modele
     }
     public function getNomProjet()
     {
-        return $this->nom;
+        return $this->nomProjet;
     }
 }

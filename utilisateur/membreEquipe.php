@@ -5,10 +5,10 @@ if(!isset($_SESSION["idUtilisateur"]))
 {
   header("location:../visiteur/index.php");
 }
-$utilisateur = new Equipe();
-$idEquipe=$_GET["id"];
+$objetUtilisateur = new Equipe();
+$idEquipe = $_GET["id"];
 
-$employes=$utilisateur->recupererEquipeRolesUtilisateurs($idEquipe);
+$utilisateurs = $objetUtilisateur->recupererUtilisateursRolesCompositionViaEquipe($idEquipe);
 
 
 
@@ -26,19 +26,19 @@ $employes=$utilisateur->recupererEquipeRolesUtilisateurs($idEquipe);
 <ul class="list-group">
 <div class="container-fluid">
 <div class="row">
-    
+
 <?php
-foreach($employes as $employe)
+foreach($utilisateurs as $utilisateur)
 {
 ?>
-        
+
     <div class="col-8 col-md-9 mb-4">
-        <li class="list-group-item">Nom : <?=$employe["nom"]?></li>
-        <li class="list-group-item">Prénom : <?=$employe["prenom"]?></li>
-        <li class="list-group-item">Poste : <?=$employe["poste"]?></li>
-        <li class="list-group-item">Rôle : <?=$employe["nomRole"]?></li>
+        <li class="list-group-item">Nom : <?=$utilisateur["nom"]?></li>
+        <li class="list-group-item">Prénom : <?=$utilisateur["prenom"]?></li>
+        <li class="list-group-item">Poste : <?=$utilisateur["poste"]?></li>
+        <li class="list-group-item">Rôle : <?=$utilisateur["nomRole"]?></li>
     </div>
-        
+
     <?php
 }
     ?>

@@ -60,7 +60,7 @@ $tokenBool = false;
     function ajouterCookie() {
       $("#modalCookie").modal('hide');
       $.ajax({
-        url: "../traitements/ajouterCookie.php",
+        url: "../traitements/ajoutCookie.php",
         type: "POST",
       });
     }

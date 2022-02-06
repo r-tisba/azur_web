@@ -1,6 +1,7 @@
 <?php
 require_once "../modeles/modele.php";
 $objetUtilisateur = new Utilisateur();
+$service = new Service();
 
 if (!empty($_POST))
 {
@@ -17,19 +18,19 @@ if (!empty($_POST))
                 $mdp = password_hash($_POST["mdp"], PASSWORD_BCRYPT);
                 if ($objetUtilisateur->creerUtilisateur($_POST["nom"], $_POST["prenom"],$_POST["poste"], $mdp) == true)
                 {
-                    header("location:../visiteur/inscription.php?success=inscription");
+                    $service->redirectNow("../visiteur/inscription.php?success=inscription");
                 } else {
-                    header("location:../visiteur/inscription.php?error=inscriptionsave");
+                    $service->redirectNow("../visiteur/inscription.php?error=inscriptionsave");
                 }
             } else {
-                header("location:../visiteur/inscription.php?error=mdpnotsame");
+                $service->redirectNow("../visiteur/inscription.php?error=mdpnotsame");
             }
         } else {
-            header("location:../visiteur/inscription.php?error=mdplength");
+            $service->redirectNow("../visiteur/inscription.php?error=mdplength");
         }
     } else {
-        header("location:../visiteur/inscription.php?error=missing");
+        $service->redirectNow("../visiteur/inscription.php?error=missing");
     }
 } else {
-    header("location:/");
+    $service->redirectNow("location:/");
 }

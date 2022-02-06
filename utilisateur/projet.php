@@ -27,7 +27,7 @@ $premier = true;
             <div class="card border-0 div_details_projet">
                 <div class="card-header header_projet">
                     <div class="col-12 col-sm-12 col-lg-3 col-md-4 div_titre_projet">
-                        <h1 class="titre_projet py-3"><?= $projet["nom"] ?></h1>
+                        <h1 class="titre_projet py-3"><?= $projet["nomProjet"] ?></h1>
                     </div>
                     <div class="col-12 col-sm-12 col-lg-9 col-md-8 div_intitule py-3">
                         <div class="div_intitule_projet">

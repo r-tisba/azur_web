@@ -1,8 +1,10 @@
 <?php
 session_start();
 
+$service = new Service();
+
 if (empty($_SESSION["identifiant"])) {
-    header("location:../../index.php");
+    $service->redirectNow("../../index.php");
 }
 ?>
 

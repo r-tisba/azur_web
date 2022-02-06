@@ -1,3 +1,4 @@
 <?php
+$service = new Service();
 setcookie($cookie=true);
-header('../utilisateur/index.php');
+$service->redirectNow('../utilisateur/index.php');

@@ -2,7 +2,7 @@
 require_once "entete.php";
 
 if (!isset($_SESSION["identifiant"])) {
-  header("location:../visiteur/index.php");
+  $service->redirectNow("../visiteur/index.php");
 }
 
 ?>

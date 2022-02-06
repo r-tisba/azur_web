@@ -21,9 +21,9 @@ if (!empty($_POST["idDestinataire"]))
             $idDiscussion = $verif["idDiscussion"];
             if ($objetMessage->ajoutMessages($idDiscussion, $contenu, $idUtilisateur) == true)
             {
-               header("location:../utilisateur/discussion.php?id=$idDiscussion");
+                $service->redirectNow("../utilisateur/discussion.php?id=$idDiscussion");
             } else {
-                header("location:../utilisateur/discussion.php?error=fonction");
+                $service->redirectNow("../utilisateur/discussion.php?error=fonction");
             }
             /* Sinon on crée cette nouvelle discussion */
         } else {
@@ -34,17 +34,17 @@ if (!empty($_POST["idDestinataire"]))
                 $idDiscussion = $result["idDiscussion"];
                 if ($objetMessage->ajoutMessages($idDiscussion, $contenu, $idUtilisateur) == true)
                 {
-                    header("location:../utilisateur/discussion.php?id=$idDiscussion");
+                    $service->redirectNow("../utilisateur/discussion.php?id=$idDiscussion");
                 } else {
-                    header("location:../utilisateur/discussion.php?error=fonction");
+                    $service->redirectNow("../utilisateur/discussion.php?error=fonction");
                 }
             } else {
-                header("location:../utilisateur/ListeDiscussions.php?error=fonctionDiscussion");
+                $service->redirectNow("../utilisateur/ListeDiscussions.php?error=fonctionDiscussion");
             }
         }
     } else {
-        header("location:../utilisateur/ListeDiscussions.php?error=post");
+        $service->redirectNow("../utilisateur/ListeDiscussions.php?error=post");
     }
 } else {
-    header("location:../utilisateur/ListeDiscussions.php?error=missing");
+    $service->redirectNow("../utilisateur/ListeDiscussions.php?error=missing");
 }

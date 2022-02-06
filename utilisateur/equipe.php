@@ -2,7 +2,7 @@
 require_once "../utilisateur/entete.php";
 
 if (!isset($_GET["id"])) {
-  header("location:../visiteur/index.php");
+  $service->redirectNow("../visiteur/index.php");
 }
 $idEquipe = $_GET["id"];
 $objetEquipe = new Equipe();

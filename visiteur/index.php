@@ -36,12 +36,8 @@ if ($_SERVER["REQUEST_URI"] != "/visiteur/index.php") {
 ?>
     <div class="alert alert-danger alert_connexion mt-3">
         <?php switch ($_GET["error"]) {
-            case "falsemdp": ?>
-                <?php echo "Mot de passe incorrect"; ?>
-                <?php break; ?>
-            <?php
-            case "falseid": ?>
-                <?php echo "L'identifiant n'existe pas"; ?>
+            case "falselogin": ?>
+                <?php echo "Identifiant ou mot de passe incorrect"; ?>
                 <?php break; ?>
             <?php
             case "missing": ?>
@@ -89,7 +85,7 @@ if($tokenBool == true)
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="checkbox_token" id="checkbox_token" value="true">
                         <label class="form-check-label" for="checkbox_token">
-                            Se souvenir de moi
+                            Rester connecté
                         </label>
                     </div>
                 </div>

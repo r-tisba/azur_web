@@ -11,13 +11,13 @@ if (($_GET["id"])) {
 
         if ($objetMessage->ajoutMessages($idDiscussion, $contenu, $idUtilisateur) == true)
         {
-            header("location:../utilisateur/discussion.php?id=$idDiscussion");
+            $service->redirectNow("../utilisateur/discussion.php?id=$idDiscussion");
         } else {
-            header("location:../utilisateur/discussion.php?error=fonction");
+            $service->redirectNow("../utilisateur/discussion.php?error=fonction");
         }
     } else {
-        header("location:../utilisateur/discussion.php?error=post");
+        $service->redirectNow("../utilisateur/discussion.php?error=post");
     }
 } else {
-    header("location:../utilisateur/discussion.php?error=missing");
+    $service->redirectNow("../utilisateur/discussion.php?error=missing");
 }

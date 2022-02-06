@@ -111,7 +111,7 @@ a:hover {
 {
   color: #50575d ;
 }
-input#identifiant, input#mdp
+input#identifiant, input#mdp, input#verifMdp
 {
   width: 15rem;
   text-align: center;
@@ -137,7 +137,33 @@ input#identifiant, input#mdp
 /*
 background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #009dec, #00b4eb, #03c2ec, #29cfeb, #49dbe8, #47e3e8, #4aece6, #52f3e2, #5ffbdd);
 */
-
+/* --------------------------------------------- VALIDATION --------------------------------------------- */
+.card_text
+{
+  line-height: 1.6;
+  letter-spacing: 0.4px;
+  margin-bottom: 0.5rem;
+}
+.card_list
+{
+  font-family: 'Lato', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  margin-bottom: 0;
+  padding-left: 2rem;
+}
+.card_list li::marker
+{
+    color: #dc3545;
+}
+.card_validation
+{
+  max-width: 30rem;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
 /* --------------------------------------------- INDEX --------------------------------------------- */
 
 .shadow-sm
@@ -948,7 +974,7 @@ textarea
     padding: 3px 23px;
     /* align-self: center; */
     font-size: 19px;
-    margin-top: 2.5%;	
+    margin-top: 2.5%;
     margin-left: 3%;
 
 }

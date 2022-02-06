@@ -27,8 +27,8 @@ class Discussion extends Modele
             $discussion = array_merge($discussionE, $discussionD);
 
             $this->idDiscussion = $idD;
-            $this->idEnvoyeur = $discussion["idEnvoyeur"];
-            $this->idDestinataire = $discussion["idDestinataire"];
+            if(isset($discussion["idEnvoyeur"])) { $this->idEnvoyeur = $discussion["idEnvoyeur"]; }
+            if(isset($discussion["idDestinataire"])) { $this->idDestinataire = $discussion["idDestinataire"]; }
 
             $requete = $this->getBdd()->prepare("SELECT * FROM messages WHERE idDiscussion = ?");
             $requete->execute([$idD]);

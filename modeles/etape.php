@@ -27,13 +27,13 @@ class Etape extends Modele
     }
     public function recupererEtapesProjet($idProjet)
     {
-        $requete= $this->getBdd()->prepare("SELECT idProjet, idEtape, nomEtape, e.dateDebut, e.dateFin, etatEtape, nom, contexte FROM etapes e INNER JOIN projets p USING(idProjet) WHERE idProjet = ?");
+        $requete= $this->getBdd()->prepare("SELECT idProjet, idEtape, nomEtape, e.dateDebut, e.dateFin, etatEtape, nomProjet, contexte FROM etapes e INNER JOIN projets p USING(idProjet) WHERE idProjet = ?");
         $requete->execute([$idProjet]);
         return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
     public function recupererEtapesProjetNonFini($idProjet)
     {
-        $requete= $this->getBdd()->prepare("SELECT idProjet, idEtape, nomEtape, e.dateDebut, e.dateFin, etatEtape, nom, contexte FROM etapes e INNER JOIN projets p USING(idProjet) WHERE idProjet = ? AND etatEtape = 0");
+        $requete= $this->getBdd()->prepare("SELECT idProjet, idEtape, nomEtape, e.dateDebut, e.dateFin, etatEtape, nomProjet, contexte FROM etapes e INNER JOIN projets p USING(idProjet) WHERE idProjet = ? AND etatEtape = 0");
         $requete->execute([$idProjet]);
         return $requete->fetchAll(PDO::FETCH_ASSOC);
     }

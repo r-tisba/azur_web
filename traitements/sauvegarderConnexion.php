@@ -1,5 +1,6 @@
 <?php
 require_once "../modeles/modele.php";
+$service = new Service();
 $objetUtilisateur = new Utilisateur();
 
 if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
@@ -47,10 +48,10 @@ if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
                         $token = $resultat["token"];
                     }
                     // Création du cookie association id/token
-                    setcookie('id-token', $_SESSION["idUtilisateur"] . '-' . $token, time() + 3600 * 262980, '/', '', false);
+                    setcookie('id-token', $_SESSION["idUtilisateur"] . '-' . $token, time() + 3600 * 262980, '/', '', false, true);
 
                 }
-                header("location:../visiteur/index.php?success=connexion");
+                $service->redirectNow("../visiteur/index.php?success=connexion");
 
                 ?>
                 <div class="alert alert-success mt-3">
@@ -59,16 +60,16 @@ if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
                     <a href="../visiteur/index.php">Cliquez ici pour une redirection manuelle</a>
                 </div>
                 <?php
-                header("refresh:4;../visiteur/index.php");
+                $service->redirect("../visiteur/index.php");
             } else {
-                header("location:../visiteur/index.php?error=falsemdp");
+                $service->redirectNow("../visiteur/index.php?error=falselogin");
             }
         } else {
-            header("location:../visiteur/index.php?error=falseid");
+            $service->redirectNow("../visiteur/index.php?error=falselogin");
         }
     } else {
-        header("location:../visiteur/index.php?error=missing");
+        $service->redirectNow("../visiteur/index.php?error=missing");
     }
 } else {
-    header("location:/");
+    $service->redirectNow("location:/");
 }

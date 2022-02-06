@@ -9,6 +9,13 @@ session_unset();
 // On détruit la session
 session_destroy();
 
+// On supprime le cookie "Rester connecté"
+if (isset($_COOKIE['id-token']))
+{
+    unset($_COOKIE['id-token']);
+    setcookie('id-token', null, -1, '/');
+}
+
 ?>
 <div class="container">
     <div class="alert alert-success mt-3">

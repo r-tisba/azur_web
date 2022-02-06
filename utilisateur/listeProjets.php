@@ -32,7 +32,7 @@ $projets = $objetProjet->recupererProjetsEquipe($idEquipe);
 
                                 <div class="form-group">
                                     <label for="nom">Nom projet:</label>
-                                    <input type="text" class="form-control" name="nom" id="nom" placeholder="Saisissez le nom du projet" value="<?= (isset($_POST["nom"]) ? $_POST["nom"] : "") ?>" required />
+                                    <input type="text" class="form-control" name="nom" id="nom" placeholder="Saisissez le nom du projet" value="<?= (isset($_POST["nomProjet"]) ? $_POST["nomProjet"] : "") ?>" required />
                                 </div>
 
                                 <div class="form-group">
@@ -75,7 +75,7 @@ $projets = $objetProjet->recupererProjetsEquipe($idEquipe);
                 $barreProgression = $tabBarreProgression["COUNT(*)"];
                 $progression = $tabProgression["COUNT(*)"];
                 $intituleProjet = $projet["intitule"];
-            ?>
+                ?>
                 <!-- ----------------------------- CONTAINER PROJET ----------------------------- -->
                 <div class="container-fluid mb-4">
                     <div class="row">
@@ -84,7 +84,7 @@ $projets = $objetProjet->recupererProjetsEquipe($idEquipe);
                             <div class="card border-0">
                                 <div class="card-header header_projet">
                                     <div class="col-12 col-sm-12 col-lg-3 col-md-4 div_titre_projet">
-                                        <h1 class="titre_projet py-3"><?= $projet["nom"] ?></h1>
+                                        <h1 class="titre_projet py-3"><?= $projet["nomProjet"] ?></h1>
                                     </div>
                                     <div class="col-12 col-sm-12 col-lg-9 col-md-8 div_intitule_dateDeb py-3">
                                         <div class="div_intitule_projet">

@@ -50,6 +50,24 @@ class Service
             exit;
         }
     }
+    public function redirectOneSec($url)
+    {
+        if (!headers_sent())
+        {
+            header('refresh:3;Location: '.$url);
+            exit;
+        }
+        else
+        {
+            echo '<script type="text/javascript">';
+            echo 'window.setTimeout(function() { window.location.href="'.$url.'"; }, 1000);';
+            echo '</script>';
+            echo '<noscript>';
+            echo '<meta http-equiv="refresh" content="1; url='.$url.'" />';
+            echo '</noscript>';
+            exit;
+        }
+    }
     public function redirectNow($url)
     {
         if (!headers_sent())

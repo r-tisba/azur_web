@@ -10,10 +10,10 @@ if(!empty($_GET["idMessage"]))
 {
     $idMessage = $_GET["idMessage"];
     if($objetMessage->supprimerMessage($idMessage) == true){
-        header("location:../utilisateur/discussion.php?id=$idDiscussion&success=suppression");
+        $service->redirectNow("../utilisateur/discussion.php?id=$idDiscussion&success=suppression");
     } else {
-        header("location:../utilisateur/discussion.php?id=$idDiscussion&error=suppression");
+        $service->redirectNow("../utilisateur/discussion.php?id=$idDiscussion&error=suppression");
     }
 } else {
-    header("location:../utilisateur/discussion.php?id=$idDiscussion&error=idMessage");
+    $service->redirectNow("../utilisateur/discussion.php?id=$idDiscussion&error=idMessage");
 }

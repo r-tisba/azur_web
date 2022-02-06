@@ -56,14 +56,12 @@ class Utilisateur extends Modele
       $requete->execute([$idUtilisateur]);
       return $requete->fetch(PDO::FETCH_ASSOC);
    }
-
    public function recupererInfosConnexion($identifiant)
    {
       $requete = $this->getBDD()->prepare("SELECT idUtilisateur, identifiant, mdp, role FROM utilisateurs WHERE identifiant = ?");
       $requete->execute([$identifiant]);
       return $requete;
    }
-
    public function creerUtilisateur($nom, $prenom, $poste, $mdp)
    {
       $role = "Utilisateur";
@@ -88,6 +86,13 @@ class Utilisateur extends Modele
 
       $this->avatar = $avatar;
       $this->idUtilisateur = $idUtilisateur;
+   }
+   public function validerUtilisateur($idUtilisateur, $mdp)
+   {
+      $validation = 1;
+      $requete = $this->getBDD()->prepare("UPDATE utilisateurs SET mdp = ?, validation = ? WHERE idUtilisateur = ?");
+      $requete->execute([$mdp, $validation, $idUtilisateur]);
+      return true;
    }
    public function supprimerUtilisateur($idUtilisateur)
    {
@@ -126,6 +131,12 @@ class Utilisateur extends Modele
    {
       $requete = $this->getBDD()->prepare("SELECT nomRole FROM roles WHERE idRole = ?");
       $requete->execute([$idRole]);
+      return $requete->fetch(PDO::FETCH_ASSOC);
+   }
+   public function recupererValidation($idUtilisateur)
+   {
+      $requete = $this->getBDD()->prepare("SELECT validation FROM utilisateurs WHERE idUtilisateur = ?");
+      $requete->execute([$idUtilisateur]);
       return $requete->fetch(PDO::FETCH_ASSOC);
    }
 

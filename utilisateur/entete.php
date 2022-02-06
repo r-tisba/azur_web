@@ -2,10 +2,19 @@
 require_once "../modeles/modele.php";
 session_start();
 
+$service = new Service();
+$objetUtilisateur = new Utilisateur();
+$result = $objetUtilisateur->recupererValidation($_SESSION["idUtilisateur"]);
+$validation = $result["validation"];
 
 if (!isset($_SESSION["identifiant"]))
 {
-  header("location:../visiteur/index.php");
+  $service->redirectNow("../visiteur/index.php");
+}
+
+if(strpos($_SERVER["REQUEST_URI"], "utilisateur/validationMdp") == false && $_SERVER["REQUEST_URI"] != "/traitements/sauvegarderMdp.php" && $validation == 0)
+{
+  $service->redirectNow("../utilisateur/validationMdp.php");
 }
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -58,7 +67,7 @@ if (!isset($_SESSION["identifiant"]))
     function ajouterCookie() {
       $("#modalCookie").modal('hide');
       $.ajax({
-        url: "../traitements/ajouterCookie.php",
+        url: "../traitements/ajoutCookie.php",
         type: "POST",
       });
     }
