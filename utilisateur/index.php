@@ -7,7 +7,6 @@ if (!isset($_SESSION["identifiant"])) {
 
 ?>
 <main>
-
   <div class="album py-3">
     <div class="container">
 
