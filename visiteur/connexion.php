@@ -39,11 +39,24 @@ require_once "../visiteur/entete.php";
             <?php
             }
             ?>
+            
         </div>
     <?php
     }
     ?>
-
+    <form action="javascript:alert(grecaptcha.getResponse(widgetId1));">
+      <div id="example1"></div>
+      <br>
+      <input type="submit" value="getResponse">
+    </form>
+    <br>
+    <!-- Resets reCAPTCHA widgetId2 upon submit. -->
+    <form action="javascript:grecaptcha.reset(widgetId2);">
+      <div id="example2"></div>
+      <br>
+      <input type="submit" value="reset">
+    </form>
+    <br>
     <form method="post" action="../traitements/sauvegarderConnexion.php">
         <div class="col-12 text-center">
             <div class="col-12 align-self-center">
@@ -59,8 +72,13 @@ require_once "../visiteur/entete.php";
                     <div class="form-group text-center ">
                         <button type="submit" class="btn btn-outline-primary" name="envoi" id="envoi" value="1">Connexion</button>
                     </div>
+                    <div id="captcha"></div>
+
                 </div>
             </div>
         </div>
     </form>
+    
+    
+    
 </div>

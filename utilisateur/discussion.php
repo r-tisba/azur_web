@@ -15,7 +15,8 @@ $objetUtilisateur = new Utilisateur();
 $objetMessage = new Message();
 $service = new Service();
 $messages = $objetMessage->recupererMessages($idDiscussion);
-$interlocuteur =  $objetUtilisateur->recupererInterlocuteurProcedure($idDiscussion);
+//$interlocuteur =  $objetUtilisateur->recupererInterlocuteurProcedure($idDiscussion);
+$interlocuteur =  $objetUtilisateur->recupererInterlocuteur($idDiscussion);
 
 ?>
 <div class="div_fleche">

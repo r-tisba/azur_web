@@ -6,6 +6,7 @@ if(!isset($_SESSION["idUtilisateur"]))
   header("location:../visiteur/index.php");
 }
 $utilisateur = new Equipe();
+$objetUtilisateur = new Utilisateur();
 $idEquipe=$_GET["id"];
 
 $employes=$utilisateur->recupererEquipeRolesUtilisateurs($idEquipe);
@@ -33,6 +34,11 @@ foreach($employes as $employe)
 ?>
         
     <div class="col-8 col-md-9 mb-4">
+        <li class="list-group-item">
+        <a href="../traitements/gestionDiscussion.php?idReceveur=<?=$employe['idUtilisateur']?>&&idEnvoyeur=<?=$_SESSION['idUtilisateur']?>">
+            <img src="<?= $employe["avatar"]; ?>" class="rounded-circle avatarProfil" style="height: 5rem; width: 5rem;">
+        </a>
+        </li>
         <li class="list-group-item">Nom : <?=$employe["nom"]?></li>
         <li class="list-group-item">Prénom : <?=$employe["prenom"]?></li>
         <li class="list-group-item">Poste : <?=$employe["poste"]?></li>

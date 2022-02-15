@@ -287,12 +287,12 @@ background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #0
 */
 .cardMessage_perso
 {
-  color: white;
+  color: black;
   background: #14E070;
 }
 .cardMessage_interlocuteur
 {
-  color: white;
+  color: black;
   background: #383838;
 }
 .card-header

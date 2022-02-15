@@ -59,16 +59,20 @@ if (isset($_SESSION["identifiant"])) {
                 <div class="card-body">
                     <div class="form-group">
                         <label for="identifiant">Identifiant :</label>
-                        <input type="text" class="form-control" name="identifiant" id="identifiant" placeholder="Saisissez votre identifiant" value="<?= (isset($_POST["identifiant"]) ? htmlspecialchars($_POST["identifiant"], ENT_QUOTES) : "") ?>" required />
+                        <input type="text" style="margin-left: 29px;" class="form-control" name="identifiant" id="identifiant" placeholder="Saisissez votre identifiant" value="<?= (isset($_POST["identifiant"]) ? htmlspecialchars($_POST["identifiant"], ENT_QUOTES) : "") ?>" required />
                     </div>
                     <div class="form-group mb-4">
                         <label for="mdp">Mot de passe :</label>
-                        <input type="password" class="form-control" name="mdp" id="mdp" placeholder="Saisissez votre mot de passe" required />
+                        <input type="password" style="margin-left: 29px;" class="form-control" name="mdp" id="mdp" placeholder="Saisissez votre mot de passe" required />
                     </div>
+                    <div id="captcha" class="form-group"></div>
+                    <br>
                     <div class="form-group text-center ">
                         <button type="submit" class="btn btn-outline-primary" name="envoi" id="envoi" value="1">Connexion</button>
                     </div>
                 </div>
+                
+                
             </div>
         </div>
     </form>

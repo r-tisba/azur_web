@@ -21,7 +21,7 @@ if (!isset($_SESSION["identifiant"])) {
               <p class="card-text texteOutil">Vos documents</p>
               <div class="d-flex justify-content-center">
                 <div class="btn-group">
-                  <a href="salaire.php">
+                  <a href="casier.php">
                     <img src="../images/design/salaire.png" class="imageSecteur" />
                   </a>
                 </div>

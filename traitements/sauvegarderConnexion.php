@@ -5,7 +5,7 @@ if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
     extract($_POST);
 
     // Vérification que les inputs aient été remplit
-    if (isset($identifiant) || !empty($identifiant) && isset($mdp) || !empty($mdp)) {
+    if (isset($identifiant) || !empty($identifiant) && isset($mdp) || !empty($mdp) && isset($captcha)|| isset($captcha)) {
         $requete = $objetUtilisateur->recupererInfosConnexion($identifiant);
 
         // Vérification si l'identifiant existe pas

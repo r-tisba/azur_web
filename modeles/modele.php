@@ -23,3 +23,4 @@ require_once "../modeles/projet.php";
 require_once "../modeles/messageGroupe.php";
 require_once "../modeles/discussionGroupe.php";
 require_once "../modeles/etape.php";
+//require_once "../modeles/salaire.php";

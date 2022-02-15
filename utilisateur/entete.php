@@ -7,6 +7,17 @@ if (!isset($_SESSION["identifiant"]))
 {
   header("location:../visiteur/index.php");
 }
+$now = time();
+//condition si l'utilisateur est innactif au-delà de la limite de temps de la session cette dernière ce supprime
+if (isset($_SESSION['discard_after']) && $now > $_SESSION['discard_after']) 
+{ 
+  session_unset(); 
+  session_destroy(); 
+  session_start(); 
+}
+//limite de temps de la session de 30 minutes
+$_SESSION['discard_after'] = $now + 30*60;
+
 ?>
 
 <!doctype html>
@@ -27,7 +38,7 @@ if (!isset($_SESSION["identifiant"]))
 
 <body>
   <nav class="navbar navbar-dark navbar-expand-md bg-dark">
-    <a class="navbar-brand titre" href="/ap/azur_web/utilisateur/index.php">
+    <a class="navbar-brand titre" href="index.php">
       <img src="../images/design/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
       Azur
     </a>
@@ -38,7 +49,7 @@ if (!isset($_SESSION["identifiant"]))
     <div class="navbar-collapse collapse" id="navbarNavDropdown">
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-item nav-link" href="/ap/azur_web/utilisateur/profil.php">Profil</a>
+          <a class="nav-item nav-link" href="profil.php">Profil</a>
         </li>
         <?php
         if (!empty($_SESSION["identifiant"]) && $_SESSION["role"] == "Admin" || $_SESSION["role"] == "SuperAdmin") {
@@ -64,7 +75,7 @@ if (!isset($_SESSION["identifiant"]))
               <?= "Vous êtes connecté " . $_SESSION["identifiant"] ?>
             </a>
           </div>
-          <a class="btn btn-outline-danger ml-1" href="/ap/azur_web/utilisateur/deconnexion.php">Se déconnecter</a>
+          <a class="btn btn-outline-danger ml-1" href="deconnexion.php">Se déconnecter</a>
         <?php
         }
         ?>
