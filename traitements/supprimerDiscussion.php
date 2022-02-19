@@ -1,6 +1,5 @@
 <?php
-require_once "../modeles/modele.php";
-require_once "../utilisateur/entete.php";
+require_once "../vues/utilisateur/entete.php";
 $idUtilisateur = $_SESSION["idUtilisateur"];
 $objetDiscussion = new Discussion();
 $objetMessage = new Message();
@@ -12,13 +11,13 @@ if(!empty($_GET["idDiscussion"]))
     {
         if($objetMessage->supprimerMessagesDiscussion($idDiscussion) == true)
         {
-            $service->redirectNow("../utilisateur/listeDiscussions.php?id=$idDiscussion&success=suppression");
+            $service->redirectNow("../vues/utilisateur/listeDiscussions.php?id=$idDiscussion&success=suppression");
         } else {
-            $service->redirectNow("../utilisateur/listeDiscussions.php?id=$idDiscussion&error=suppressionMessage");
+            $service->redirectNow("../vues/utilisateur/listeDiscussions.php?id=$idDiscussion&error=suppressionMessage");
         }
     } else {
-        $service->redirectNow("../utilisateur/listeDiscussions.php?id=$idDiscussion&error=suppression");
+        $service->redirectNow("../vues/utilisateur/listeDiscussions.php?id=$idDiscussion&error=suppression");
     }
 } else {
-    $service->redirectNow("../utilisateur/listeDiscussions.php?id=$idDiscussion&error=idMessage");
+    $service->redirectNow("../vues/utilisateur/listeDiscussions.php?id=$idDiscussion&error=idMessage");
 }

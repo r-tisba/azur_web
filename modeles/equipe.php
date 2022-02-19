@@ -30,12 +30,6 @@ class Equipe extends Modele
         $requete->execute([$idEquipe]);
         return $requete->fetch(PDO::FETCH_ASSOC);
     }
-    public function recupererUtilisateursRolesCompositionViaEquipe($idEquipe)
-   {
-      $requete = $this->getBDD()->prepare("SELECT * FROM equipes INNER JOIN composition_equipes USING(idEquipe) INNER JOIN utilisateurs USING(idUtilisateur) INNER JOIN roles ON utilisateurs.role = roles.nomRole WHERE idEquipe=?");
-      $requete->execute([$idEquipe]);
-      return $requete->fetchAll(PDO::FETCH_ASSOC);
-   }
 
     // recuperer et utiliser idSecteur alors qu'on selectionne idEquipe dans la requête ?
     public function recupererSecteur($idSecteur)

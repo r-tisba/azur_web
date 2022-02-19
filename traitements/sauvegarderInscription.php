@@ -1,5 +1,7 @@
 <?php
-require_once "../modeles/modele.php";
+require_once "../../services/fonctions.php";
+$service = new Service();
+$service->myRequireOnce("modeles/modele.php");
 $objetUtilisateur = new Utilisateur();
 $service = new Service();
 
@@ -18,18 +20,18 @@ if (!empty($_POST))
                 $mdp = password_hash($_POST["mdp"], PASSWORD_BCRYPT);
                 if ($objetUtilisateur->creerUtilisateur($_POST["nom"], $_POST["prenom"],$_POST["poste"], $mdp) == true)
                 {
-                    $service->redirectNow("../visiteur/inscription.php?success=inscription");
+                    $service->redirectNow("../vues/visiteur/inscription.php?success=inscription");
                 } else {
-                    $service->redirectNow("../visiteur/inscription.php?error=inscriptionsave");
+                    $service->redirectNow("../vues/visiteur/inscription.php?error=inscriptionsave");
                 }
             } else {
-                $service->redirectNow("../visiteur/inscription.php?error=mdpnotsame");
+                $service->redirectNow("../vues/visiteur/inscription.php?error=mdpnotsame");
             }
         } else {
-            $service->redirectNow("../visiteur/inscription.php?error=mdplength");
+            $service->redirectNow("../vues/visiteur/inscription.php?error=mdplength");
         }
     } else {
-        $service->redirectNow("../visiteur/inscription.php?error=missing");
+        $service->redirectNow("../vues/visiteur/inscription.php?error=missing");
     }
 } else {
     $service->redirectNow("location:/");

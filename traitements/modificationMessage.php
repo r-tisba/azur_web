@@ -1,9 +1,8 @@
 <?php
-require_once "../modeles/modele.php";
-require_once "../utilisateur/entete.php";
+require_once "../vues/utilisateur/entete.php";
 
 if (!isset($_SESSION["idUtilisateur"])) {
-    $service->redirectNow("../visiteur/index.php");
+    $service->redirectNow("../vues/visiteur/index.php");
 }
 if (!empty($_GET["idMessage"])) {
     $idMessage = $_GET["idMessage"];
@@ -26,12 +25,12 @@ if (!empty($_POST["inputModifMessage"])) {
 ?>
         <div class="alert alert-success mt-2">Message modifié</div>
 <?php
-    $service->redirectOneSec("../utilisateur/discussion.php?id=$idDiscussion");
+    $service->redirectOneSec("../vues/utilisateur/discussion.php?id=$idDiscussion");
 } else {
 ?>
 
     <div class="mb-4 fleche_retour">
-        <a href="../utilisateur/discussion.php?id=<?= $idDiscussion ?>" class="retour">
+        <a href="../vues/utilisateur/discussion.php?id=<?= $idDiscussion ?>" class="retour">
             <i class="fas fa-chevron-left"></i>
             Retour
         </a>
@@ -74,5 +73,5 @@ if (!empty($_POST["inputModifMessage"])) {
 ?>
 </div>
 <?php
-require_once "../utilisateur/pied.php";
+require_once "../vues/utilisateur/pied.php";
 ?>

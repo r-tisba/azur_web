@@ -1,7 +1,7 @@
 GET : http://api-rest.calendrier/evenements/lire.php
 
 POST : http://api-rest.calendrier/evenements/creer.php
-raw => 
+raw =>
 {
     "title": "Evenement Test Ajout",
     "description": "Test de ajout evenement",
@@ -18,7 +18,7 @@ raw =>
     "description": "Reunion machine à café",
     "start": "2021-10-18 09:30:00",
     "end": "2021-10-18 10:30:00"
-} 
+}
 
 DELETE : http://api-rest.calendrier/evenements/supprimer.php
 raw =>
@@ -85,7 +85,7 @@ END |
 
 
 
-Debut Mars : 
+Debut Mars :
 Doc technique & fonctionnelle par AP
 
 Sécurité :
@@ -94,27 +94,22 @@ Sécurité :
 - Injection SQL : SELECT * FROM accounts WHERE username=1' or ‘1’=’1' AND password=1' or ‘1’=’1''
 	-> renvoi : "Forbidden. You don't have permission to access this resource."
 	-> Protection par paramétrage de variable
-	
+
 - Piratage de session
 	-> Mettre en place le système de changement de mot de passe (voir Trello) *
 	-> Protection des cookies ?
-	
+
 - Securiser la bdd
 	-> Authentification forte ?
-	-> 
+	->
 
 - Contrôle d'accès
 	-> Sécuriser les URL (accès illégal discussion & équipe) *
 	-> ./ ?
-	
+
 - XSS
 	-> HttpOnly
 	-> Validation des données d'entrée * ?
 	-> Transformation des entrées * ?
-	
+
 - Accès aux traitements
-
-
-
-
-

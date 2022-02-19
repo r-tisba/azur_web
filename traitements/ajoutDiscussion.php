@@ -1,6 +1,5 @@
 <?php
-require_once "../modeles/modele.php";
-require_once "../utilisateur/entete.php";
+require_once "../vues/utilisateur/entete.php";
 $objetMessage = new Message();
 $objetDiscussion = new Discussion();
 $idUtilisateur = $_SESSION["idUtilisateur"];
@@ -21,9 +20,9 @@ if (!empty($_POST["idDestinataire"]))
             $idDiscussion = $verif["idDiscussion"];
             if ($objetMessage->ajoutMessages($idDiscussion, $contenu, $idUtilisateur) == true)
             {
-                $service->redirectNow("../utilisateur/discussion.php?id=$idDiscussion");
+                $service->redirectNow("../vues/utilisateur/discussion.php?id=$idDiscussion");
             } else {
-                $service->redirectNow("../utilisateur/discussion.php?error=fonction");
+                $service->redirectNow("../vues/utilisateur/discussion.php?error=fonction");
             }
             /* Sinon on crée cette nouvelle discussion */
         } else {
@@ -34,17 +33,17 @@ if (!empty($_POST["idDestinataire"]))
                 $idDiscussion = $result["idDiscussion"];
                 if ($objetMessage->ajoutMessages($idDiscussion, $contenu, $idUtilisateur) == true)
                 {
-                    $service->redirectNow("../utilisateur/discussion.php?id=$idDiscussion");
+                    $service->redirectNow("../vues/utilisateur/discussion.php?id=$idDiscussion");
                 } else {
-                    $service->redirectNow("../utilisateur/discussion.php?error=fonction");
+                    $service->redirectNow("../vues/utilisateur/discussion.php?error=fonction");
                 }
             } else {
-                $service->redirectNow("../utilisateur/ListeDiscussions.php?error=fonctionDiscussion");
+                $service->redirectNow("../vues/utilisateur/ListeDiscussions.php?error=fonctionDiscussion");
             }
         }
     } else {
-        $service->redirectNow("../utilisateur/ListeDiscussions.php?error=post");
+        $service->redirectNow("../vues/utilisateur/ListeDiscussions.php?error=post");
     }
 } else {
-    $service->redirectNow("../utilisateur/ListeDiscussions.php?error=missing");
+    $service->redirectNow("../vues/utilisateur/ListeDiscussions.php?error=missing");
 }

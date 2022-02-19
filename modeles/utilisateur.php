@@ -6,14 +6,12 @@ class Utilisateur extends Modele
    private $nom;
    private $prenom;
    private $poste;
-   private $idEquipe;
    private $identifiant;
    private $mdp;
    private $role;
-   private $salaire;
    private $avatar;
-
-   private $messages = [];
+   private $token;
+   private $validation;
 
    public function __construct($idE = null)
    {
@@ -30,17 +28,14 @@ class Utilisateur extends Modele
          $this->mdp = $infos["mdp"];
          $this->role = $infos["role"];
          $this->avatar = $infos["avatar"];
+         $this->token = $infos["token"];
+         $this->validation = $infos["validation"];
+
 
          $requete = $this->getBdd()->prepare("SELECT * FROM discussions WHERE idEnvoyeur = ? OR idDestinataire = ?");
          $requete->execute([$idE, $idE]);
 
          $discussions = $requete->fetchAll(PDO::FETCH_ASSOC);
-
-         // foreach ($discussions as $discussion) {
-         //    $objetDiscussion = new Discussion();
-         //    $objetDiscussion->initialiserDiscussion($discussion["idDiscussion"], $discussion["idEnvoyeur"], $discussion["idDestinataire"]);
-         //    $this->discussions[] = $objetDiscussion;
-         // }
       }
    }
 
@@ -100,12 +95,18 @@ class Utilisateur extends Modele
       $requete->execute([$idUtilisateur]);
       return true;
    }
+   public function recupererUtilisateursRolesCompositionViaEquipe($idEquipe)
+   {
+      $requete = $this->getBDD()->prepare("SELECT * FROM equipes INNER JOIN composition_equipes USING(idEquipe) INNER JOIN utilisateurs USING(idUtilisateur) INNER JOIN roles ON utilisateurs.role = roles.nomRole WHERE idEquipe=?");
+      $requete->execute([$idEquipe]);
+      return $requete->fetchAll(PDO::FETCH_ASSOC);
+   }
    public function recupererInterlocuteurProcedure($idDiscussion)
    {
       $idUtilisateur = $_SESSION["idUtilisateur"];
       $requete = $this->getBDD()->prepare("CALL recupererInterlocuteur(?, ?)");
       $requete->execute([$idDiscussion, $idUtilisateur]);
-      $result = $requete->fetch(PDO::FETCH_ASSOC);
+      return $requete->fetch(PDO::FETCH_ASSOC);
    }
    // public function recupererInterlocuteur($idDiscussion)
    // {
@@ -178,8 +179,7 @@ class Utilisateur extends Modele
       return true;
    }
 
-
-   public function getidUtilisateur()
+   public function getIdUtilisateur()
    {
       return $this->idUtilisateur;
    }
@@ -195,10 +195,6 @@ class Utilisateur extends Modele
    {
       return $this->poste;
    }
-   public function getidEquipe()
-   {
-      return $this->idEquipe;
-   }
    public function getIdentifiant()
    {
       return $this->identifiant;
@@ -211,16 +207,16 @@ class Utilisateur extends Modele
    {
       return $this->role;
    }
-   public function getSalaire()
-   {
-      return $this->salaire;
-   }
    public function getAvatar()
    {
       return $this->avatar;
    }
-   public function getMessages()
+   public function getToken()
    {
-      return $this->messages;
+      return $this->token;
+   }
+   public function getValidation()
+   {
+      return $this->validation;
    }
 }

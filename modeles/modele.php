@@ -12,18 +12,15 @@ class Modele
         // return new PDO('mysql:host=ipssisqazur.mysql.db;dbname=ipssisqazur;charset=UTF8', 'ipssisqazur', 'Ipssi2022azur', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
     }
 }
+if(file_exists("../services/fonctions.php")) { require_once "../services/fonctions.php"; }
+else if(file_exists("../../services/fonctions.php")) { require_once "../../services/fonctions.php"; }
+$service = new Service();
 
-require_once "../modeles/modele.php";
-// require_once "../modeles/depense.php";
-require_once "../modeles/discussion.php";
-require_once "../modeles/message.php";
-// require_once "../modeles/revenu.php";
-require_once "../modeles/secteur.php";
-//require_once "../modeles/solde.php";
-require_once "../modeles/utilisateur.php";
-require_once "../services/fonctions.php";
-require_once "../modeles/equipe.php";
-require_once "../modeles/projet.php";
-require_once "../modeles/messageGroupe.php";
-require_once "../modeles/discussionGroupe.php";
-require_once "../modeles/etape.php";
+$service->myRequireOnce("modeles/discussion.php");
+$service->myRequireOnce("modeles/message.php");
+$service->myRequireOnce("modeles/utilisateur.php");
+$service->myRequireOnce("modeles/equipe.php");
+$service->myRequireOnce("modeles/projet.php");
+$service->myRequireOnce("modeles/messageGroupe.php");
+$service->myRequireOnce("modeles/discussionGroupe.php");
+$service->myRequireOnce("modeles/etape.php");

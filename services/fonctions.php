@@ -32,6 +32,12 @@ class Service
         return trim(htmlspecialchars($string, ENT_QUOTES, 'UTF-8', false));
     }
 
+    public function myRequireOnce($chemin)
+    {
+        if (file_exists("../" . $chemin)) { require_once("../" . $chemin); }
+        else if (file_exists("../../" . $chemin)) { require_once("../../" . $chemin); }
+    }
+
     public function redirect($url)
     {
         if (!headers_sent())
@@ -99,7 +105,7 @@ class Service
         <div class="container-fluid mt-100">
             <div class="row align-items-center">
                 <div class="col-0 col-sm-2 col-md-2 col-lg-2 my-1 apercu_avatar">
-                    <img src="<?= $dernierMessage["avatar"]; ?>" class="img-fluid rounded-circle avatarGros">
+                    <img src="../<?= $dernierMessage["avatar"]; ?>" class="img-fluid rounded-circle avatarGros">
                 </div>
                 <div class="col-12 col-sm-10 col-md-10 col-lg-10 pl-1">
                     <?php if ($idMessage == $_SESSION["idUtilisateur"]) {

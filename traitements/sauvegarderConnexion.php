@@ -1,6 +1,7 @@
 <?php
-require_once "../modeles/modele.php";
+require_once "../services/fonctions.php";
 $service = new Service();
+$service->myRequireOnce("modeles/modele.php");
 $objetUtilisateur = new Utilisateur();
 
 if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
@@ -51,24 +52,24 @@ if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
                     setcookie('id-token', $_SESSION["idUtilisateur"] . '-' . $token, time() + 3600 * 262980, '/', '', false, true);
 
                 }
-                $service->redirectNow("../visiteur/index.php?success=connexion");
+                $service->redirectNow("../vues/visiteur/index.php?success=connexion");
 
                 ?>
                 <div class="alert alert-success mt-3">
                     Vous êtes connecté<br>
                     Vous allez être redirigé vers la page d'accueil<br>
-                    <a href="../visiteur/index.php">Cliquez ici pour une redirection manuelle</a>
+                    <a href="../vues/visiteur/index.php">Cliquez ici pour une redirection manuelle</a>
                 </div>
                 <?php
-                $service->redirect("../visiteur/index.php");
+                $service->redirect("../vues/visiteur/index.php");
             } else {
-                $service->redirectNow("../visiteur/index.php?error=falselogin");
+                $service->redirectNow("../vues/visiteur/index.php?error=falselogin");
             }
         } else {
-            $service->redirectNow("../visiteur/index.php?error=falselogin");
+            $service->redirectNow("../vues/visiteur/index.php?error=falselogin");
         }
     } else {
-        $service->redirectNow("../visiteur/index.php?error=missing");
+        $service->redirectNow("../vues/visiteur/index.php?error=missing");
     }
 } else {
     $service->redirectNow("location:/");

@@ -1,6 +1,5 @@
 <?php
-require_once "../modeles/modele.php";
-require_once "../utilisateur/entete.php";
+require_once "../vues/utilisateur/entete.php";
 
 if (!isset($_SESSION["idUtilisateur"])) {
     $service->redirectNow("../visiteur/index.php");
@@ -22,12 +21,12 @@ if (!empty($_POST["inputModifMessage"])) {
 ?>
         <div class="alert alert-success mt-2">Message modifié</div>
 <?php
-    $service->redirectOneSec("../utilisateur/messagerieGroupe.php?id=$idEquipe");
+    $service->redirectOneSec("../vues/utilisateur/messagerieGroupe.php?id=$idEquipe");
 } else {
 ?>
 
     <div class="mb-4 fleche_retour">
-        <a href="../utilisateur/messagerieGroupe.php?id=<?= $idEquipe ?>" class="retour">
+        <a href="../vues/utilisateur/messagerieGroupe.php?id=<?= $idEquipe ?>" class="retour">
             <i class="fas fa-chevron-left"></i>
             Retour
         </a>
@@ -67,5 +66,5 @@ if (!empty($_POST["inputModifMessage"])) {
     </div>
 <?php
 }
-require_once "../utilisateur/pied.php";
+require_once "../vues/utilisateur/pied.php";
 ?>

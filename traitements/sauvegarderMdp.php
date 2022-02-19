@@ -1,7 +1,8 @@
 <?php
-require_once "../modeles/modele.php";
-$objetUtilisateur = new Utilisateur();
+require_once "../../services/fonctions.php";
 $service = new Service();
+$service->myRequireOnce("modeles/modele.php");
+$objetUtilisateur = new Utilisateur();
 session_start();
 
 // Vérification que les données requises aient été entrées dans le formulaire
@@ -29,28 +30,28 @@ if (!empty($_POST["mdp"]) && !empty($_POST["verifMdp"]))
                             $mdp = password_hash($inputMdp, PASSWORD_BCRYPT);
                             if ($objetUtilisateur->validerUtilisateur($_SESSION["idUtilisateur"], $mdp) == true)
                             {
-                                $service->redirectNow("../utilisateur/validationMdp.php?success=validation");
+                                $service->redirectNow("../vues/utilisateur/validationMdp.php?success=validation");
                             } else {
-                                $service->redirectNow("../utilisateur/validationMdp.php?error=validationsave");
+                                $service->redirectNow("../vues/utilisateur/validationMdp.php?error=validationsave");
                             }
                         } else {
-                            $service->redirectNow("../utilisateur/validationMdp.php?error=mdpnotsame");
+                            $service->redirectNow("../vues/utilisateur/validationMdp.php?error=mdpnotsame");
                         }
                     } else {
-                        $service->redirectNow("../utilisateur/validationMdp.php?error=mdpspechar");
+                        $service->redirectNow("../vues/utilisateur/validationMdp.php?error=mdpspechar");
                     }
                 } else {
-                    $service->redirectNow("../utilisateur/validationMdp.php?error=mdpdigit");
+                    $service->redirectNow("../vues/utilisateur/validationMdp.php?error=mdpdigit");
                 }
             } else {
-                $service->redirectNow("../utilisateur/validationMdp.php?error=mdpcaps");
+                $service->redirectNow("../vues/utilisateur/validationMdp.php?error=mdpcaps");
             }
         } else {
-            $service->redirectNow("../utilisateur/validationMdp.php?error=mdpletter");
+            $service->redirectNow("../vues/utilisateur/validationMdp.php?error=mdpletter");
         }
     } else {
-        $service->redirectNow("../utilisateur/validationMdp.php?error=mdplength");
+        $service->redirectNow("../vues/utilisateur/validationMdp.php?error=mdplength");
     }
 } else {
-    $service->redirectNow("../utilisateur/validationMdp.php?error=missing");
+    $service->redirectNow("../vues/utilisateur/validationMdp.php?error=missing");
 }

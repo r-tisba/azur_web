@@ -1,6 +1,5 @@
 <?php
-require_once "../modeles/modele.php";
-require_once "../utilisateur/entete.php";
+require_once "../vues/utilisateur/entete.php";
 $dossier = "../images/avatar/";
 
 $utilisateur = new Utilisateur($_SESSION["idUtilisateur"]);
@@ -20,20 +19,20 @@ if(getimagesize($_FILES["image"]["tmp_name"]))
                 $modifAvatar = $utilisateur->modifierAvatar($avatar, $_SESSION["idUtilisateur"]);
                 if($modifAvatar == true)
                 {
-                    $service->redirectNow("../utilisateur/modifierAvatar.php?success=modification");
+                    $service->redirectNow("../vues/utilisateur/modifierAvatar.php?success=modification");
                 } else {
-                    $service->redirectNow("../utilisateur/modifierAvatar.php?error=ajout");
+                    $service->redirectNow("../vues/utilisateur/modifierAvatar.php?error=ajout");
                 }
             } else {
-                $service->redirectNow("../utilisateur/modifierAvatar.php?error=fichier");
+                $service->redirectNow("../vues/utilisateur/modifierAvatar.php?error=fichier");
             }
         } else {
-            $service->redirectNow("../utilisateur/modifierAvatar.php?error=type");
+            $service->redirectNow("../vues/utilisateur/modifierAvatar.php?error=type");
         }
     } else {
-        $service->redirectNow("../utilisateur/modifierAvatar.php?error=taille");
+        $service->redirectNow("../vues/utilisateur/modifierAvatar.php?error=taille");
     }
 } else {
-    $service->redirectNow("../utilisateur/modifierAvatar.php?error=image");
+    $service->redirectNow("../vues/utilisateur/modifierAvatar.php?error=image");
 }
 ?>

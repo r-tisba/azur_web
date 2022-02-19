@@ -1,6 +1,5 @@
 <?php
-require_once "../modeles/modele.php";
-require_once "../utilisateur/entete.php";
+require_once "../vues/utilisateur/entete.php";
 $objetMessage = new Message();
 $idUtilisateur = $_SESSION["idUtilisateur"];
 if (($_GET["id"])) {
@@ -11,13 +10,13 @@ if (($_GET["id"])) {
 
         if ($objetMessage->ajoutMessages($idDiscussion, $contenu, $idUtilisateur) == true)
         {
-            $service->redirectNow("../utilisateur/discussion.php?id=$idDiscussion");
+            $service->redirectNow("../vues/utilisateur/discussion.php?id=$idDiscussion");
         } else {
-            $service->redirectNow("../utilisateur/discussion.php?error=fonction");
+            $service->redirectNow("../vues/utilisateur/discussion.php?error=fonction");
         }
     } else {
-        $service->redirectNow("../utilisateur/discussion.php?error=post");
+        $service->redirectNow("../vues/utilisateur/discussion.php?error=post");
     }
 } else {
-    $service->redirectNow("../utilisateur/discussion.php?error=missing");
+    $service->redirectNow("../vues/utilisateur/discussion.php?error=missing");
 }

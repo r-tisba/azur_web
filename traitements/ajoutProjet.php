@@ -1,6 +1,5 @@
 <?php
-require_once "../modeles/modele.php";
-require_once "../utilisateur/entete.php";
+require_once "../vues/utilisateur/entete.php";
 $projet = new Projet();
 $idUtilisateur = $_SESSION["idUtilisateur"];
 $idEquipe = $_GET["id"];
@@ -10,11 +9,11 @@ if (!empty($_POST["nom"]) && !empty($_POST["importance"]) && !empty($_POST["date
 
         if ($projet->ajoutProjet($idEquipe, $nomProjet, $dateDebut, $dateFin, $importance) == true)
         {
-            $service->redirectNow("../utilisateur/listeProjets.php?id=$idEquipe");
+            $service->redirectNow("../vues/utilisateur/listeProjets.php?id=$idEquipe");
         } else {
-            $service->redirectNow("../utilisateur/listeProjets.php?error=fonction&id=$idEquipe");
+            $service->redirectNow("../vues/utilisateur/listeProjets.php?error=fonction&id=$idEquipe");
         }
 
 } else {
-    $service->redirectNow("../utilisateur/listeProjets.php?error=missing&id=$idEquipe");
+    $service->redirectNow("../vues/utilisateur/listeProjets.php?error=missing&id=$idEquipe");
 }
