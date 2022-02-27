@@ -3,9 +3,10 @@ session_start();
 
 require_once "../../../services/fonctions.php";
 $service = new Service();
+$service->myRequireOnce("modeles/modele.php");
 
 if (empty($_SESSION["identifiant"])) {
-    $service->redirectNow("../../index.php");
+    $service->redirectNow("../../../index.php");
 }
 ?>
 
@@ -17,8 +18,6 @@ if (empty($_SESSION["identifiant"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Azur - EDT</title>
     <link rel="shortcut icon" href="../../../images/design/logo.png" type="image/x-icon">
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <link rel="stylesheet" href="fullcalendar/daygrid/main.css">
     <link rel="stylesheet" href="fullcalendar/timegrid/main.css">
@@ -34,8 +33,13 @@ if (empty($_SESSION["identifiant"])) {
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" /> -->
 
     <link href="css/fullcalendar.css" rel="stylesheet" />
     <link href="css/fullcalendar.print.css" rel="stylesheet" media="print" />
@@ -46,3 +50,4 @@ if (empty($_SESSION["identifiant"])) {
     <!-- <script src='fullcalendar/core/locales/fr.js'></script> -->
     <script src='fullcalendar/core/locales-fr.js'></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale/fr.js"></script> -->
+

@@ -13,7 +13,6 @@ body
   padding-top: 3.5rem;
   margin: 0;
   padding: 0;
-  font-size: 1.6rem;
   font-family: "Lato", sans-serif;
   font-weight: 400;
   line-height: 1.5;
@@ -21,6 +20,7 @@ body
   overflow-x: hidden;
 
   background-attachment: fixed;
+  background-image: linear-gradient(to right bottom, #3747ce, #0068e0, #0084ea, #009dec, #00b4eb, #03c2ec, #29cfeb, #49dbe8, #47e3e8, #4aece6, #52f3e2, #5ffbdd);
   background-size: 100%;
   caret-color: transparent;
 }
@@ -32,70 +32,23 @@ body
   font-weight: 300;
   letter-spacing: 0.08em;
 }
+.bleu_azur
+{
+  color: rgb(54, 170, 255);
+}
+.blanc
+{
+  color: #fff;
+}
 .dark
 {
   color: white;
   background-color: #343a40;
 }
-.bleu_azur
+.darker
 {
-  color: rgb(54, 170, 255);
-}
-/* ---------------------------- NAVBAR ---------------------------- */
-.navbar
-{
-  border-radius: 0px;
-}
-.navbar-collapse.collapse
-{
-  display: flex !important;
-  height: auto !important;
-  padding-bottom: 0;
-  overflow: visible !important;
-}
-.navbar-collapse
-{
-  -ms-flex-preferred-size: 100%;
-  flex-basis: 100%;
-  -webkit-box-flex: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-.navbar-brand
-{
-  display: inline-block;
-  padding-top: 0.3125rem;
-  padding-bottom: 0.3125rem;
-  margin-right: 1rem;
-  line-height: inherit;
-  white-space: nowrap;
-  padding: inherit;
-  float: none;
-  height: inherit;
-}
-
-.navbar.navbar-7 .navbar-toggler-icon
-{
-  background-image: url("https://image.flaticon.com/icons/png/512/60/60995.png");
-  border-style: ridge;
-  border-color: black;
-}
-.navbar.navbar-7
-{
-  border-style: ridge;
-  border-color: black;
-  border-radius: 10px;
-}
-.apercu_connexion
-{
-  font-family: "Lato", sans-serif;
-  font-size: 14px;
-  font-weight: 300;
-  letter-spacing: 0.05em;
-  color: #00ff00 !important;
+  color: white;
+  background-color: rgba(25, 27, 28, 1);
 }
 
 .container0
@@ -107,31 +60,111 @@ body
   align-content: center;
 }
 
+.container_calendrier
+{
+  padding: 2rem 3rem 2rem 3rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 15px;
+  background-color: white;
+}
+@media (min-width: 768px)
+{
+  .container_calendrier
+  {
+    width: 850px;
+  }
+}
+@media (min-width: 1094px)
+{
+  .container_calendrier
+  {
+    width: 1070px;
+  }
+}
+@media (min-width: 1270px)
+{
+  .container_calendrier
+  {
+    width: 1270px;
+  }
+}
+@media (min-width: 1600px)
+{
+  .container_calendrier
+  {
+    width: 1550px;
+  }
+}
+
+/* ---------------------------- NAVBAR ---------------------------- */
+.navbar
+{
+  flex-direction: row;
+}
+
+.navbar.navbar-7 .navbar-toggler-icon
+{
+  background-image: url('https://image.flaticon.com/icons/png/512/60/60995.png');
+  border-style: ridge;
+  border-color: black;
+}
+.navbar.navbar-7
+{
+  border-style: ridge;
+  border-color: black;
+  border-radius: 10px;
+}
+.apercu_connexion
+{
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  color: #00FF00 !important;
+}
 
 /* ---------------------------- MODAL ---------------------------- */
-
 .modal-header
 {
   display: inline-block !important;
-  padding: 12px;
+  padding: 8px 12px 8px 16px;
 }
 .modal-header .close
 {
-  margin-top: -1rem;
+  /* margin-top: -1rem; */
+  padding: 0;
+  margin: 0;
+  margin-top: 4px;
+  
+}
+.close:focus, .close:hover {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  filter: alpha(opacity=50);
+  opacity: .5;
 }
 .p_infos_evenements
 {
-  font-weight: 400;
+  font-weight: 300;
 }
 .div_modal_title
 {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-bottom: 1rem;
 }
 #modalTitle
 {
   margin-left: 5px;
+}
+.modal-title
+{
+  font-weight: 300;
 }
 .div_modal_description
 {
@@ -144,7 +177,6 @@ body
   display: flex;
   justify-content: center;
 }
-
 .div_modal_couleur
 {
   display: flex;
@@ -152,13 +184,17 @@ body
   justify-content: center;
   align-items: baseline;
 }
-
+.form-control:focus
+{
+  color: #ffffff;
+  background-color: rgba(25, 27, 28, 1);
+  border-color: #5cb3fd;
+  outline: none;
+}
 .modal-footer
 {
   padding: 10px;
 }
-
-
 /* Input Couleur */
 .select_couleur
 {
@@ -179,7 +215,57 @@ body
 }
 .input_couleur_jaune
 {
-background-color: #d29e00;
+  background-color: #d29e00;
+}
+
+.div_participant
+{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.label_participant
+{
+  background: rgba(25, 27, 28, 1);
+  border: solid 1px white;
+  border-radius: 20px;
+  padding: 5px 10px 5px 10px;
+  margin: 0;
+}
+.bouton_delete_participant
+{
+  padding: 0;
+  border: none;
+  background: none;
+}
+.bouton_delete_participant:focus
+{
+  outline: none;
+}
+.icon_close
+{
+  color: #d9534f !important;
+  margin-left: 8px;
+}
+.icon_close:hover
+{
+  color: #fff !important;
+  margin-left: 8px;
+}
+.requis::after
+{
+  color: #e32;
+  content: ' *';
+  display: inline;
+}
+.liste li
+{
+  font-size: 1.15rem;
+  line-height: 25px;
+}
+.liste li::marker
+{
+  color: #dc3545;
 }
 
 

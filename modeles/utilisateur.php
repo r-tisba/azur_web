@@ -31,7 +31,6 @@ class Utilisateur extends Modele
          $this->token = $infos["token"];
          $this->validation = $infos["validation"];
 
-
          $requete = $this->getBdd()->prepare("SELECT * FROM discussions WHERE idEnvoyeur = ? OR idDestinataire = ?");
          $requete->execute([$idE, $idE]);
 
@@ -56,6 +55,18 @@ class Utilisateur extends Modele
       $requete = $this->getBDD()->prepare("SELECT idUtilisateur, identifiant, mdp, role FROM utilisateurs WHERE identifiant = ?");
       $requete->execute([$identifiant]);
       return $requete;
+   }
+   public function recupererIdentifiantsUtilisateurs()
+   {
+      $requete = $this->getBDD()->prepare("SELECT identifiant FROM utilisateurs");
+      $requete->execute();
+      return $requete->fetchAll(PDO::FETCH_ASSOC);
+   }
+      public function recupererIdentifiantUtilisateurViaId($idUtilisateur)
+   {
+      $requete = $this->getBDD()->prepare("SELECT identifiant FROM utilisateurs WHERE idUtilisateur = ?");
+      $requete->execute([$idUtilisateur]);
+      return $requete->fetch(PDO::FETCH_ASSOC);
    }
    public function creerUtilisateur($nom, $prenom, $poste, $mdp)
    {
@@ -134,6 +145,21 @@ class Utilisateur extends Modele
       $requete->execute([$idRole]);
       return $requete->fetch(PDO::FETCH_ASSOC);
    }
+   public function recupererIdUtilisateurViaIdentifiant($identifiant)
+   {
+      $requete = $this->getBDD()->prepare("SELECT idUtilisateur FROM utilisateurs WHERE identifiant = ?");
+      $requete->execute([$identifiant]);
+      $idUtilisateur = $requete->fetch(PDO::FETCH_ASSOC);
+      return $idUtilisateur;
+   }
+   public function recupererParticipantsViaIdEvenement($idEvenement)
+   {
+      $requete = $this->getBDD()->prepare("SELECT idUtilisateur, identifiant FROM utilisateurs LEFT JOIN participants_evenements USING(idUtilisateur) WHERE idEvenement = ?");
+      $requete->execute([$idEvenement]);
+      $utilisateur = $requete->fetchAll(PDO::FETCH_ASSOC);
+      return $utilisateur;
+   }
+   
    public function recupererValidation($idUtilisateur)
    {
       $requete = $this->getBDD()->prepare("SELECT validation FROM utilisateurs WHERE idUtilisateur = ?");

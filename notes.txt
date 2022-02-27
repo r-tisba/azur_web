@@ -83,6 +83,16 @@ END |
 */
 
 
+// ----------------------------------------------------------------------- TRIGGER EVENEMENTS / PARTICIPANTS -----------------------------------------------------------------------
+// -------------------------------------- DELETE --------------------------------------
+DELIMITER |
+CREATE TRIGGER before_delete_evenement BEFORE DELETE
+ON evenements FOR EACH ROW
+BEGIN
+    DELETE FROM participants_evenements
+    WHERE idEvenement = OLD.id;
+END |
+
 
 
 Debut Mars :

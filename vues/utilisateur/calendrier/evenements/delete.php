@@ -1,8 +1,6 @@
-
 <?php
-
 //delete.php
-
+var_dump($_POST["id"]);
 if(isset($_POST["id"]))
 {
  $connect = new PDO('mysql:host=localhost;dbname=gestion', 'root', '');

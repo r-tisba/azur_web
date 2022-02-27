@@ -5,7 +5,6 @@ $service = new Service();
 $service->myRequireOnce("modeles/modele.php");
 session_start();
 
-$service = new Service();
 $objetUtilisateur = new Utilisateur();
 $result = $objetUtilisateur->recupererValidation($_SESSION["idUtilisateur"]);
 $validation = $result["validation"];

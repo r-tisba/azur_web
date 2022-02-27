@@ -1,9 +1,16 @@
 <?php
-
 //load.php
 include_once '../config/Database.php';
 $database = new Database();
 $db = $database->getConnection();
+
+if(file_exists("../../../../services/fonctions.php")) { require_once "../../../../services/fonctions.php"; }
+else if(file_exists("../../../../../services/fonctions.php")) { require_once "../../../../../services/fonctions.php"; }
+$service = new Service();
+$service->myRequireOnce("modeles/modele.php");
+
+$connect = new PDO('mysql:host=localhost;dbname=gestion', 'root', '');
+$objetUtilisateur = new Utilisateur();
 
 $data = array();
 
@@ -13,7 +20,7 @@ FROM evenements e LEFT JOIN utilisateurs u ON e.idCreateur = u.idUtilisateur ORD
 $statement = $db->prepare($query);
 $statement->execute();
 $result = $statement->fetchAll();
-
+$i = 0;
 foreach ($result as $row)
 {
     $data[] = array(
@@ -30,6 +37,21 @@ foreach ($result as $row)
         'idCreateur' => $row["idCreateur"],
         'createur' => $row["identifiant"],
     );
+    $idEvenement = $data[$i]['id'];
+
+    $participants = $objetUtilisateur->recupererParticipantsViaIdEvenement($idEvenement);
+    if(!empty($participants))
+    {
+        $n = 1;
+        foreach($participants as $participant)
+        {
+            $data[$i] += array(
+                'participant' . $n => $participant['identifiant'],
+            );
+            $n++;
+        }
+    }
+    $i++;
 }
 
 echo json_encode($data);
@@ -43,7 +65,7 @@ function verifAssociationUtilisateurEvenement($idEvenement)
 
     $idUtilisateur = $_SESSION["idUtilisateur"];
 
-    $verif = "SELECT idEvenement, idUtilisateur FROM affectation_evenement WHERE idEvenement = $idEvenement AND idUtilisateur = $idUtilisateur";
+    $verif = "SELECT idEvenement, idUtilisateur FROM participants_evenement WHERE idEvenement = $idEvenement AND idUtilisateur = $idUtilisateur";
     $statement = $db->prepare($verif);
     $statement->execute();
     $result = $statement->fetch();
@@ -56,4 +78,3 @@ function verifAssociationUtilisateurEvenement($idEvenement)
         return false;
     }
 }
-?>

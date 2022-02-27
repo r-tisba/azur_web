@@ -10,10 +10,10 @@ if (!isset($_SESSION["identifiant"])) {
   <div class="album py-3">
     <div class="container">
 
-      <!-- CARD 1 : Fiche de paye -->
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
-        <div class="col-12 col-lg-4 col-md-6 mb-4">
+        <!-- CARD 1 : Fiche de paye -->
+        <!-- <div class="col-12 col-lg-4 col-md-6 mb-4">
           <div class="card h-100 border-0 rounded">
             <div class="card-body cardOutil rounded">
               <h5 class="card-title titreOutil">Casier virtuel</h5>
@@ -22,6 +22,23 @@ if (!isset($_SESSION["identifiant"])) {
                 <div class="btn-group">
                   <a href="salaire.php">
                     <img src="../../images/design/salaire.png" class="imageSecteur" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+        <!-- CARD 1 : Profil -->
+        <div class="col-12 col-lg-4 col-md-6 mb-4">
+          <div class="card h-100 border-0 rounded">
+            <div class="card-body cardOutil rounded">
+              <h5 class="card-title titreOutil">Profil</h5>
+              <p class="card-text texteOutil">Votre profil</p>
+              <div class="d-flex justify-content-center">
+                <div class="btn-group">
+                  <a href="/vues/utilisateur/profil.php">
+                    <img src="../../images/design/profil.png" class="imageSecteur" />
                   </a>
                 </div>
               </div>

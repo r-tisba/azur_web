@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark navbar-expand-md bg-dark flex-row">
+<nav class="navbar navbar-dark navbar-expand-md bg-dark">
     <a class="navbar-brand titre" href="/vues/utilisateur/index.php">
         <img src="../../../images/design/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
         <span class="bleu_azur">Azur</span>

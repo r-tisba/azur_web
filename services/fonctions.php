@@ -36,6 +36,9 @@ class Service
     {
         if (file_exists("../" . $chemin)) { require_once("../" . $chemin); }
         else if (file_exists("../../" . $chemin)) { require_once("../../" . $chemin); }
+        else if (file_exists("../../../" . $chemin)) { require_once("../../../" . $chemin); }
+        else if (file_exists("../../../../" . $chemin)) { require_once("../../../../" . $chemin); }
+        else if (file_exists("../../../../../" . $chemin)) { require_once("../../../../../" . $chemin); }
     }
 
     public function redirect($url)

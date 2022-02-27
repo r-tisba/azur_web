@@ -1,8 +1,15 @@
 <?php
 require_once "entete_calendrier.php";
+$objetUtilisateur = new Utilisateur();
+$allUtilisateurs = $objetUtilisateur->recupererIdentifiantsUtilisateurs();
+$idCreateur = $_SESSION["idUtilisateur"];
+$requete = $objetUtilisateur->recupererIdentifiantUtilisateurViaId($idCreateur);
+$identifiantCreateur = $requete['identifiant'];
 ?>
 <script>
     $(document).ready(function() {
+        let participants = []
+        let participantsSave = []
         var calendrier = $('#calendrier').fullCalendar({
 
             defaultView: 'agendaWeek',
@@ -41,13 +48,11 @@ require_once "entete_calendrier.php";
             eventLimitText: "en plus",
             noEventsMessage: "Aucun événement à afficher",
 
-
             /* Affichage du contenu */
             events: 'evenements/load.php',
 
             timeFormat: 'H:mm',
             dayOfMonthFormat: 'ddd DD/MM',
-
 
             /* ----------------------------- CLICK GRID ----------------------------- */
             select: function(start, end, jsEvent) {
@@ -60,8 +65,17 @@ require_once "entete_calendrier.php";
                 $('#createEventModal #endTime').val(end);
                 $('#createEventModal #when').text(mywhen);
                 $('#createEventModal').modal('toggle');
-            },
 
+                var id = event.id;
+                $.ajax({
+                    type: 'POST',
+                    url: 'calendrier.php',
+                    data: {
+                        id: id
+                    },
+                    success: function(data) {}
+                })
+            },
 
             /* ----------------------------- CLICK EVENT ----------------------------- */
             eventClick: function(event, jsEvent, view) {
@@ -70,9 +84,46 @@ require_once "entete_calendrier.php";
                 var mywhen = starttime + ' - ' + endtime;
                 $('#modalTitle').html(event.title);
                 $('#modalDescription').html(event.description);
+                $('#select_couleur').val(event.backgroundColor);
                 $('#modalWhen').text(mywhen);
                 $('#modalWho').text(event.createur);
-                $('#eventID').val(event.id);
+
+                // var i = 2
+                // var a = 'participant'
+                // var participant = a + i
+                // console.log(event)
+                // console.log(participant)
+                // console.log(event.participant)
+                // console.log(event.participant2)
+
+                // ----------------------------- A OPTIMISER -----------------------------
+                if(typeof(event.participant1) != "undefined" && event.participant1 !== null) { 
+                    $('#modalParticipants').html("<ul class='liste'><li>" + event.participant1 + "</li></ul>");  
+                }
+                if(typeof(event.participant2) != "undefined" && event.participant2 !== null) {  
+                    $('#modalParticipants').html("<ul class='liste'><li>" + event.participant1 + "</li><li>" + event.participant2 + 
+                    "</li></ul>");  
+                }
+                if(typeof(event.participant3) != "undefined" && event.participant3 !== null) {  
+                    $('#modalParticipants').html("<ul class='liste'><li>" + event.participant1 + "</li><li>" + event.participant2 + 
+                    "</li><li>" + event.participant3 + "</li></ul>");  
+                }
+                if(typeof(event.participant4) != "undefined" && event.participant4 !== null) { 
+                    $('#modalParticipants').html("<ul class='liste'><li>" + event.participant1 + "</li><li>" + event.participant2 + 
+                    "</li><li>" + event.participant3 + "</li><li>" +  event.participant4 + "</li></ul>");  
+                }
+                if(typeof(event.participant5) != "undefined" && event.participant5 !== null) {  
+                    $('#modalParticipants').html("<ul class='liste'><li>" + event.participant1 + "</li><li>" + event.participant2 + 
+                    "</li><li>" + event.participant3 + "</li><li>" + event.participant4 + "</li><li>" + event.participant5 + 
+                    "</li></ul>");  
+                }
+                if(typeof(event.participant6) != "undefined" && event.participant6 !== null) {  
+                    $('#modalParticipants').html("<ul class='liste'><li>" + event.participant1 + "</li><li>" + event.participant2 + 
+                    "</li><li>" + event.participant3 + "</li><li>" + event.participant4 + "</li><li>" + event.participant5 + 
+                    "</li><li>" + event.participant6 + "</li></ul>");  
+                }
+
+                $('#eventID').text(event.id);
                 $('#calendarModal').modal();
             },
 
@@ -139,7 +190,6 @@ require_once "entete_calendrier.php";
             doUpdate();
         });
 
-
         /* ----------------------------- SUBMIT DU BOUTON ENREGISTRER ----------------------------- */
         function doSubmit() {
             $("#createEventModal").modal('hide');
@@ -148,24 +198,49 @@ require_once "entete_calendrier.php";
             var start = $('#startTime').val();
             var end = $('#endTime').val();
 
-            $.ajax({
-                url: "evenements/insert.php",
-                type: "POST",
-                data: {
-                    title: title,
-                    description: description,
-                    start: start,
-                    end: end
-                },
-                success: function() {
-                    calendrier.fullCalendar('refetchEvents');
+            if (title == null || title == '' || description == null || description == '') {
+                alert("Veuiller remplir tous les champs obligatoires");
+                return false;
+            } else {
+                if (participants.length === 0) {
+
+                    participantsObject = <?php echo json_encode($allUtilisateurs); ?>;
+                    participants = [];
+
+                    for (var i = 0; i < participantsObject.length; i++) {
+                        utilisateur = participantsObject[i].identifiant
+                        participants.push(utilisateur)
+                    };
+                } else {
+                    identifiantCreateur = '<?php echo $identifiantCreateur; ?>';
+                    participants.push(identifiantCreateur)
                 }
-            });
+                $.ajax({
+                    url: "evenements/insert.php",
+                    type: "POST",
+                    data: {
+                        title: title,
+                        description: description,
+                        start: start,
+                        end: end,
+                        participants: participants
+                    },
+                    success: function() {
+                        calendrier.fullCalendar('refetchEvents');
+                    }
+                });
+                participantsSave = participants
+                participants = []
+                clearInnerHTML()
+                afficherParticipants()
+                clearInputs()
+                document.getElementById("div_participants_selectionnes").innerHTML = "Par défaut, TOUS les utilisateurs participent à l'événement"
+            }
         }
         /* ----------------------------- SUBMIT DU BOUTON SUPPRIMER ----------------------------- */
         function doDelete() {
             $("#calendarModal").modal('hide');
-            var id = $('#eventID').val();
+            var id = $('#eventID').text();
             $.ajax({
                 url: "evenements/delete.php",
                 type: "POST",
@@ -181,7 +256,7 @@ require_once "entete_calendrier.php";
         /* ----------------------------- SUBMIT DU BOUTON MODIFIER ----------------------------- */
         function doUpdate() {
             $("#calendarModal").modal('hide');
-            var id = $('#eventID').val();
+            var id = $('#eventID').text();
             var select = document.getElementById("select_couleur");
             var backgroundColor = select.options[select.selectedIndex].value;
 
@@ -197,6 +272,65 @@ require_once "entete_calendrier.php";
                 }
             });
         }
+
+        /* ----------------------------- GESTION PARTICIPANTS ----------------------------- */
+        function arrayContains(string, array) {
+            return (array.indexOf(string) > -1);
+        }
+
+        function clearInnerHTML() {
+            $("#div_participants_selectionnes").empty();
+        }
+
+        function clearInputs() {
+            document.getElementById('title').value = ''
+            document.getElementById('description').value = ''
+            document.getElementById('select_participant').value = 'Par défaut, tout les utilisateurs participent'
+        }
+
+        function addParticipant() {
+            utilisateur = select_participant[select_participant.selectedIndex].text
+
+            // Verifi si l'utilisateur n'a pas déjà été sélectionné
+            if (arrayContains(utilisateur, participants) == false) {
+                participants.push(utilisateur)
+            }
+            participants.join(',')
+            $.post('calendrier.php', {
+                participants: participants
+            })
+        }
+
+        function deleteParticipant(indexParticipant) {
+            participants.splice(indexParticipant, 1);
+        }
+
+        function afficherParticipants() {
+            for (var i = 0; i < participants.length; i++) {
+                document.getElementById("div_participants_selectionnes").innerHTML +=
+                    "<div class='col-6 div_participant'>" +
+                    "<div class='label_participant'>" +
+                    "<label class='m-0'>" + participants[i] + "</label>" +
+                    "<button id='delete_participant' name='delete_participant' class='bouton_delete_participant icon_close'" +
+                    "value='" + i + "'>" +
+                    "<i class='far fa-times-circle'></i>" +
+                    "</button>" +
+                    "</div>" +
+                    "</div>"
+            };
+        }
+
+        $(document).on('change', '#select_participant', function() {
+            addParticipant();
+            document.getElementById("div_participants_selectionnes").innerHTML = ""
+            afficherParticipants();
+        });
+        $(document).on('click', '#delete_participant', function() {
+            var indexParticipant = $(this).val()
+            deleteParticipant(indexParticipant)
+            clearInnerHTML()
+            afficherParticipants()
+        });
     });
 </script>
 </head>
@@ -207,7 +341,7 @@ require_once "entete_calendrier.php";
     require_once "navbar.php";
     ?>
     <!-- ----------------------------- CALENDRIER ----------------------------- -->
-    <div class="container px-5">
+    <div class="container_calendrier">
         <div id="calendrier"></div>
     </div>
 
@@ -215,21 +349,45 @@ require_once "entete_calendrier.php";
     <div id="createEventModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
-            <div class="modal-content">
+            <div class="modal-content dark">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Ajouter événement</h4>
+                    <button type="button" class="close blanc" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Ajouter un événement</h4>
                 </div>
                 <div class="modal-body">
                     <div class="control-group">
-                        <label class="control-label" for="inputPatient">Titre événement :</label>
+                        <label class="control-label requis" for="inputPatient">Titre de l'événement :</label>
                         <div class="field desc mb-3">
-                            <input class="form-control" id="title" name="title" placeholder="Saisissez le titre de l'événement" type="text" value="">
+                            <input class="form-control darker" id="title" name="title" placeholder="Saisissez le titre de l'événement" type="text" value="">
                         </div>
 
-                        <label class="control-label" for="inputPatient">Description événement :</label>
+                        <label class="control-label requis" for="inputPatient">Description de l'événement :</label>
                         <div class="field desc mb-4">
-                            <textarea class="form-control" id="description" name="description" placeholder="Saisissez une courte description de l'événement" type="text" rows="4" value=""></textarea>
+                            <textarea class="form-control darker" id="description" name="description" placeholder="Saisissez une courte description de l'événement" type="text" rows="4" value=""></textarea>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5 id="participants" class="modal-couleur p_infos_evenements m-0"></h5>
+                        <label class="control-label mr-3" for="inputPatient">Participants :</label>
+                        <select class="form-control darker" name="select_participant" id="select_participant">
+                            <option selected disabled hidden> Par défaut, tout les utilisateurs participent</option>
+                            <?php
+                            $utilisateurs = $objetUtilisateur->recupererUtilisateurs();
+                            foreach ($utilisateurs as $utilisateur) {
+                                if ($utilisateur['identifiant'] !== $_SESSION['identifiant']) {
+                            ?>
+                                    <option class="blanc" value="<?= $utilisateur["idUtilisateur"]; ?>">
+                                        <?= $utilisateur["identifiant"]; ?>
+                                    </option>
+                            <?php
+                                }
+                            }
+                            ?>
+                        </select>
+                        <div class="text-center mt-3">Selectionné(s) :</div>
+                        <div id="div_participants_selectionnes" name="div_participants_selectionnes" class="row justify-content-center mt-3 test">
+                            <span>Par défaut, TOUS les utilisateurs participent à l'événement</span>
                         </div>
                     </div>
 
@@ -256,26 +414,26 @@ require_once "entete_calendrier.php";
     <!-- ----------------------------- MODAL CLICK EVENEMENTS ----------------------------- -->
     <div id="calendarModal" class="modal fade">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content dark">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Détails événement</h4>
+                    <button type="button" class="close blanc" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Détails de l'événement</h4>
                 </div>
                 <div id="modalBody" class="modal-body">
                     <div class="control-group">
                         <div class="div_modal_title">
                             <label class="control-label m-0" for="inputPatient">Titre :</label>
-                            <h4 id="modalTitle" class="modal-title p_infos_evenements"></h4>
+                            <h5 id="modalTitle" class="modal-title p_infos_evenements"></h5>
                         </div>
                         <div class="div_modal_description mb-4">
                             <label class="control-label" for="inputPatient">Description :</label>
-                            <h4 id="modalDescription" class="modal-description p_infos_evenements m-0"></h4>
+                            <h5 id="modalDescription" class="modal-description p_infos_evenements m-0"></h5>
                         </div>
 
                         <div class="div_modal_couleur mb-4">
                             <label class="control-label mr-3" for="inputPatient">Couleur :</label>
-                            <h4 id="modalCouleur" class="modal-couleur p_infos_evenements m-0"></h4>
-                            <select class="form-control select_couleur" id="select_couleur">
+                            <h5 id="modalCouleur" class="modal-couleur p_infos_evenements m-0"></h5>
+                            <select class="form-control select_couleur list darker" id="select_couleur">
                                 <option value="" selected disabled hidden></option>
                                 <option class="input_couleur_bleu" value="#007bff">Bleu</option>
                                 <option class="input_couleur_rouge" value="#d9534f">Rouge</option>
@@ -293,6 +451,21 @@ require_once "entete_calendrier.php";
                             <label class="control-label" for="when">Par :</label>
                             <div id="modalWho" class="modalWho ml-2"></div>
                         </div>
+
+                        <div class="div_modal_description mb-0">
+                            <label class="control-label" for="inputPatient">Participants :</label>
+                            <h5 id="modalParticipants" class="modal-participants p_infos_evenements m-0">
+                                <?php
+                                // var_dump($_POST['id']);
+                                // if (isset($_POST['id'])) {
+                                //     $idEvenement = $_POST['id'];
+
+                                //     $participants = $objetUtilisateur->recupererParticipantsViaIdEvenement($idEvenement);
+                                //     var_dump($participants);
+                                // }
+                                ?>
+                            </h5>
+                        </div>
                     </div>
                 </div>
                 <input type="hidden" id="eventID" />
@@ -304,7 +477,6 @@ require_once "entete_calendrier.php";
             </div>
         </div>
     </div>
-
 </body>
 
 </html>
