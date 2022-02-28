@@ -1,8 +1,8 @@
 <?php
-
 //update.php
-
-$connect = new PDO('mysql:host=localhost;dbname=gestion', 'root', '');
+include_once '../config/Database.php';
+$database = new Database();
+$db = $database->getConnection();
 
 if(isset($_POST["id"]))
 {
@@ -11,7 +11,7 @@ if(isset($_POST["id"]))
  SET title=:title, description=:description, start=:start, end=:end
  WHERE id=:id
  ";
- $statement = $connect->prepare($query);
+ $statement = $db->prepare($query);
  $statement->execute(
   array(
    ':title'  => $_POST['title'],

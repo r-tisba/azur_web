@@ -71,6 +71,10 @@ body
   color: white;
   background-color: rgba(25, 27, 28, 1);
 }
+.close:hover
+{
+  color: white;
+}
 /* --------------------------------------------- FLECHE RETOUR & ACTUALISER --------------------------------------------- */
 .div_fleche
 {

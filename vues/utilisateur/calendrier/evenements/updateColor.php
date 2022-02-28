@@ -1,8 +1,9 @@
 <?php
-
 //update.php
+include_once '../config/Database.php';
+$database = new Database();
+$db = $database->getConnection();
 
-$connect = new PDO('mysql:host=localhost;dbname=gestion', 'root', '');
 if(isset($_POST["id"]))
 {
  $query = "
@@ -10,8 +11,7 @@ if(isset($_POST["id"]))
  SET backgroundColor=:backgroundColor, borderColor=:borderColor
  WHERE id=:id
  ";
- $statement = $connect->prepare($query);
- print_r($_POST);
+ $statement = $db->prepare($query);
  $statement->execute(
   array(
    ':backgroundColor'  => $_POST['backgroundColor'],

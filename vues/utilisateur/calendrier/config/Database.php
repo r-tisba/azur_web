@@ -1,13 +1,20 @@
 <?php
 class Database
 {
-    // Propriétés de la base de données
+    // -------------------------------- LOCAL --------------------------------
     private $host = "localhost";
     private $db_name = "gestion";
     private $username = "root";
     private $password = "";
     public $connexion;
 
+    // -------------------------------- WEB --------------------------------
+    // private $host = "ipssisqazur.mysql.db";
+    // private $db_name = "ipssisqazur";
+    // private $username = "ipssisqazur";
+    // private $password = "Ipssi2022azur";
+    // public $connexion;
+    
     // getter pour la connexion
     public function getConnection(){
         // On commence par fermer la connexion si elle existait

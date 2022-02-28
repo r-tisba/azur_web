@@ -141,7 +141,7 @@ foreach($discussions as $discussion)
             <div class="media flex-wrap w-100 align-items-center">
                 <div class="rondAvatar">
                     <?php if(!empty($contact["avatar"])) { ?>
-                        <img src="<?=$contact["avatar"];?>" class="d-block ui-w-40 rounded-circle avatar">
+                        <img src="../<?=$contact["avatar"];?>" class="d-block ui-w-40 rounded-circle avatar">
                     <?php } else { ?>
                         <img src="../../images/avatar/avatarUtilisateur2.png" class="d-block ui-w-25 rounded-circle avatar">
                         <?php } ?>
@@ -149,7 +149,7 @@ foreach($discussions as $discussion)
 
                 <div class="media-body ml-3">
                     Conversation avec :
-                    <?php if($contact["role"]=="Admin" || $contact["role"]=="SuperAdmin") { ?> <a style="color:blue;"> <?=$contact["prenom"] . " " . $contact["nom"];?></a>
+                    <?php if($contact["role"]=="Admin" || $contact["role"]=="SuperAdmin") { ?> <a style="color:rgb(0,157,236);"> <?=$contact["prenom"] . " " . $contact["nom"];?></a>
                     <?php } if($contact["role"]=="Utilisateur"){?><a><?=$contact["prenom"] . " " . $contact["nom"];?></a><?php } ?>
                     <div class="text-muted small">Dernière activité : <?=$service->dateFrAvecHeure($dernierMessage["max_date"]);?></div>
                 </div>
@@ -168,7 +168,6 @@ foreach($discussions as $discussion)
                 <?= $service->afficherMessage($discussion["idDiscussion"]); ?>
             </p>
         </div>
-        </a>
         </div>
         </div>
         </div>
@@ -190,7 +189,7 @@ foreach($discussions as $discussion)
         <div class="card-header text-white bg-dark">
             <div class="media flex-wrap w-100 align-items-center">
                 <div class="rondAvatar">
-                <?php if(!empty($contact["avatar"])) { ?>
+                    <?php if(!empty($contact["avatar"])) { ?>
                         <img src="../<?=$contact["avatar"];?>" class="d-block ui-w-40 rounded-circle avatar">
                     <?php } else { ?>
                         <img src="../../images/avatar/avatarUtilisateur2.png" class="d-block ui-w-25 rounded-circle avatar">

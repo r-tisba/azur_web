@@ -1,18 +1,18 @@
 <?php
 //delete.php
-var_dump($_POST["id"]);
+include_once '../config/Database.php';
+$database = new Database();
+$db = $database->getConnection();
+
 if(isset($_POST["id"]))
 {
- $connect = new PDO('mysql:host=localhost;dbname=gestion', 'root', '');
  $query = "
  DELETE from evenements WHERE id=:id
  ";
- $statement = $connect->prepare($query);
+ $statement = $db->prepare($query);
  $statement->execute(
   array(
    ':id' => $_POST['id']
   )
  );
 }
-
-?>

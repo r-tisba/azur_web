@@ -10,7 +10,6 @@ $service = new Service();
 $service->myRequireOnce("modeles/modele.php");
 
 session_start();
-$connect = new PDO('mysql:host=localhost;dbname=gestion', 'root', '');
 $idCreateur = $_SESSION["idUtilisateur"];
 $objetUtilisateur = new Utilisateur();
 
@@ -21,7 +20,7 @@ if (isset($_POST["title"]))
     (title, description, start, end, idCreateur)
     VALUES (:title, :description, :start, :end, :idCreateur)
     ";
-    $statement = $connect->prepare($query);
+    $statement = $db->prepare($query);
     $statement->execute(
         array(
             ':title' => $_POST['title'],
@@ -47,7 +46,7 @@ if (isset($_POST["title"]))
         $requete = $objetUtilisateur->recupererIdUtilisateurViaIdentifiant($participant);
         $idParticipant = $requete['idUtilisateur'];
         $query = " INSERT INTO participants_evenements (idUtilisateur, idEvenement) VALUES (:idUtilisateur, :idEvenement)";
-        $statement = $connect->prepare($query);
+        $statement = $db->prepare($query);
         $statement->execute(
             array(
                 ':idUtilisateur' => $idParticipant,

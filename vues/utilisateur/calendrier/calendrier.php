@@ -425,12 +425,12 @@ $identifiantCreateur = $requete['identifiant'];
                             <label class="control-label m-0" for="inputPatient">Titre :</label>
                             <h5 id="modalTitle" class="modal-title p_infos_evenements"></h5>
                         </div>
-                        <div class="div_modal_description mb-4">
-                            <label class="control-label" for="inputPatient">Description :</label>
+                        <div class="div_modal_description mb-3">
+                            <label class="control-label mb-1" for="inputPatient">Description :</label>
                             <h5 id="modalDescription" class="modal-description p_infos_evenements m-0"></h5>
                         </div>
 
-                        <div class="div_modal_couleur mb-4">
+                        <div class="div_modal_couleur mb-3">
                             <label class="control-label mr-3" for="inputPatient">Couleur :</label>
                             <h5 id="modalCouleur" class="modal-couleur p_infos_evenements m-0"></h5>
                             <select class="form-control select_couleur list darker" id="select_couleur">

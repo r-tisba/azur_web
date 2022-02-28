@@ -9,7 +9,6 @@ else if(file_exists("../../../../../services/fonctions.php")) { require_once "..
 $service = new Service();
 $service->myRequireOnce("modeles/modele.php");
 
-$connect = new PDO('mysql:host=localhost;dbname=gestion', 'root', '');
 $objetUtilisateur = new Utilisateur();
 
 $data = array();
