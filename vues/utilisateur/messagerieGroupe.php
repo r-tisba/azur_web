@@ -20,74 +20,73 @@ $nomGroupe = $messages[0]["nomEquipe"]
 
 ?>
 <div class="fleche_retour mb-2 ml-4">
-    <a href="../utilisateur/equipe.php?id=<?=$idEquipe?>" class="retour">
+    <a href="../utilisateur/equipe.php?id=<?= $idEquipe ?>" class="retour">
         <i class="fas fa-chevron-left"></i>
         Retour
     </a>
 </div>
-<?php
-/* GESTION DES ERREURS OU SUCCES */
-if (!empty($_GET["success"]) && $_GET["success"] == "suppression")
-{
-    ?>
-    <div class="alert alert-success mt-3">La supression a bien été effectué</div>
-    <?php
-    $service->redirectOneSec("../utilisateur/messagerieGroupe.php?id=$idEquipe");
-} else if (!empty($_GET["success"]) && $_GET["success"] == "modification")
-{
-    ?>
-    <div class="alert alert-success mt-3">La modification a bien été effectué</div>
-    <?php
-    $service->redirectOneSec("../utilisateur/messagerieGroupe.php?id=$idEquipe");
-}
-if (!empty($_GET["error"])) {
-?>
-    <div class="alert alert-danger mt-2">
-        <?php switch ($_GET["error"]) {
-            case "missing": ?>
-                <?php echo "Au moins un des champs est vide"; ?>
-                <?php break; ?>
-            <?php
-            case "post": ?>
-                <?php echo "Une erreur s'est produite lors de l'envoie du formulaire vérifier que votre message ne soit pas vide"; ?>
-                <?php break; ?>
-            <?php
-            case "fonction": ?>
-                <?php echo "Une erreur s'est produite lors de l'envoi du message"; ?>
-                <?php break; ?>
-            <?php
-            case "modification": ?>
-                <?php echo "Une erreur s'est produite lors de la modification du message"; ?>
-                <?php break; ?>
-            <?php
-            case "suppression": ?>
-                <?php echo "Une erreur s'est produite lors de la suppression"; ?>
-                <?php break; ?>
-            <?php
-            case "idMessage": ?>
-                <?php echo "Une erreur s'est produite lors de la récupération de l'idMessage"; ?>
-                <?php break; ?>
-        <?php
-        }
-        ?>
-    </div>
-<?php
-}
-/* BLOC CONVERSATION */
-?>
+
 <div class="containerFil mt-2">
+    <?php
+
+    /* GESTION DES ERREURS OU SUCCES */
+    if (!empty($_GET["success"]) && $_GET["success"] == "suppression") {
+    ?>
+        <div class="alert alert-success mt-3">La supression a bien été effectué</div>
+    <?php
+        $service->redirectOneSec("../utilisateur/messagerieGroupe.php?id=$idEquipe");
+    } else if (!empty($_GET["success"]) && $_GET["success"] == "modification") {
+    ?>
+        <div class="alert alert-success mt-3">La modification a bien été effectué</div>
+    <?php
+        $service->redirectOneSec("../utilisateur/messagerieGroupe.php?id=$idEquipe");
+    }
+    if (!empty($_GET["error"])) {
+    ?>
+        <div class="alert alert-danger mt-2">
+            <?php switch ($_GET["error"]) {
+                case "missing": ?>
+                    <?php echo "Au moins un des champs est vide"; ?>
+                    <?php break; ?>
+                <?php
+                case "post": ?>
+                    <?php echo "Une erreur s'est produite lors de l'envoie du formulaire vérifier que votre message ne soit pas vide"; ?>
+                    <?php break; ?>
+                <?php
+                case "fonction": ?>
+                    <?php echo "Une erreur s'est produite lors de l'envoi du message"; ?>
+                    <?php break; ?>
+                <?php
+                case "modification": ?>
+                    <?php echo "Une erreur s'est produite lors de la modification du message"; ?>
+                    <?php break; ?>
+                <?php
+                case "suppression": ?>
+                    <?php echo "Une erreur s'est produite lors de la suppression"; ?>
+                    <?php break; ?>
+                <?php
+                case "idMessage": ?>
+                    <?php echo "Une erreur s'est produite lors de la récupération de l'idMessage"; ?>
+                    <?php break; ?>
+            <?php
+            }
+            ?>
+        </div>
+    <?php
+    }
+    /* BLOC CONVERSATION */
+    ?>
     <div class="card cardDiscussion">
         <div class="card-header headerDiscussion">
             <h1 class="titreDiscussion"><?= $nomGroupe; ?> </h1>
         </div>
         <div class="card-body bodyDiscussion">
             <?php
-            foreach ($messages as $message)
-            {
+            foreach ($messages as $message) {
                 $date = $message["date"];
                 /* dispositionMessages() détermine l'affichage du message dans le fil selon son auteur */
                 $service->dispositionMessages($message);
-                ?>
+            ?>
                 <div class="card-header">
                     <div class="media flex-wrap w-100 align-items-center">
                         <div class="avatar">
@@ -129,7 +128,7 @@ if (!empty($_GET["error"])) {
 </div>
 <div class="containerFil mt-4">
     <!-- INPUT NOUVEAU MESSAGE -->
-    <form method="post" action="../../traitements/ajoutMessageGroupe.php?id=<?=$idEquipe;?>">
+    <form method="post" action="../../traitements/ajoutMessageGroupe.php?id=<?= $idEquipe; ?>">
         <div class="form-group">
             <textarea class="form-control" name="contenu" id="contenu" placeholder="Envoyer un message au groupe <?= $nomGroupe; ?>" rows="6"></textarea>
         </div>

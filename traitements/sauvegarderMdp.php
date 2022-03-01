@@ -1,5 +1,5 @@
 <?php
-require_once "../../services/fonctions.php";
+require_once "../services/fonctions.php";
 $service = new Service();
 $service->myRequireOnce("modeles/modele.php");
 $objetUtilisateur = new Utilisateur();

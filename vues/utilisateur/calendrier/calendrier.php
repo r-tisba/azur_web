@@ -88,40 +88,14 @@ $identifiantCreateur = $requete['identifiant'];
                 $('#modalWhen').text(mywhen);
                 $('#modalWho').text(event.createur);
 
-                // var i = 2
-                // var a = 'participant'
-                // var participant = a + i
-                // console.log(event)
-                // console.log(participant)
-                // console.log(event.participant)
-                // console.log(event.participant2)
+                $('#modalParticipants').html("<ul>");
 
-                // ----------------------------- A OPTIMISER -----------------------------
-                if(typeof(event.participant1) != "undefined" && event.participant1 !== null) { 
-                    $('#modalParticipants').html("<ul class='liste'><li>" + event.participant1 + "</li></ul>");  
-                }
-                if(typeof(event.participant2) != "undefined" && event.participant2 !== null) {  
-                    $('#modalParticipants').html("<ul class='liste'><li>" + event.participant1 + "</li><li>" + event.participant2 + 
-                    "</li></ul>");  
-                }
-                if(typeof(event.participant3) != "undefined" && event.participant3 !== null) {  
-                    $('#modalParticipants').html("<ul class='liste'><li>" + event.participant1 + "</li><li>" + event.participant2 + 
-                    "</li><li>" + event.participant3 + "</li></ul>");  
-                }
-                if(typeof(event.participant4) != "undefined" && event.participant4 !== null) { 
-                    $('#modalParticipants').html("<ul class='liste'><li>" + event.participant1 + "</li><li>" + event.participant2 + 
-                    "</li><li>" + event.participant3 + "</li><li>" +  event.participant4 + "</li></ul>");  
-                }
-                if(typeof(event.participant5) != "undefined" && event.participant5 !== null) {  
-                    $('#modalParticipants').html("<ul class='liste'><li>" + event.participant1 + "</li><li>" + event.participant2 + 
-                    "</li><li>" + event.participant3 + "</li><li>" + event.participant4 + "</li><li>" + event.participant5 + 
-                    "</li></ul>");  
-                }
-                if(typeof(event.participant6) != "undefined" && event.participant6 !== null) {  
-                    $('#modalParticipants').html("<ul class='liste'><li>" + event.participant1 + "</li><li>" + event.participant2 + 
-                    "</li><li>" + event.participant3 + "</li><li>" + event.participant4 + "</li><li>" + event.participant5 + 
-                    "</li><li>" + event.participant6 + "</li></ul>");  
-                }
+                var stringParticipants = "<ul class = 'liste'>"
+                Object.values(event.participants).forEach(participant => {
+                    stringParticipants = stringParticipants.concat("<li>" + participant + "</li>")
+                });
+                stringParticipants = stringParticipants.concat("</ul>")
+                $('#modalParticipants').html(stringParticipants);
 
                 $('#eventID').text(event.id);
                 $('#calendarModal').modal();

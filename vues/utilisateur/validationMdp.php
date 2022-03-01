@@ -27,54 +27,11 @@ if ($validation == 1) {
 }
 ?>
 <div class="container">
-    <?php if (!empty($_GET["error"])) {
-    ?>
-        <div class="alert alert-danger alert_connexion mt-3">
-            <?php switch ($_GET["error"]) {
-                case "validationsave": ?>
-                    <?php echo "Une erreur s'est produite lors de la validation"; ?>
-                    <?php break; ?>
-                <?php
-                case "mdplength": ?>
-                    <?php echo "Le mot de passe doit faire au moins 8 caractères"; ?>
-                    <?php break; ?>
-                <?php
-                case "mdpletter": ?>
-                    <?php echo "Le mot de passe doit faire au moins 1 lettre"; ?>
-                    <?php break; ?>
-                <?php
-                case "mdpcaps": ?>
-                    <?php echo "Le mot de passe doit faire au moins 1 majuscule"; ?>
-                    <?php break; ?>
-                <?php
-                case "mdpdigit": ?>
-                    <?php echo "Le mot de passe doit faire au moins 1 chiffre"; ?>
-                    <?php break; ?>
-                <?php
-                case "mdpspechar": ?>
-                    <?php echo "Le mot de passe doit faire au moins 1 caractère spécial"; ?>
-                    <?php break; ?>
-                <?php
-                case "mdpnotsame": ?>
-                    <?php echo "Les deux mots de passe saisies ne sont pas identiques"; ?>
-                    <?php break; ?>
-                <?php
-                case "missing": ?>
-                    <?php echo "Au moins un champ n'a pas été saisi"; ?>
-                    <?php break; ?>
-            <?php
-            }
-            ?>
-        </div>
-    <?php
-    }
-    ?>
-
     <div class="row justify-content-center">
         <div class="col-12 text-center">
             <h2 class="titreSection">Changement de votre mot de passe</h2>
         </div>
-        <div class="col-lg-9 col-md-9 mx-auto">
+        <div class="col-lg-9 col-md-9 mx-auto mb-3">
             <div class="card card-body dark">
                 <h2 class="titreDiscussion text-center mb-2">Bienvenue sur <span class="bleu_azur">Azur</span> !</h2>
                 <p class="lead mb-2">Pour votre 1ère connexion, vous allez devoir choisir le mot de passe de votre compte. <br>
@@ -89,7 +46,51 @@ if ($validation == 1) {
             </div>
         </div>
 
-        <div class="col-8 text-center mt-4">
+        <!-- ----------------------------------- MESSAGE D'ERREUR ----------------------------------- -->
+        <?php if (!empty($_GET["error"])) {
+        ?>
+            <div class="alert alert-danger alert_connexion mt-3">
+                <?php switch ($_GET["error"]) {
+                    case "validationsave": ?>
+                        <?php echo "Une erreur s'est produite lors de la validation"; ?>
+                        <?php break; ?>
+                    <?php
+                    case "mdplength": ?>
+                        <?php echo "Le mot de passe doit faire au moins 8 caractères"; ?>
+                        <?php break; ?>
+                    <?php
+                    case "mdpletter": ?>
+                        <?php echo "Le mot de passe doit faire au moins 1 lettre"; ?>
+                        <?php break; ?>
+                    <?php
+                    case "mdpcaps": ?>
+                        <?php echo "Le mot de passe doit faire au moins 1 majuscule"; ?>
+                        <?php break; ?>
+                    <?php
+                    case "mdpdigit": ?>
+                        <?php echo "Le mot de passe doit faire au moins 1 chiffre"; ?>
+                        <?php break; ?>
+                    <?php
+                    case "mdpspechar": ?>
+                        <?php echo "Le mot de passe doit faire au moins 1 caractère spécial"; ?>
+                        <?php break; ?>
+                    <?php
+                    case "mdpnotsame": ?>
+                        <?php echo "Les deux mots de passe saisies ne sont pas identiques"; ?>
+                        <?php break; ?>
+                    <?php
+                    case "missing": ?>
+                        <?php echo "Au moins un champ n'a pas été saisi"; ?>
+                        <?php break; ?>
+                <?php
+                }
+                ?>
+            </div>
+        <?php
+        }
+        ?>
+
+        <div class="col-8 text-center mt-2">
             <form method="POST" action="../../traitements/sauvegarderMdp.php">
                 <div class="card card_validation">
                     <div class="card-body card_flex">

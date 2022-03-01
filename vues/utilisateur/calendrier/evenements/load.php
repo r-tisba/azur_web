@@ -19,7 +19,9 @@ FROM evenements e LEFT JOIN utilisateurs u ON e.idCreateur = u.idUtilisateur ORD
 $statement = $db->prepare($query);
 $statement->execute();
 $result = $statement->fetchAll();
+$arrayParticipants = [];
 $i = 0;
+// $participants = [];
 foreach ($result as $row)
 {
     $data[] = array(
@@ -44,11 +46,13 @@ foreach ($result as $row)
         $n = 1;
         foreach($participants as $participant)
         {
-            $data[$i] += array(
-                'participant' . $n => $participant['identifiant'],
-            );
+            $arrayParticipants[$n] = $participant['identifiant'];
             $n++;
         }
+            $data[$i] += array(
+                'participants' => $arrayParticipants,
+            );
+            $arrayParticipants = [];
     }
     $i++;
 }

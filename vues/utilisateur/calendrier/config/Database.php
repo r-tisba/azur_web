@@ -14,7 +14,7 @@ class Database
     // private $username = "ipssisqazur";
     // private $password = "Ipssi2022azur";
     // public $connexion;
-    
+
     // getter pour la connexion
     public function getConnection(){
         // On commence par fermer la connexion si elle existait

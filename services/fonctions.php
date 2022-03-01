@@ -153,13 +153,13 @@ class Service
                     <div class="col-9 col-md-8">
                         <div class="card mb-4 cardMessage_perso">
                         <?php
-                        } else {
-                            ?>
-                            <div class="container-fluid containerMessage_interlocuteur">
-                            <div class="row">
-                            <div class="col-9 col-md-8">
-                            <div class="card mb-4 cardMessage_interlocuteur">
-                            <?php
-                        }
+            } else {
+                ?>
+                <div class="container-fluid containerMessage_interlocuteur">
+                <div class="row">
+                    <div class="col-9 col-md-8">
+                        <div class="card mb-4 cardMessage_interlocuteur">
+                <?php
+            }
         }
 }

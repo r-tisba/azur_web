@@ -37,7 +37,7 @@ class Message_Groupe extends Modele
 
     public function recupererMessagesEquipe($idEquipe)
     {
-        $requete = $this->getBDD()->prepare("SELECT * FROM messages_groupes LEFT JOIN composition_equipes USING(idEquipe, idUtilisateur) LEFT JOIN equipes USING(idEquipe) LEFT JOIN utilisateurs USING(idUtilisateur) WHERE idEquipe = ?");
+        $requete = $this->getBDD()->prepare("SELECT * FROM messages_groupes LEFT JOIN composition_equipes USING(idEquipe, idUtilisateur) LEFT JOIN equipes USING(idEquipe) LEFT JOIN utilisateurs USING(idUtilisateur) WHERE idEquipe = ? ORDER BY date ASC");
         $requete->execute([$idEquipe]);
         $messages_groupes = $requete->fetchAll(PDO::FETCH_ASSOC);
         return $messages_groupes;

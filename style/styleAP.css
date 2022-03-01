@@ -105,6 +105,10 @@ a:hover {
   border-style: ridge;
   border-color: black;
 }
+.navbar-toggler:focus, .navbar-toggler:active, button:focus, button:active
+{
+  outline: none !important;
+}
 .navbar.navbar-7
 {
   border-style: ridge;
@@ -318,6 +322,8 @@ input#identifiant:hover, input#mdp:hover, input#verifMdp:hover
   align-items: center;
   margin-left: auto;
   margin-right: auto;
+  border-radius: 10px;
+
 
   color: white;
   background-color: #343a40;

@@ -12,7 +12,7 @@ class Modele
     {
         try {
             return new PDO(
-                "mysql:host=" . $this->host . ";dbname=" . $this->db_name,
+                "mysql:host=" . $this->host . ";dbname=" . $this->db_name . ";charset=UTF8",
                 $this->username,
                 $this->password,
                 array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)
