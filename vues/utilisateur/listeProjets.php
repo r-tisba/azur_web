@@ -1,11 +1,16 @@
 <?php
 require_once "entete.php";
 
+$idUtilisateur = $_SESSION["idUtilisateur"];
 $idEquipe = $_GET["id"];
 $objetEquipe = new Equipe();
 $objetEtape = new Etape();
 $objetProjet = new Projet();
 $service = new Service();
+
+// Vérification de si l'utilisateur a bien accès à cet page
+if($objetEquipe->verifierPresenceUtilisateurEquipe($idUtilisateur, $idEquipe) != true) { $service->redirectNow("../utilisateur/listeEquipes.php"); }
+
 $projets = $objetProjet->recupererProjetsEquipe($idEquipe);
 ?>
 <div class="fleche_retour mb-2 ml-4">
@@ -70,6 +75,7 @@ $projets = $objetProjet->recupererProjetsEquipe($idEquipe);
             <?php
             foreach ($projets as $projet)
             {
+                /* ----------------------------- BARRE DE PROGRESSION ----------------------------- */
                 $tabBarreProgression = $objetEtape->barreProgression($projet["idProjet"]);
                 $tabProgression = $objetEtape->progression($projet["idProjet"]);
                 $barreProgression = $tabBarreProgression["COUNT(*)"];
@@ -110,7 +116,7 @@ $projets = $objetProjet->recupererProjetsEquipe($idEquipe);
                                         <?php
 
                                         $idProjet = $projet["idProjet"];
-                                        $etapes = $objetEtape->recupererEtapesProjetNonFini($idProjet);
+                                        $etapes = $objetProjet->recupererEtapesProjetNonFini($idProjet);
                                         $countEtapesEnCours = 0;
                                         $compteur = 0;
 

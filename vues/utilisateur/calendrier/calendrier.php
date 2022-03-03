@@ -1,10 +1,9 @@
 <?php
 require_once "entete_calendrier.php";
-$objetUtilisateur = new Utilisateur();
-$allUtilisateurs = $objetUtilisateur->recupererIdentifiantsUtilisateurs();
 $idCreateur = $_SESSION["idUtilisateur"];
-$requete = $objetUtilisateur->recupererIdentifiantUtilisateurViaId($idCreateur);
-$identifiantCreateur = $requete['identifiant'];
+$objetUtilisateur = new Utilisateur($idCreateur);
+$allUtilisateurs = $objetUtilisateur->recupererIdentifiantsUtilisateurs();
+$identifiantCreateur = $objetUtilisateur->getIdentifiant();
 ?>
 <script>
     $(document).ready(function() {

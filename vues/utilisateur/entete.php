@@ -4,10 +4,9 @@ else if(file_exists("../../services/fonctions.php")) { require_once "../../servi
 $service = new Service();
 $service->myRequireOnce("modeles/modele.php");
 session_start();
-
-$objetUtilisateur = new Utilisateur();
-$result = $objetUtilisateur->recupererValidation($_SESSION["idUtilisateur"]);
-$validation = $result["validation"];
+$idUtilisateur = $_SESSION["idUtilisateur"];
+$objetUtilisateur = new Utilisateur($idUtilisateur);
+$validation = $objetUtilisateur->getValidation();
 
 if (!isset($_SESSION["identifiant"]))
 {

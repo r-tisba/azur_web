@@ -8,7 +8,7 @@ if (($_GET["id"])) {
     if (!empty($_POST["contenu"])) {
         extract($_POST);
 
-        if ($objetMessage->ajoutMessages($idDiscussion, $contenu, $idUtilisateur) == true)
+        if ($objetMessage->ajoutMessage($idDiscussion, $contenu, $idUtilisateur) == true)
         {
             $service->redirectNow("../vues/utilisateur/discussion.php?id=$idDiscussion");
         } else {

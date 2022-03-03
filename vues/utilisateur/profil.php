@@ -3,19 +3,15 @@ require_once "../utilisateur/entete.php";
 if (empty($_SESSION["identifiant"])) {
     header("location:index.php");
 }
-$objetEquipe = new Equipe();
-$objetUtilisateur = new Utilisateur($_SESSION["idUtilisateur"]);
-$utilisateur = $objetUtilisateur->recupererUtilisateur($_SESSION["idUtilisateur"]);
 $idUtilisateur = $_SESSION["idUtilisateur"];
-/*
-$nomRole = $objetUtilisateur->recupererNomRoleViaIdRole($idRole);
-$nomRole = $nomRole["nomRole"];
-*/
+$objetUtilisateur = new Utilisateur($idUtilisateur);
+$utilisateur = $objetUtilisateur->recupererUtilisateur($_SESSION["idUtilisateur"]);
 $nomRole = $utilisateur["role"];
 $equipes = $objetUtilisateur->recupererEquipesViaIdUtilisateur($idUtilisateur);
 ?>
 
 <script>
+// Suppression des cookies
 $(document).ready(function() {
     $('#supprButton').on('click', function(e) {
         e.preventDefault();
@@ -63,7 +59,8 @@ $(document).ready(function() {
                                         <?php
                                     } else {
                                         $idEquipe = $equipe["idEquipe"];
-                                        $imageEquipe = $objetEquipe->recupererImage($equipe["idEquipe"]);
+                                        $objetEquipe = new Equipe($idEquipe);
+                                        $imageEquipe = $objetEquipe->getImage();
                                         ?>
                                         <div class="col-12 col-md-6 col-lg-2">
                                         <a href="../utilisateur/equipe.php?id=<?= $idEquipe; ?>">
@@ -71,12 +68,12 @@ $(document).ready(function() {
                                                 <?php
                                                 if (!empty($imageEquipe)) {
                                                 ?>
-                                                    <img src="../<?= $imageEquipe["image"]; ?>" class="miniatureEquipe">
+                                                    <img src="../<?= $imageEquipe; ?>" class="miniatureEquipe">
                                                     <div class="blanc mt-1"><?= $equipe["nomEquipe"] ?></div>
                                                 <?php
                                                 } else {
                                                 ?>
-                                                    <img src="../../images/design/image_equipe.png">
+                                                    <img src="../../images/design/image_equipe.png" class="miniatureEquipe">
                                                     <div class="blanc mt-1"><?= $equipe["nomEquipe"] ?></div>
                                                 <?php
                                                 }

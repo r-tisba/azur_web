@@ -18,7 +18,7 @@ if (!empty($_POST["idDestinataire"]))
         {
             $verif = $objetDiscussion->verifierDiscussion($_SESSION["idUtilisateur"], $idDestinataire);
             $idDiscussion = $verif["idDiscussion"];
-            if ($objetMessage->ajoutMessages($idDiscussion, $contenu, $idUtilisateur) == true)
+            if ($objetMessage->ajoutMessage($idDiscussion, $contenu, $idUtilisateur) == true)
             {
                 $service->redirectNow("../vues/utilisateur/discussion.php?id=$idDiscussion");
             } else {
@@ -31,7 +31,7 @@ if (!empty($_POST["idDestinataire"]))
                 /* Et on envoie le message */
                 $result = $objetDiscussion->recupererDiscussionViaEnvoyeurDestinataire($_SESSION["idUtilisateur"], $idDestinataire);
                 $idDiscussion = $result["idDiscussion"];
-                if ($objetMessage->ajoutMessages($idDiscussion, $contenu, $idUtilisateur) == true)
+                if ($objetMessage->ajoutMessage($idDiscussion, $contenu, $idUtilisateur) == true)
                 {
                     $service->redirectNow("../vues/utilisateur/discussion.php?id=$idDiscussion");
                 } else {

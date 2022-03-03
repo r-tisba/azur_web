@@ -54,7 +54,7 @@ class Service
             echo 'window.setTimeout(function() { window.location.href="'.$url.'"; }, 4000);';
             echo '</script>';
             echo '<noscript>';
-            echo '<meta http-equiv="refresh" content="3; url='.$url.'" />';
+            echo '<meta http-equiv="refresh" content="4; url='.$url.'" />';
             echo '</noscript>';
             exit;
         }

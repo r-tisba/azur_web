@@ -9,7 +9,7 @@ if (!empty($_GET["idMessage"])) {
 }
 
 $service = new Service();
-$objetMessage = new Message_Groupe();
+$objetMessage = new MessageGroupe();
 $message = $objetMessage->recupererMessage($idMessage);
 $idEquipe = $objetMessage->recupereridEquipeViaMessage($idMessage);
 $idEquipe = $idEquipe["idEquipe"];

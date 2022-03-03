@@ -1,48 +1,51 @@
 <?php
 
-class Message_Groupe extends Modele
+class MessageGroupe extends Modele
 {
     private $idMessageGroupe;
+    private $idEquipe;
+    private $idUtilisateur;
     private $contenu;
     private $date;
-    private $idUtilisateur;
+    private $dateModif;
+    private $messages = [];
 
-    public function __construct($idM = null)
+    public function __construct($idEquipe = null)
     {
-        if ($idM !== null) {
-            $requete = $this->getBdd()->prepare("SELECT * FROM messages_groupes WHERE idMessageGroupe = ?");
-            $requete->execute([$idM]);
+        if ($idEquipe !== null) {
+            $requete = $this->getBdd()->prepare("SELECT * FROM messages_groupes WHERE idEquipe = ?");
+            $requete->execute([$idEquipe]);
             $message = $requete->fetch(PDO::FETCH_ASSOC);
 
-            $this->idMessageGroupe = $idM;
-            $this->reponse = $message["contenu"];
-            $this->validite = $message["date"];
-            $this->validite = $message["idUtilisateur"];
+            $this->idMessageGroupe = $message["idMessageGroupe"];
+            $this->idEquipe = $idEquipe;
+            $this->idUtilisateur = $message["idUtilisateur"];
+            $this->contenu = $message["contenu"];
+            $this->date = $message["date"];
+            $this->dateModif = $message["dateModif"];
+
+            $requete = $this->getBdd()->prepare("SELECT * FROM messages_groupes LEFT JOIN composition_equipes USING(idEquipe, idUtilisateur) LEFT JOIN equipes USING(idEquipe) LEFT JOIN utilisateurs USING(idUtilisateur) WHERE idEquipe = ? ORDER BY date ASC");
+            $requete->execute([$this->idEquipe]);
+            $messages = $requete->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($messages as $message) {
+                $this->messages[] = $message;
+            }
         }
     }
-
-    public function initialiserMessage($idMessageGroupe, $contenu, $date, $idUtilisateur)
+    public function ajoutMessage($idEquipe, $idUtilisateur, $contenu)
     {
-        $this->idMessageGroupe = $idMessageGroupe;
-        $this->contenu = $contenu;
-        $this->date = $date;
-        $this->idUtilisateur = $idUtilisateur;
-    }
-    public function ajoutMessages($idEquipe, $contenu, $idUtilisateur)
-    {
-        $requete = $this->getBDD()->prepare("INSERT INTO messages_groupes(idEquipe, contenu, date, idUtilisateur) VALUES(?, ?, ?, ?)");
-        $requete->execute([$idEquipe, $contenu, date("Y-m-d H:i:s"), $idUtilisateur]);
+        $requete = $this->getBDD()->prepare("INSERT INTO messages_groupes(idEquipe, idUtilisateur, contenu, date) VALUES(?, ?, ?, ?)");
+        $requete->execute([$idEquipe, $idUtilisateur, $contenu, date("Y-m-d H:i:s")]);
         return true;
     }
-
-    public function recupererMessagesEquipe($idEquipe)
-    {
-        $requete = $this->getBDD()->prepare("SELECT * FROM messages_groupes LEFT JOIN composition_equipes USING(idEquipe, idUtilisateur) LEFT JOIN equipes USING(idEquipe) LEFT JOIN utilisateurs USING(idUtilisateur) WHERE idEquipe = ? ORDER BY date ASC");
-        $requete->execute([$idEquipe]);
-        $messages_groupes = $requete->fetchAll(PDO::FETCH_ASSOC);
-        return $messages_groupes;
-    }
-
+    // public function recupererMessagesEquipe($idEquipe)
+    // {
+    //     $requete = $this->getBDD()->prepare("SELECT * FROM messages_groupes LEFT JOIN composition_equipes USING(idEquipe, idUtilisateur) LEFT JOIN equipes USING(idEquipe) LEFT JOIN utilisateurs USING(idUtilisateur) WHERE idEquipe = ? ORDER BY date ASC");
+    //     $requete->execute([$idEquipe]);
+    //     $messages_groupes = $requete->fetchAll(PDO::FETCH_ASSOC);
+    //     return $messages_groupes;
+    // }
     public function recupererMessage($idMessageGroupe)
     {
         $requete = $this->getBDD()->prepare("SELECT * FROM messages_groupes LEFT JOIN utilisateurs USING(idUtilisateur)  WHERE idMessageGroupe = ?");
@@ -64,7 +67,6 @@ class Message_Groupe extends Modele
         $requete->execute([$idEquipe]);
         return $requete->fetch(PDO::FETCH_ASSOC);
     }
-
     public function recupererDernierMessageFull($idEquipe)
     {
         $requete = $this->getBDD()->prepare("SELECT t.*, u.*, d.* FROM messages_groupes t INNER JOIN
@@ -90,11 +92,17 @@ class Message_Groupe extends Modele
         $this->idCategorie=$idMessageGroupe;
     }
 
-
-
-    public function getIdMessage()
+    public function getIdMessageGroupe()
     {
-        return $this->idMessage;
+        return $this->idMessageGroupe;
+    }
+    public function getIdEquipe()
+    {
+        return $this->idEquipe;
+    }
+    public function getidUtilisateur()
+    {
+        return $this->idUtilisateur;
     }
     public function getContenu()
     {
@@ -104,8 +112,12 @@ class Message_Groupe extends Modele
     {
         return $this->date;
     }
-    public function getidUtilisateur()
+    public function getDateModif()
     {
-        return $this->idUtilisateur;
+        return $this->dateModif;
+    }
+    public function getMessages()
+    {
+        return $this->messages;
     }
 }

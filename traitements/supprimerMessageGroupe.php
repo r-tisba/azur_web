@@ -1,7 +1,7 @@
 <?php
 require_once "../vues/utilisateur/entete.php";
 $idUtilisateur = $_SESSION["idUtilisateur"];
-$objetMessage = new Message_Groupe();
+$objetMessage = new MessageGroupe();
 $idEquipe = $_GET["idEquipe"];
 
 if(!empty($_GET["idMessage"]))

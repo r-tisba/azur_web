@@ -1,23 +1,34 @@
 <?php
 require_once "entete.php";
+$service = new Service();
+$objetEquipe = new Equipe();
 
 if (!empty($_GET["id"])) {
     $idEquipe = $_GET["id"];
 } else {
-?>
-    <div class="alert alert-danger mt-2">Erreur lors de la récupération de l'idEquipe</div>
-<?php
-    header("refresh:2; ../utilisateur/equipe.php");
+    ?>
+    <div class="containerFil mt-2">
+        <div class="alert alert-danger mt-2">Erreur lors de la récupération de la disscussion de l'équipe</div>
+    </div>
+    <?php
+    $service->redirectOneSec("../utilisateur/listeEquipes.php");
 }
 
 $idUtilisateur = $_SESSION["idUtilisateur"];
 $idEquipe = $_GET["id"];
-$objetUtilisateur = new Utilisateur();
-$objetMessageGroupe = new Message_Groupe();
-$service = new Service();
-$messages = $objetMessageGroupe->recupererMessagesEquipe($idEquipe);
-$nomGroupe = $messages[0]["nomEquipe"]
 
+// Vérification de si l'utilisateur a bien accès à cet page
+if($objetEquipe->verifierPresenceUtilisateurEquipe($idUtilisateur, $idEquipe) != true) { $service->redirectNow("../utilisateur/listeEquipes.php"); }
+
+$objetUtilisateur = new Utilisateur();
+$objetMessageGroupe = new MessageGroupe($idEquipe);
+$messages = $objetMessageGroupe->getMessages();
+$nomGroupe = $messages[0]["nomEquipe"];
+$verification = false;
+
+// Vérification de si l'utilisateur a bien accès à cet page
+foreach($messages as $message) { $message["idUtilisateur"] == $idUtilisateur ? $verification = true : ''; }
+if($verification == false) { $service->redirectNow("../utilisateur/listeEquipes.php"); }
 ?>
 <div class="fleche_retour mb-2 ml-4">
     <a href="../utilisateur/equipe.php?id=<?= $idEquipe ?>" class="retour">

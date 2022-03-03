@@ -3,20 +3,24 @@
 class Message extends Modele
 {
     private $idMessage;
+    private $idDiscussion;
+    private $idUtilisateur;
     private $contenu;
     private $date;
-    private $idUtilisateur;
+    private $dateModif;
 
-    public function __construct($idM = null)
+    public function __construct($idMessage = null)
     {
-        if ($idM !== null) {
+        if ($idMessage !== null) {
             $requete = $this->getBdd()->prepare("SELECT * FROM messages WHERE idMessage = ?");
-            $requete->execute([$idM]);
+            $requete->execute([$idMessage]);
             $message = $requete->fetch(PDO::FETCH_ASSOC);
 
-            $this->idMessage = $idM;
+            $this->idMessage = $idMessage;
+            $this->idDiscussion = $message["idDiscussion"];
             $this->contenu = $message["contenu"];
             $this->date = $message["date"];
+            $this->dateModif = $message["dateModif"];
         }
     }
 
@@ -27,15 +31,12 @@ class Message extends Modele
         $this->date = $date;
         $this->idUtilisateur = $idUtilisateur;
     }
-
-    public function ajoutMessages($idDiscussion, $contenu, $idUtilisateur)
+    public function ajoutMessage($idDiscussion, $contenu, $idUtilisateur)
     {
         $requete = $this->getBDD()->prepare("INSERT INTO messages(idDiscussion, contenu, date, idUtilisateur) VALUES(?, ?, ?, ?)");
         $requete->execute([$idDiscussion, $contenu, date("Y-m-d H:i:s"), $idUtilisateur]);
         return true;
     }
-
-
     public function recupererMessages($idDiscussion)
     {
         $requete = $this->getBDD()->prepare("SELECT * FROM messages LEFT JOIN utilisateurs USING(idUtilisateur) LEFT JOIN discussions USING(idDiscussion)  WHERE idDiscussion = ? ORDER BY date ASC");
@@ -43,7 +44,6 @@ class Message extends Modele
         $messages = $requete->fetchAll(PDO::FETCH_ASSOC);
         return $messages;
     }
-
     public function recupererMessage($idMessage)
     {
         $requete = $this->getBDD()->prepare("SELECT * FROM messages LEFT JOIN utilisateurs USING(idUtilisateur) LEFT JOIN discussions USING(idDiscussion)  WHERE idMessage = ?");
@@ -112,11 +112,17 @@ class Message extends Modele
         return true;
     }
 
-
-
     public function getIdMessage()
     {
         return $this->idMessage;
+    }
+    public function getIdDiscussion()
+    {
+        return $this->idDiscussion;
+    }
+    public function getIdUtilisateur()
+    {
+        return $this->idUtilisateur;
     }
     public function getContenu()
     {
@@ -126,8 +132,8 @@ class Message extends Modele
     {
         return $this->date;
     }
-    public function getidUtilisateur()
+    public function getDateModif()
     {
-        return $this->idUtilisateur;
+        return $this->dateModif;
     }
 }

@@ -4,38 +4,26 @@ class Etape extends Modele
 {
     private $idEtape;
     private $idProjet;
+    private $nomEtape;
     private $dateDebut;
     private $dateFin;
     private $etatEtape;
-    private $nomEtape;
 
-    public function __construct($idE = null)
+    public function __construct($idEtape = null)
     {
-        if($idE != null)
+        if($idEtape != null)
         {
-            $requete = $this->getBdd()->prepare("SELECT * FROM etapes");
-            $requete->execute();
+            $requete = $this->getBdd()->prepare("SELECT * FROM etapes WHERE idEtape = ?");
+            $requete->execute([$idEtape]);
             $etape = $requete->fetchAll(PDO::FETCH_ASSOC);
 
-            $this->idEtape = $idE;
+            $this->idEtape = $idEtape;
             $this->idProjet = $etape["idProjet"];
+            $this->nomEtape = $etape["nomEtape"];
             $this->dateDebut = $etape["dateDebut"];
             $this->dateFin = $etape["dateFin"];
             $this->etatEtape = $etape["etatEtape"];
-            $this->nomEtape = $etape["nomEtape"];
         }
-    }
-    public function recupererEtapesProjet($idProjet)
-    {
-        $requete= $this->getBdd()->prepare("SELECT idProjet, idEtape, nomEtape, e.dateDebut, e.dateFin, etatEtape, nomProjet, contexte FROM etapes e INNER JOIN projets p USING(idProjet) WHERE idProjet = ?");
-        $requete->execute([$idProjet]);
-        return $requete->fetchAll(PDO::FETCH_ASSOC);
-    }
-    public function recupererEtapesProjetNonFini($idProjet)
-    {
-        $requete= $this->getBdd()->prepare("SELECT idProjet, idEtape, nomEtape, e.dateDebut, e.dateFin, etatEtape, nomProjet, contexte FROM etapes e INNER JOIN projets p USING(idProjet) WHERE idProjet = ? AND etatEtape = 0");
-        $requete->execute([$idProjet]);
-        return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
     public function recupererProjetViaEtape($idEtape)
     {
@@ -46,7 +34,7 @@ class Etape extends Modele
 
     public function creerEtape($idProjet, $dateDebut, $dateFin, $nomEtape)
     {
-        $requete= $this->getBdd()->prepare("INSERT INTO etapes(idProjet, dateDebut, dateFin, nomEtape) VALUES(?,?,?,?)");
+        $requete= $this->getBdd()->prepare("INSERT INTO etapes(idProjet, dateDebut, dateFin, nomEtape) VALUES(?, ?, ?, ?)");
         $requete->execute([$idProjet, $dateDebut, $dateFin, $nomEtape]);
         return true;
     }
@@ -62,6 +50,7 @@ class Etape extends Modele
         $requete->execute([$idEtape]);
         return true;
     }
+
     public function barreProgression($idProjet)
     {
         $requete = $this->getBdd()->prepare("SELECT COUNT(*) FROM etapes WHERE idProjet=?");
@@ -76,26 +65,37 @@ class Etape extends Modele
         $progression=$requete->fetch(PDO::FETCH_ASSOC);
         return $progression;
     }
-    public function etapeProjet($idProjet)
-    {
-        $requete = $this->getBdd()->prepare("SELECT * FROM etapes WHERE idProjet=? AND etatEtape=0");
-        $requete->execute([$idProjet]);
-        $etape=$requete->fetchAll(PDO::FETCH_ASSOC);
-        return $etape;
-    }
     public function etapeEnCours($idEtape)
     {
         $requete = $this->getBdd()->prepare("SELECT * FROM etapes
         WHERE idEtape = ? AND etatEtape = 0 AND ((NOW() >= dateDebut AND NOW() <= dateFin) OR NOW() >= dateDebut AND ISNULL(dateFin))");
         $requete->execute([$idEtape]);
         $etape = $requete->fetch(PDO::FETCH_ASSOC);
-        if(empty($etape))
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        if(empty($etape)) { return false; }
+        else { return true; }
+    }
+    public function getIdEtape()
+    {
+        return $this->idEtape;
+    }
+    public function getIdProjet()
+    {
+        return $this->idProjet;
+    }
+    public function getNomEtape()
+    {
+        return $this->nomEtape;
+    }
+    public function getDateDebut()
+    {
+        return $this->dateDebut;
+    }
+    public function getDateFin()
+    {
+        return $this->dateFin;
+    }
+    public function getEtatEtape()
+    {
+        return $this->etatEtape;
     }
 }

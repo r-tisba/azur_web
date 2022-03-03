@@ -1,6 +1,6 @@
 <?php
 require_once "../vues/utilisateur/entete.php";
-$objetMessage = new Message_Groupe();
+$objetMessage = new MessageGroupe();
 $idUtilisateur = $_SESSION["idUtilisateur"];
 
 
@@ -10,7 +10,7 @@ if (($_GET["id"])) {
     if (!empty($_POST["contenu"])) {
         extract($_POST);
 
-        if ($objetMessage->ajoutMessages($idEquipe, $contenu, $idUtilisateur) == true)
+        if ($objetMessage->ajoutMessage($idEquipe, $contenu, $idUtilisateur) == true)
         {
             $service->redirectNow("../vues/utilisateur/messagerieGroupe.php?id=$idEquipe");
         } else {

@@ -4,9 +4,6 @@ $service = new Service();
 $service->myRequireOnce("modeles/modele.php");
 session_start();
 
-$objetUtilisateur = new Utilisateur();
-$service = new Service();
-
 $tokenBool = false;
 ?>
 
@@ -126,16 +123,17 @@ $tokenBool = false;
     $valeurCookieToken = explode("-", $id_token);
     $idUtilisateur = $valeurCookieToken[0];
     $token = $valeurCookieToken[1];
+
+    $objetUtilisateur = new Utilisateur($idUtilisateur);
     if ($objetUtilisateur->verifierAssociationToken($idUtilisateur, $token))
     {
-      $infosUtilisateur = $objetUtilisateur->recupererUtilisateur($idUtilisateur);
       @session_start();
-      $_SESSION["identifiant"] = $infosUtilisateur["identifiant"];
-      $_SESSION["role"] = $infosUtilisateur["role"];
+      $_SESSION["identifiant"] = $objetUtilisateur->getIdentifiant();
+      $_SESSION["role"] = $objetUtilisateur->getRole();
       $_SESSION["idUtilisateur"] = $idUtilisateur;
 
-      $identifiant = $infosUtilisateur["identifiant"];
-      $mdp = $infosUtilisateur["mdp"];
+      $identifiant = $objetUtilisateur["identifiant"];
+      $mdp = $objetUtilisateur["mdp"];
       $tokenBool = true;
     }
   }

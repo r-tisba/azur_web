@@ -4,9 +4,12 @@ require_once "../utilisateur/entete.php";
 if (!isset($_GET["id"])) {
   $service->redirectNow("../visiteur/index.php");
 }
+$idUtilisateur = $_SESSION["idUtilisateur"];
 $idEquipe = $_GET["id"];
-$objetEquipe = new Equipe();
-$equipe = $objetEquipe->recupererEquipe($idEquipe);
+$objetEquipe = new Equipe($idEquipe);
+
+// Vérification de si l'utilisateur a bien accès à cet page
+if($objetEquipe->verifierPresenceUtilisateurEquipe($idUtilisateur, $idEquipe) != true) { $service->redirectNow("../utilisateur/listeEquipes.php"); }
 ?>
 <main>
   <div class="fleche_retour mb-2 ml-4">
@@ -17,7 +20,7 @@ $equipe = $objetEquipe->recupererEquipe($idEquipe);
   </div>
   <div class="container">
     <div class="col-12 text-center">
-      <h2 class="titreSection hr_titre">Équipe <?= $equipe["nomEquipe"]; ?></h2>
+      <h2 class="titreSection hr_titre">Équipe <?= $objetEquipe->getNomEquipe(); ?></h2>
     </div>
     <div class="album py-3">
 

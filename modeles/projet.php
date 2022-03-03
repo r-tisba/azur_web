@@ -10,15 +10,18 @@ class Projet extends Modele
     private $nomProjet;
     private $importance;
     private $illustration;
+    private $intitule;
+    private $contexte;
+    private $etapes = [];
 
-    public function __construct($idP = null)
+    public function __construct($idProjet = null)
     {
-        if ($idP != null) {
-            $requete = $this->getBdd()->prepare("SELECT * FROM projets");
-            $requete->execute();
-            $projet = $requete->fetchAll(PDO::FETCH_ASSOC);
+        if ($idProjet != null) {
+            $requete = $this->getBdd()->prepare("SELECT * FROM projets WHERE idProjet = ?");
+            $requete->execute([$idProjet]);
+            $projet = $requete->fetch(PDO::FETCH_ASSOC);
 
-            $this->idProjet = $idP;
+            $this->idProjet = $idProjet;
             $this->idEquipe = $projet["idEquipe"];
             $this->dateDebut = $projet["dateDebut"];
             $this->dateFin = $projet["dateFin"];
@@ -26,6 +29,14 @@ class Projet extends Modele
             $this->nomProjet = $projet["nomProjet"];
             $this->importance = $projet["importance"];
             $this->illustration = $projet["illustration"];
+
+            $requete= $this->getBdd()->prepare("SELECT idProjet, idEtape, nomEtape, e.dateDebut, e.dateFin, etatEtape, nomProjet, contexte FROM etapes e INNER JOIN projets p USING(idProjet) WHERE idProjet = ?");
+            $requete->execute([$this->idProjet]);
+            $etapesArray = $requete->fetchAll(PDO::FETCH_ASSOC);
+            
+            foreach ($etapesArray as $etape) {
+                $this->etapes[] = $etape;
+            }
         }
     }
     public function recupererProjets()
@@ -34,21 +45,24 @@ class Projet extends Modele
         $requete->execute();
         return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function recupererProjet($idProjet)
+    // public function  ($idProjet)
+    // {
+    //     $requete = $this->getBDD()->prepare("SELECT * FROM projets WHERE idProjet = ?");
+    //     $requete->execute([$idProjet]);
+    //     return $requete->fetch(PDO::FETCH_ASSOC);
+    // }
+    public function recupererEtapesProjet($idProjet)
     {
-        $requete = $this->getBDD()->prepare("SELECT * FROM projets WHERE idProjet = ?");
+        $requete= $this->getBdd()->prepare("SELECT idProjet, idEtape, nomEtape, e.dateDebut, e.dateFin, etatEtape, nomProjet, contexte FROM etapes e INNER JOIN projets p USING(idProjet) WHERE idProjet = ?");
         $requete->execute([$idProjet]);
-        return $requete->fetch(PDO::FETCH_ASSOC);
+        return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
-
-    public function ajoutProjet($idEquipe, $nomProjet, $dateDebut, $dateFin, $importance)
+    public function recupererEtapesProjetNonFini($idProjet)
     {
-        $etatProjet = 0;
-        $requete = $this->getBDD()->prepare("INSERT INTO projets(idEquipe, nomProjet, dateDebut, dateFin, importance, etatProjet) VALUES(?,?,?,?,?,?)");
-        $requete->execute([$idEquipe, $nomProjet, $dateDebut, $dateFin, $importance, $etatProjet]);
-        return true;
+        $requete= $this->getBdd()->prepare("SELECT idProjet, idEtape, nomEtape, e.dateDebut, e.dateFin, etatEtape, nomProjet, contexte FROM etapes e INNER JOIN projets p USING(idProjet) WHERE idProjet = ? AND etatEtape = 0");
+        $requete->execute([$idProjet]);
+        return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
-
     public function recupererProjetsEquipe($idEquipe)
     {
         $requete = $this->getBDD()->prepare("SELECT * FROM projets LEFT JOIN equipes USING(idEquipe) WHERE idEquipe = ?");
@@ -85,5 +99,17 @@ class Projet extends Modele
     public function getNomProjet()
     {
         return $this->nomProjet;
+    }
+    public function getIntitule()
+    {
+        return $this->intitule;
+    }
+    public function getContexte()
+    {
+        return $this->contexte;
+    }
+    public function getEtapes()
+    {
+        return $this->etapes;
     }
 }

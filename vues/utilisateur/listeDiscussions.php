@@ -5,7 +5,7 @@ $objetDiscussion = new Discussion($idUtilisateur);
 $objetUtilisateur = new Utilisateur($idUtilisateur);
 $objetMessage = new Message();
 $service = new Service();
-$discussions = $objetDiscussion->recupererDiscussions();
+$discussions = $objetDiscussion->getDiscussions();
 ?>
 
 <div class="fleche_retour mb-2 ml-4">
@@ -15,55 +15,57 @@ $discussions = $objetDiscussion->recupererDiscussions();
     </a>
 </div>
 <?php
-if(!empty($_GET['select']))
-{
-    $idUtilisateurGet = $_GET['select'];
-}
-/* GESTION DES ERREURS OU SUCCES */
-if (!empty($_GET["success"]) && $_GET["success"] == "discussion") {
-    ?>
-    <div class="alert alert-success mt-3">L'ajout de la discussion a bien été effectué</div>
-    <?php
-        header("refresh:2;../utilisateur/ListeDiscussions.php");
-    }
-    if (!empty($_GET["error"]))
-    {
-        ?>
-        <div class="alert alert-danger mt-2">
-            <?php switch ($_GET["error"]) {
-                case "missing": ?>
-                    <?php echo "Veuillez indiquer un destinataire"; ?>
-                    <?php break; ?>
-                <?php
-                case "post": ?>
-                    <?php echo "Veuillez saisir un message"; ?>
-                    <?php break; ?>
-                <?php
-                case "fonctionDiscussion": ?>
-                    <?php echo "Une erreur s'est produite lors de la création de la discussion"; ?>
-                    <?php break; ?>
-                    <?php
-                case "suppression": ?>
-                    <?php echo "Une erreur s'est produite lors de la suppression de la discussion"; ?>
-                    <?php break; ?>
-                    <?php
-                case "suppressionMessage": ?>
-                    <?php echo "Une erreur s'est produite lors de la suppression des messages de la discussion"; ?>
-                    <?php break; ?>
-                <?php
-            }
-            ?>
-        </div>
-        <?php
-    }
-    ?>
+if(!empty($_GET['select'])) { $idUtilisateurGet = $_GET['select']; }
+?>
 
-<div class="text-center mt-3">
-    <h1 class="titreCentrePetit">Démarrer une nouvelle discussion : </h1>
-</div>
 <div class="container">
+    <?php
+    /* GESTION DES ERREURS OU SUCCES */
+    if (!empty($_GET["success"]) && $_GET["success"] == "discussion") { ?>
+        <div class="alert alert-success mt-3">L'ajout de la discussion a bien été effectué</div>
+        <?php
+            $service->redirectOneSec("../utilisateur/listeDiscussions.php");
+        } else if (!empty($_GET["success"]) && $_GET["success"] == "suppression") { ?>
+            <div class="alert alert-success mt-3">La discussion a bien été supprimé</div>
+            <?php
+                $service->redirectOneSec("../utilisateur/listeDiscussions.php");
+        }
+        if (!empty($_GET["error"]))
+        {
+            ?>
+            <div class="alert alert-danger mt-2">
+                <?php switch ($_GET["error"]) {
+                    case "missing": ?>
+                        <?php echo "Veuillez indiquer un destinataire"; ?>
+                        <?php break; ?>
+                    <?php
+                    case "post": ?>
+                        <?php echo "Veuillez saisir un message"; ?>
+                        <?php break; ?>
+                    <?php
+                    case "fonctionDiscussion": ?>
+                        <?php echo "Une erreur s'est produite lors de la création de la discussion"; ?>
+                        <?php break; ?>
+                        <?php
+                    case "suppression": ?>
+                        <?php echo "Une erreur s'est produite lors de la suppression de la discussion"; ?>
+                        <?php break; ?>
+                        <?php
+                    case "suppressionMessage": ?>
+                        <?php echo "Une erreur s'est produite lors de la suppression des messages de la discussion"; ?>
+                        <?php break; ?>
+                    <?php
+                }
+                ?>
+            </div>
+            <?php
+        }
+        ?>
+        
+        <div class="text-center mt-3">
+            <h1 class="titreCentrePetit">Démarrer une nouvelle discussion : </h1>
+        </div>
 <!-- ------------------------- HAMBURGER NOUVELLE DISCUSSION ------------------------- -->
-<div class="nouvelleDiscussion">
 <div class="row">
     <div class="col-md-12 mb-3">
         <div class="card cardHamburger">
@@ -115,7 +117,6 @@ if (!empty($_GET["success"]) && $_GET["success"] == "discussion") {
             </div>
         </div>
     </div>
-</div>
 
 <h1 class="titreCentrePetit mb-3"> Liste des discussions en cours : </h1>
 <ul class="list-group">
@@ -129,8 +130,11 @@ foreach($discussions as $discussion)
     if($discussion["idEnvoyeur"] == $idUtilisateur)
     {
         $idContact = $discussion["idDestinataire"];
-        $utilisateur = $objetUtilisateur->recupererUtilisateur($idUtilisateur);
-        $contact = $objetUtilisateur->recupererUtilisateur($idContact);
+        $objetContact = new Utilisateur($idContact);
+        $avatarContact = $objetContact->getAvatar();
+        $roleContact = $objetContact->getRole();
+        $prenomContact = $objetContact->getPrenom();
+        $nomContact = $objetContact->getNom();
         $dernierMessage = $objetMessage->recupererDernierMessage($discussion["idDiscussion"]);
         ?>
         <div class="container-fluid">
@@ -140,8 +144,8 @@ foreach($discussions as $discussion)
         <div class="card-header text-white bg-dark">
             <div class="media flex-wrap w-100 align-items-center">
                 <div class="rondAvatar">
-                    <?php if(!empty($contact["avatar"])) { ?>
-                        <img src="../<?=$contact["avatar"];?>" class="d-block ui-w-40 rounded-circle avatar">
+                    <?php if(!empty($avatarContact)) { ?>
+                        <img src="../<?=$avatarContact;?>" class="d-block ui-w-40 rounded-circle avatar">
                     <?php } else { ?>
                         <img src="../../images/avatar/avatarUtilisateur2.png" class="d-block ui-w-25 rounded-circle avatar">
                         <?php } ?>
@@ -149,8 +153,8 @@ foreach($discussions as $discussion)
 
                 <div class="media-body ml-3">
                     Conversation avec :
-                    <?php if($contact["role"]=="Admin" || $contact["role"]=="SuperAdmin") { ?> <a style="color:rgb(0,157,236);"> <?=$contact["prenom"] . " " . $contact["nom"];?></a>
-                    <?php } if($contact["role"]=="Utilisateur"){?><a><?=$contact["prenom"] . " " . $contact["nom"];?></a><?php } ?>
+                    <?php if($roleContact=="Admin" || $roleContact=="SuperAdmin") { ?> <a style="color:rgb(0,157,236);"> <?= $prenomContact . " " . $nomContact;?></a>
+                    <?php } if($roleContact=="Utilisateur"){?><a><?= $prenomContact . " " . $nomContact;?></a><?php } ?>
                     <div class="text-muted small">Dernière activité : <?=$service->dateFrAvecHeure($dernierMessage["max_date"]);?></div>
                 </div>
                 <!-- Top right -->
@@ -178,8 +182,11 @@ foreach($discussions as $discussion)
     } else if ($discussion["idDestinataire"] == $idUtilisateur)
     {
         $idContact = $discussion["idEnvoyeur"];
-        $utilisateur = $objetUtilisateur->recupererUtilisateur($idUtilisateur);
-        $contact = $objetUtilisateur->recupererUtilisateur($idContact);
+        $objetContact = new Utilisateur($idContact);
+        $avatarContact = $objetContact->getAvatar();
+        $roleContact = $objetContact->getRole();
+        $prenomContact = $objetContact->getPrenom();
+        $nomContact = $objetContact->getNom();
         $dernierMessage = $objetMessage->recupererDernierMessage($discussion["idDiscussion"]);
         ?>
         <div class="container-fluid">
@@ -189,8 +196,8 @@ foreach($discussions as $discussion)
         <div class="card-header text-white bg-dark">
             <div class="media flex-wrap w-100 align-items-center">
                 <div class="rondAvatar">
-                    <?php if(!empty($contact["avatar"])) { ?>
-                        <img src="../<?=$contact["avatar"];?>" class="d-block ui-w-40 rounded-circle avatar">
+                    <?php if(!empty($avatarContact)) { ?>
+                        <img src="../<?=$avatarContact;?>" class="d-block ui-w-40 rounded-circle avatar">
                     <?php } else { ?>
                         <img src="../../images/avatar/avatarUtilisateur2.png" class="d-block ui-w-25 rounded-circle avatar">
                         <?php } ?>
@@ -198,8 +205,8 @@ foreach($discussions as $discussion)
 
                 <div class="media-body ml-3">
                     Conversation avec :
-                    <?php if($contact["role"]=="Admin" || $contact["role"]=="SuperAdmin") { ?> <a style="color:rgb(0,157,236);"> <?=$contact["prenom"] . " " . $contact["nom"];?></a>
-                    <?php } if($contact["role"]=="Utilisateur"){?><a><?=$contact["prenom"] . " " . $contact["nom"];?></a><?php } ?>
+                    <?php if($roleContact=="Admin" || $roleContact=="SuperAdmin") { ?> <a style="color:rgb(0,157,236);"> <?=$prenomContact . " " . $nomContact;?></a>
+                    <?php } if($roleContact=="Utilisateur"){?><a><?=$prenomContact . " " . $nomContact;?></a><?php } ?>
                     <div class="text-muted small">Dernière activité : <?=$service->dateFrAvecHeure($dernierMessage["max_date"]);?></div>
                 </div>
                 <!-- Top right -->

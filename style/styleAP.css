@@ -789,8 +789,8 @@ input#identifiant:hover, input#mdp:hover, input#verifMdp:hover
 {
   .container_etape
   {
-    padding-left: 5rem;
-    padding-right: 5rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
   }
 }
 .div_details_projet

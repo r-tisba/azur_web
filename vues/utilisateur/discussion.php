@@ -1,21 +1,24 @@
 <?php
 require_once "../utilisateur/entete.php";
+$service = new Service();
 
-if ($_GET["id"]) {
-    $idDiscussion = $_GET["id"];
-} else {
-?>
-    <div class="alert alert-danger mt-2">Erreur lors de la récupération de l'idDiscussion</div>
+if (isset($_GET["id"])) { $idDiscussion = $_GET["id"]; } 
+else { ?> <div class="alert alert-danger mt-2">Erreur lors de la récupération de la discussion</div>
 <?php
-    header("refresh:2; ../utilisateur/listeDiscussions.php");
+    $service->redirectOneSec("../utilisateur/listeDiscussions.php");
 }
 $idUtilisateur = $_SESSION["idUtilisateur"];
 $objetUtilisateur = new Utilisateur();
+$objetDiscussion = new Discussion($idDiscussion);
 $objetMessage = new Message();
-$service = new Service();
+
 $messages = $objetMessage->recupererMessages($idDiscussion);
 $valeurs = $objetUtilisateur->recupererInterlocuteurProcedure($idDiscussion);
 $interlocuteur = $valeurs["identifiant"];
+
+// Vérification de si l'utilisateur a bien accès à cet page
+if($objetDiscussion->getIdEnvoyeur() != $idUtilisateur && $objetDiscussion->getIdDestinataire() != $idUtilisateur) { $service->redirectNow("../utilisateur/listeDiscussions.php"); }
+
 ?>
 <div class="div_fleche">
     <div class="fleche_retour mb-2 ml-4">
@@ -116,10 +119,22 @@ $interlocuteur = $valeurs["identifiant"];
                             <a href="../../traitements/modificationMessage.php?idMessage=<?= $message["idMessage"]; ?>" class="icone_edit mr-2">
                                 <i class="far fa-edit"></i>
                             </a>
-                            <a href="../../traitements/supprimerMessage.php?idMessage=<?= $message["idMessage"]; ?>&idDiscussion=<?= $message["idDiscussion"]; ?>" class="icone_poubelle">
-                                <i class="far fa-trash-alt"></i>
-                            </a>
-                        <?php } ?>
+                            <?php
+                            if(sizeof($messages) == 1) {
+                                ?>
+                                <a href="../../traitements/supprimerMessage.php?idMessage=<?= $message["idMessage"]; ?>&idDiscussion=<?= $message["idDiscussion"]; ?>&suppr=true" 
+                                class="icone_poubelle" onclick="return confirm('Supprimer le dernier message supprimera également la discussion. Voulez vous continuer ?');">
+                                    <i class="far fa-trash-alt"></i>
+                                </a>
+                                <?php
+                            } else {
+                                ?>
+                                <a href="../../traitements/supprimerMessage.php?idMessage=<?= $message["idMessage"]; ?>&idDiscussion=<?= $message["idDiscussion"]; ?>" class="icone_poubelle">
+                                    <i class="far fa-trash-alt"></i>
+                                </a>
+                                <?php
+                            }
+                        } ?>
                     </div>
                 </div>
 

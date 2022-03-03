@@ -1,11 +1,17 @@
 <?php
 require_once "entete.php";
-if (!isset($_SESSION["idUtilisateur"])) {
-    header("location:../visiteur/index.php");
+if (!isset($_GET["id"])) {
+    $service->redirectNow("../visiteur/index.php");
 }
+
+$idUtilisateur = $_SESSION["idUtilisateur"];
+$idEquipe = $_GET["id"];
 $objetUtilisateur = new Utilisateur();
 $objetDiscussion = new Discussion();
-$idEquipe = $_GET["id"];
+$objetEquipe = new Equipe();
+
+// Vérification de si l'utilisateur a bien accès à cet page
+if($objetEquipe->verifierPresenceUtilisateurEquipe($idUtilisateur, $idEquipe) != true) { $service->redirectNow("../utilisateur/listeEquipes.php"); }
 
 $utilisateurs = $objetUtilisateur->recupererUtilisateursRolesCompositionViaEquipe($idEquipe);
 ?>
@@ -41,11 +47,11 @@ $utilisateurs = $objetUtilisateur->recupererUtilisateursRolesCompositionViaEquip
                                         <div class="d-flex">
                                         <h3 class="texte_infos_profil mr-3"><?= $utilisateur['prenom'] . " " . $utilisateur['nom']; ?></h3>
                                         <?php
-                                        if($utilisateur['idUtilisateur'] !== $_SESSION['idUtilisateur'])
+                                        if($utilisateur['idUtilisateur'] !== $idUtilisateur)
                                         {
-                                            if($objetDiscussion->verifierDiscussion($utilisateur['idUtilisateur'], $_SESSION['idUtilisateur']))
+                                            if($objetDiscussion->verifierDiscussion($utilisateur['idUtilisateur'], $idUtilisateur))
                                             {
-                                                $valeur = $objetDiscussion->verifierDiscussion($utilisateur['idUtilisateur'], $_SESSION['idUtilisateur']);
+                                                $valeur = $objetDiscussion->verifierDiscussion($utilisateur['idUtilisateur'], $idUtilisateur);
                                                 $idDiscussion = $valeur['idDiscussion'];
                                                 ?>
                                                 <a href="../utilisateur/discussion.php?id=<?= $idDiscussion; ?>" class="icone_actualiser">

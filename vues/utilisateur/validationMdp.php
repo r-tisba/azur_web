@@ -4,10 +4,9 @@ require_once "../utilisateur/entete.php";
 if (empty($_SESSION["identifiant"])) {
     $service->redirectNow("../visiteur/index.php");
 }
-
-$objetUtilisateur = new Utilisateur();
-$result = $objetUtilisateur->recupererValidation($_SESSION["idUtilisateur"]);
-$validation = $result["validation"];
+$idUtilisateur = $_SESSION["idUtilisateur"];
+$objetUtilisateur = new Utilisateur($idUtilisateur);
+$validation = $objetUtilisateur->getValidation();
 
 if ($validation == 1) {
     $service->redirectNow("../utilisateur/index.php");

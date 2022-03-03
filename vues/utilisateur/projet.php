@@ -1,20 +1,29 @@
 <?php
 require_once "entete.php";
+if (!isset($_GET["id"])) {
+    $service->redirectOneSec("../visiteur/index.php");
+}
 
 $idProjet = $_GET["id"];
-$objetEtape = new Etape();
 $service = new Service();
-$objetProjet = new Projet();
+$objetEtape = new Etape();
+$objetProjet = new Projet($idProjet);
+$objetEquipe = new Equipe();
 
-$projet = $objetProjet->recupererProjet($idProjet);
-$idEquipe = $objetProjet->recupererEquipeViaProjet($idProjet);
-$etapes = $objetEtape->recupererEtapesProjet($idProjet);
-$intituleProjet = $projet["intitule"];
+$idUtilisateur = $_SESSION["idUtilisateur"];
+$requete = $objetProjet->recupererEquipeViaProjet($idProjet);
+$idEquipe = $requete["idEquipe"];
 
+// Vérification de si l'utilisateur a bien accès à cet page
+if($objetEquipe->verifierPresenceUtilisateurEquipe($idUtilisateur, $idEquipe) != true) { $service->redirectNow("../utilisateur/listeEquipes.php"); }
+
+$etapes = $objetProjet->getEtapes();
+$intituleProjet = $objetProjet->getIntitule();
+$contexteProjet = $objetProjet->getContexte();
 $premier = true;
 ?>
 <div class="fleche_retour mb-2 ml-4">
-    <a href="../utilisateur/listeProjets.php?id=<?= $idEquipe["idEquipe"] ?>" class="retour">
+    <a href="../utilisateur/listeProjets.php?id=<?= $idEquipe ?>" class="retour">
         <i class="fas fa-chevron-left"></i>
         Retour
     </a>
@@ -27,7 +36,7 @@ $premier = true;
             <div class="card border-0 div_details_projet">
                 <div class="card-header header_projet">
                     <div class="col-12 col-sm-12 col-lg-3 col-md-4 div_titre_projet">
-                        <h1 class="titre_projet py-3"><?= $projet["nomProjet"] ?></h1>
+                        <h1 class="titre_projet py-3"><?= $objetProjet->getNomProjet(); ?></h1>
                     </div>
                     <div class="col-12 col-sm-12 col-lg-9 col-md-8 div_intitule py-3">
                         <div class="div_intitule_projet">
@@ -39,10 +48,10 @@ $premier = true;
                     <div class="div_contexte_projet">
                         <h3 class="titreCentrePlusPetit text-center">Contexte du projet</h3>
                         <?php
-                        if(!empty($projet["contexte"]))
+                        if(!empty($contexteProjet))
                         { ?>
                             <div class="text-center">
-                                <?= $projet["contexte"]; ?>
+                                <?= $contexteProjet; ?>
                             </div>
                         <?php
                         }
@@ -54,7 +63,7 @@ $premier = true;
                          ?>
                     </div>
                     <div class="div_dates_projet mt-3">
-                        <h3 class="titreDiscussion mt-3">Période du projet : Du <?= $service->dateFr($projet["dateDebut"]); ?> au <?= $service->dateFr($projet["dateFin"]); ?></h3>
+                        <h3 class="titreDiscussion mt-3">Période du projet : Du <?= $service->dateFr($objetProjet->getDateDebut()); ?> au <?= $service->dateFr($objetProjet->getDateFin()); ?></h3>
                     </div>
                 </div>
             </div>
@@ -78,11 +87,11 @@ $premier = true;
                                     else { $premier = false; } ?>
 
                                     <div class="div_etape_projet d-flex">
-                                        <div class="div_etat_nom col-6 col-md-6 col-lg-5">
+                                        <div class="div_etat_nom col-6 col-md-6 col-lg-7">
                                             <i class="far fa-check-circle icone_termine"></i>
                                             <?= $etape["nomEtape"]; ?>
                                         </div>
-                                        <div class="div_dates_debut_fin col-6 col-md-6 col-lg-7">
+                                        <div class="div_dates_debut_fin col-6 col-md-6 col-lg-5">
                                             Du <?= $service->dateFr($etape["dateDebut"]); ?> au <?= $service->dateFr($etape["dateFin"]); ?>
                                         </div>
                                     </div>
@@ -107,11 +116,11 @@ $premier = true;
                                     else { $premier = false; } ?>
 
                                     <div class="div_etape_projet d-flex">
-                                        <div class="div_etat_nom col-6 col-md-6 col-lg-5">
+                                        <div class="div_etat_nom col-6 col-md-6 col-lg-7">
                                             <i class="far fa-play-circle icone_encours"></i>
                                             <?= $etape["nomEtape"]; ?>
                                         </div>
-                                        <div class="div_dates_debut_fin col-6 col-md-6 col-lg-7">
+                                        <div class="div_dates_debut_fin col-6 col-md-6 col-lg-5">
                                             Du <?= $service->dateFr($etape["dateDebut"]); ?> au
                                             <?php
                                             if (!empty($etape["dateFin"])) { echo $service->dateFr($etape["dateFin"]); }
@@ -139,11 +148,11 @@ $premier = true;
                                     else { $premier = false; } ?>
 
                                     <div class="div_etape_projet d-flex">
-                                        <div class="div_etat_nom col-6 col-md-6 col-lg-5">
+                                        <div class="div_etat_nom col-6 col-md-6 col-lg-7">
                                             <i class="far fa-pause-circle icone_futures"></i>
                                             <?= $etape["nomEtape"]; ?>
                                         </div>
-                                        <div class="div_dates_debut_fin col-6 col-md-6 col-lg-7">
+                                        <div class="div_dates_debut_fin col-6 col-md-6 col-lg-5">
                                             Du <?= $service->dateFr($etape["dateDebut"]); ?> au
                                             <?php
                                             if (!empty($etape["dateFin"])) { echo $service->dateFr($etape["dateFin"]); }
