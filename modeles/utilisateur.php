@@ -148,12 +148,6 @@ class Utilisateur extends Modele
       $utilisateur = $requete->fetchAll(PDO::FETCH_ASSOC);
       return $utilisateur;
    }
-   public function recupererValidation($idUtilisateur)
-   {
-      $requete = $this->getBDD()->prepare("SELECT validation FROM utilisateurs WHERE idUtilisateur = ?");
-      $requete->execute([$idUtilisateur]);
-      return $requete->fetch(PDO::FETCH_ASSOC);
-   }
 
    /* ------------------------------------- TOKEN ------------------------------------- */
    public function recupererToken($identifiant)
