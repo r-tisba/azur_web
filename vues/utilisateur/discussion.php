@@ -159,7 +159,7 @@ if($objetDiscussion->getIdEnvoyeur() != $idUtilisateur && $objetDiscussion->getI
     <!-- INPUT NOUVEAU MESSAGE -->
     <form method="post" action="../../traitements/ajoutMessage.php?id=<?= $idDiscussion; ?>">
         <div class="form-group">
-            <textarea class="form-control" name="contenu" id="contenu" placeholder="Envoyer un message à <?php echo $interlocuteur; ?>" rows="6"></textarea>
+            <textarea class="form-control dark" name="contenu" id="contenu" placeholder="Envoyer un message à <?php echo $interlocuteur; ?>" rows="6"></textarea>
         </div>
 
         <div class="form-group text-center">

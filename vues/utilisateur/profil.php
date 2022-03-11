@@ -5,8 +5,7 @@ if (empty($_SESSION["identifiant"])) {
 }
 $idUtilisateur = $_SESSION["idUtilisateur"];
 $objetUtilisateur = new Utilisateur($idUtilisateur);
-$utilisateur = $objetUtilisateur->recupererUtilisateur($_SESSION["idUtilisateur"]);
-$nomRole = $utilisateur["role"];
+$nomRole = $objetUtilisateur->getRole();
 $equipes = $objetUtilisateur->recupererEquipesViaIdUtilisateur($idUtilisateur);
 ?>
 

@@ -14,6 +14,21 @@ $objetEquipe = new Equipe();
 if($objetEquipe->verifierPresenceUtilisateurEquipe($idUtilisateur, $idEquipe) != true) { $service->redirectNow("../utilisateur/listeEquipes.php"); }
 
 $utilisateurs = $objetUtilisateur->recupererUtilisateursRolesCompositionViaEquipe($idEquipe);
+// PAGINATION
+empty($_GET['page']) ? $page = 1 : $page = intval($_GET['page']);
+$utilisateurParPage = 6;
+$nbUtilisateursTotal = count($utilisateurs);
+$nbPages = ceil($nbUtilisateursTotal / $utilisateurParPage);
+if ($page > $nbPages) { $page = $nbPages; }
+if ($page < 1) { $page = 1; }
+// Calcule la position du 1er éléments à afficher sur la page
+$offset = ($page - 1) * $utilisateurParPage;
+// Récupère les éléments du tableau qui seront affichés sur la page
+$utilisateurs = array_slice($utilisateurs, $offset, $utilisateurParPage);
+$page_first = $page > 1 ? 1 : '';
+$page_prev  = $page > 1 ? $page-1 : '';
+$page_next  = $page < $nbPages ? $page + 1 : '';
+$page_last  = $page < $nbPages ? $nbPages : '';
 ?>
 
 <div class="fleche_retour mb-2 ml-4">
@@ -77,7 +92,18 @@ $utilisateurs = $objetUtilisateur->recupererUtilisateursRolesCompositionViaEquip
                                 </div>
                             <?php
                             }
+                            if($nbPages > 0) {
                             ?>
+                            <div class="div_pagination clair">
+                                <div class="apercu_pagination mb-2">
+                                    <a href="membreEquipe?id=<?= $idEquipe; ?>&page=<?php echo $page_first; ?>">« Premier</a>
+                                    <a href="membreEquipe?id=<?= $idEquipe; ?>&page=<?php echo $page_prev; ?>">Précédant</a>
+                                    <a href="membreEquipe?id=<?= $idEquipe; ?>&page=<?php echo $page_next; ?>">Suivant</a>
+                                    <a href="membreEquipe?id=<?= $idEquipe; ?>&page=<?php echo $page_last; ?>">Dernier »</a>
+                                </div>
+                                <div class="">Page <?= $page; ?> sur <?= $nbPages; ?></div>
+                            </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </ul>

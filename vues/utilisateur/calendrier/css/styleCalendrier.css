@@ -45,6 +45,12 @@ body
   color: white;
   background-color: #343a40;
 }
+.dark:focus
+{
+  color: white;
+  background-color: #343a40;
+  caret-color: auto;
+}
 .darker
 {
   color: white;
@@ -268,6 +274,31 @@ body
   color: #dc3545;
 }
 
+/* --------------------------------------------- SELECTPICKER --------------------------------------------- */
+
+.btn-light
+{
+  color: white !important;
+  background-color: #343a40 !important;
+}
+.dropdown-menu
+{
+  color: white;
+  background-color: #343a40;
+}
+.dropdown-item span
+{
+  color: white;
+}
+.dropdown-item:hover span
+{
+  color: black;
+}
+.no-results
+{
+  color: white;
+  background-color: #343a40 !important;
+}
 
 /* ---------------------------- BOOTSTRAP ---------------------------- */
 

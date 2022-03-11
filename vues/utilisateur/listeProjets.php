@@ -10,8 +10,22 @@ $service = new Service();
 
 // Vérification de si l'utilisateur a bien accès à cet page
 if($objetEquipe->verifierPresenceUtilisateurEquipe($idUtilisateur, $idEquipe) != true) { $service->redirectNow("../utilisateur/listeEquipes.php"); }
-
 $projets = $objetProjet->recupererProjetsEquipe($idEquipe);
+// PAGINATION
+empty($_GET['page']) ? $page = 1 : $page = intval($_GET['page']);
+$projetParPage = 6;
+$nbProjetsTotal = count($projets);
+$nbPages = ceil($nbProjetsTotal / $projetParPage);
+if ($page > $nbPages) { $page = $nbPages; }
+if ($page < 1) { $page = 1; }
+// Calcule la position du 1er éléments à afficher sur la page
+$offset = ($page - 1) * $projetParPage;
+// Récupère les éléments du tableau qui seront affichés sur la page
+$projets = array_slice($projets, $offset, $projetParPage);
+$page_first = $page > 1 ? 1 : '';
+$page_prev  = $page > 1 ? $page-1 : '';
+$page_next  = $page < $nbPages ? $page + 1 : '';
+$page_last  = $page < $nbPages ? $nbPages : '';
 ?>
 <div class="fleche_retour mb-2 ml-4">
     <a href="../utilisateur/equipe.php?id=<?= $idEquipe ?>" class="retour">
@@ -19,60 +33,18 @@ $projets = $objetProjet->recupererProjetsEquipe($idEquipe);
         Retour
     </a>
 </div>
-<div class="container">
-    <!-- ----------------------------- HAMBURGER AJOUT PROJET ----------------------------- -->
-    <!--
-    <div class="row">
-        <div class="col-md-12 mb-3">
-            <div class="card cardHamburger">
-                <div class="card-body">
-
-                    <nav class="navbar navbarHamburger">
-                        <h1 class="navbar-brand titreSectionHamburger">Ajout d'un nouveau projet</h1>
-                        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent11" aria-controls="navbarSupportedContent11" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon hamburger_icon"></span>
-                        </button>
-                        <div class="navbar-collapse collapse" id="navbarSupportedContent11">
-                            <form method="post" action="../traitements/ajoutProjet.php?id=<?= $idEquipe ?>" class="navbar-nav mr-auto">
-
-                                <div class="form-group">
-                                    <label for="nom">Nom projet:</label>
-                                    <input type="text" class="form-control" name="nom" id="nom" placeholder="Saisissez le nom du projet" value="<?= (isset($_POST["nomProjet"]) ? $_POST["nomProjet"] : "") ?>" required />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="importance">Importance :</label>
-                                    <input type="int" class="form-control" name="importance" id="importance" placeholder="Saisissez l'importance du projet" value="<?= (isset($_POST["importance"]) ? $_POST["importance"] : "") ?>" required />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="dateDebut">Date début :</label>
-                                    <input type="date" class="form-control" name="dateDebut" id="dateDebut" placeholder="Saisissez la date de commencement du projet" value="<?= (isset($_POST["dateDebut"]) ? $_POST["dateDebut"] : "") ?>" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="dateFin">Date fin :</label>
-                                    <input type="date" class="form-control" name="dateFin" id="dateFin" placeholder="Saisissez la date de fin du projet" value="<?= (isset($_POST["dateFin"]) ? $_POST["dateFin"] : "") ?>" />
-                                </div>
-
-                                <div class="form-group text-center">
-                                    <button type="submit" class="btn btn-outline-primary">Ajouter le projet</button>
-                                </div>
-                            </form>
-                        </div>
-                    </nav>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    -->
+<div class="containerPerso">
     <!-- ----------------------------- PROJETS EN COURS ----------------------------- -->
     <h1 class="titreCentrePetit blanc"> Projets en cours : </h1>
 
     <div class="container-fluid">
-        <div class="row">
-
+        <div class="row_projets">
             <?php
+            if(empty($projets)) {
+                ?>
+                <h2 class="titre_projets_vide">Aucun projet existant pour cette équipe</h2>
+                <?php
+             }
             foreach ($projets as $projet)
             {
                 /* ----------------------------- BARRE DE PROGRESSION ----------------------------- */
@@ -104,9 +76,8 @@ $projets = $objetProjet->recupererProjetsEquipe($idEquipe);
 
                                 <div class="card-body">
                                     <div class="div_progressbar">
-                                        <div class="progress-bar" role="progressbar" style="width:<?php if (!empty($progression)) { ?> <?= $progression * 100 / $barreProgression ?>%;<?php }elseif($progression){} else { echo 2; ?>%; background : white; <?php } ?>color: black;"
-                                         aria-valuenow="<?php if (!empty($progression)) { ?> <?= $progression * 100 / $barreProgression ?><?php }
-                                         else { echo 0; } ?>" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar" role="progressbar" 
+                                        style="width:<?php if (!empty($progression)) { ?> <?= $progression * 100 / $barreProgression ?>%;<?php } elseif($progression){} else { echo 2; ?>%; background : white; <?php } ?> color: black;" aria-valuenow="<?php if (!empty($progression)) { ?> <?= $progression * 100 / $barreProgression ?><?php } else { echo 0; } ?>" aria-valuemin="0" aria-valuemax="100">
                                             <?php $valeur_prog=$progression * 100 / $barreProgression; if (!empty($progression)) { echo round($valeur_prog, 0); } else { echo 0; } ?>%
                                         </div>
                                     </div>
@@ -119,13 +90,12 @@ $projets = $objetProjet->recupererProjetsEquipe($idEquipe);
                                         $etapes = $objetProjet->recupererEtapesProjetNonFini($idProjet);
                                         $countEtapesEnCours = 0;
                                         $compteur = 0;
-
+                    
                                         foreach ($etapes as $etape)
                                         {
                                             if($objetEtape->etapeEnCours($etape["idEtape"]) == true) { $countEtapesEnCours++; }
                                         }
-
-                                        if(empty($etapes))
+                                        if($countEtapesEnCours == 0)
                                         {
                                             ?>
                                                 <div class="liste_etapes_vide">
@@ -136,7 +106,6 @@ $projets = $objetProjet->recupererProjetsEquipe($idEquipe);
                                         {
                                             foreach ($etapes as $etape)
                                             {
-
                                                 $idProjet = $objetEtape->recupererProjetViaEtape($etape["idEtape"]);
 
                                                 if($objetEtape->etapeEnCours($etape["idEtape"]) == true)
@@ -183,7 +152,18 @@ $projets = $objetProjet->recupererProjetsEquipe($idEquipe);
                 </div>
             <?php
             }
+            if($nbPages > 0) {
             ?>
+            <div class="div_pagination">
+                <div class="apercu_pagination mb-2">
+                    <a href="listeProjets?id=<?= $idUtilisateur; ?>&page=<?php echo $page_first; ?>">« Premier</a>
+                    <a href="listeProjets?id=<?= $idUtilisateur; ?>&page=<?php echo $page_prev; ?>">Précédant</a>
+                    <a href="listeProjets?id=<?= $idUtilisateur; ?>&page=<?php echo $page_next; ?>">Suivant</a>
+                    <a href="listeProjets?id=<?= $idUtilisateur; ?>&page=<?php echo $page_last; ?>">Dernier »</a>
+                </div>
+                <div class="">Page <?= $page; ?> sur <?= $nbPages; ?></div>
+            </div>
+            <?php } ?>
         </div>
     </div>
 </div>

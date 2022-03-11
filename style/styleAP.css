@@ -66,6 +66,12 @@ body
   color: white;
   background-color: #343a40;
 }
+.dark:focus
+{
+  color: white;
+  background-color: #343a40;
+  caret-color: auto;
+}
 .darker
 {
   color: white;
@@ -75,6 +81,86 @@ body
 {
   color: white;
 }
+textarea.form-control
+{
+  border: none;
+}
+textarea.form-control:hover, textarea.form-control:focus
+{
+  border: 1px solid white !important;
+}
+/* --------------------------------------------- CONTAINER CUSTOM --------------------------------------------- */
+.containerPerso {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media screen and (min-width: 576px)
+{
+  .containerPerso { max-width: 840px; }
+}
+@media screen and (min-width: 768px)
+{
+  .containerPerso { max-width: 1020px; }
+}
+@media screen and (min-width: 992px)
+{
+  .containerPerso { max-width: 1260px; }
+}
+@media screen and (min-width: 1200px)
+{
+  .containerPerso { max-width: 1340px; }
+}
+
+/* --------------------------------------------- PAGINATION --------------------------------------------- */
+.div_pagination
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.apercu_pagination
+{
+  display: flex;
+  justify-content: center;
+}
+.apercu_pagination a
+{
+  color: black;
+  padding: 4px 8px;
+  text-decoration: none;
+  border: 1px solid #000;
+  transition: background-color .3s;
+}
+.apercu_pagination a.active 
+{
+  background-color: #4CAF50;
+  color: white;
+}
+.apercu_pagination a:hover:not(.active) { color: white; border: 1px solid white; }
+.clair
+{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.clair a:hover:not(.active) { color: white; background-color: #000; border: 1px solid black; }
+.apercu_pagination a:first-child 
+{
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+}
+
+.apercu_pagination a:last-child 
+{
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+
 /* --------------------------------------------- FLECHE RETOUR & ACTUALISER --------------------------------------------- */
 .div_fleche
 {
@@ -96,6 +182,32 @@ body
 }
 a:hover {
   text-decoration: none;
+}
+/* --------------------------------------------- SELECTPICKER --------------------------------------------- */
+
+.btn-light
+{
+  color: white !important;
+  background-color: #343a40 !important;
+  border: none;
+}
+.dropdown-menu
+{
+  color: white;
+  background-color: #343a40;
+}
+.dropdown-item span
+{
+  color: white;
+}
+.dropdown-item:hover span
+{
+  color: black;
+}
+.no-results
+{
+  color: white;
+  background-color: #343a40 !important;
 }
 
 /* --------------------------------------------- NAVBAR --------------------------------------------- */
@@ -151,6 +263,7 @@ input#identifiant, input#mdp, input#verifMdp
 input#identifiant:hover, input#mdp:hover, input#verifMdp:hover
 {
   background-color: transparent;
+  transition: background-color .3s;
   border: solid 1px white;
 }
 .card_connexion
@@ -665,6 +778,15 @@ input#identifiant:hover, input#mdp:hover, input#verifMdp:hover
 }
 
 /* ---------------- Liste projets ---------------- */
+.titre_projets_vide
+{
+  color: white;
+  font-size: 40px;
+  font-weight: 300;
+  letter-spacing: 0.07em;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+}
 .div_lien_projet a
 {
   color: black;
@@ -739,8 +861,18 @@ input#identifiant:hover, input#mdp:hover, input#verifMdp:hover
 {
   display: flex;
   justify-content: space-between;
-
   font-size: 1.2rem;
+}
+@media screen and (max-width: 624px)
+{
+  .div_etape
+  {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.2rem;
+  }
 }
 .icone_cercle
 {
@@ -1031,12 +1163,13 @@ div.div_avatar:hover img
   text-align: center;
   justify-content: center;
 }
-.row_form_modifAvatar
+.row_form_modifAvatar, .row_projets, .row_discussions
 {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
+  align-items: center;
 }
 .div_import_image
 {
@@ -1059,6 +1192,7 @@ div.div_avatar:hover img
 {
   width: 100%;
   height: 100%;
+  cursor: pointer;
 }
 
 /* --------------------------------------------- MENTIONS LEGALES --------------------------------------------- */
