@@ -4,6 +4,7 @@ class Equipe extends Modele
     private $idEquipe;
     private $nomEquipe;
     private $image;
+    private $membres = [];
 
     public function __construct($idEquipe = null)
     {
@@ -14,6 +15,12 @@ class Equipe extends Modele
             $this->idEquipe = $idEquipe;
             $this->nomEquipe = $equipe["nomEquipe"];
             $this->image = $equipe["image"];
+
+            $requete = $this->getBdd()->prepare("SELECT u.idUtilisateur, u.identifiant FROM composition_equipes LEFT JOIN utilisateurs u USING(idUtilisateur) WHERE idEquipe = ?");
+            $requete->execute([$idEquipe]);
+            $membres = $requete->fetchAll(PDO::FETCH_ASSOC);
+            
+            $this->membres = $membres;
             }
     }
     public function recupererEquipes()
@@ -44,6 +51,11 @@ class Equipe extends Modele
         return $this->image;
     }
 
+    public function getMembres()
+    {
+        return $this->membres;
+    }
+    
     public function __set($propriete, $valeur) 
     {
        if (property_exists($this, $propriete)) 

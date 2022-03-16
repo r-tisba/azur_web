@@ -45,6 +45,12 @@ body
   color: white;
   background-color: #343a40;
 }
+.dark:focus
+{
+  color: white;
+  background-color: #343a40;
+  caret-color: auto;
+}
 .darker
 {
   color: white;
@@ -268,9 +274,66 @@ body
   color: #dc3545;
 }
 
+/* --------------------------------------------- SELECTPICKER --------------------------------------------- */
+
+.btn-light
+{
+  color: white !important;
+  background-color: #343a40 !important;
+}
+.dropdown-menu
+{
+  color: white;
+  background-color: #343a40;
+}
+.dropdown-item span
+{
+  color: white;
+}
+.dropdown-item:hover span
+{
+  color: black;
+}
+.no-results
+{
+  color: white;
+  background-color: #343a40 !important;
+}
+
+/* ---------------------------- SCROLLBAR ---------------------------- */
+::-webkit-scrollbar {
+  width: 17px;
+  padding: 0;
+  margin: 0;
+}
+::-webkit-scrollbar-track {
+  background-color: rgba(34, 37, 38, 1);
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(72, 78, 81, 1);
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(91, 98, 101);
+}
+/* SCROLLBAR CALENDRIER */
+.fc-scroller::-webkit-scrollbar {
+  width: 20px;
+}
+.fc-scroller::-webkit-scrollbar-track {
+  background-color: rgba(210, 215, 218, 0.5);
+}
+.fc-scroller::-webkit-scrollbar-thumb {
+  background-color: #343a40;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+.fc-scroller::-webkit-scrollbar-thumb:hover {
+  background-color: #454d54;
+}
 
 /* ---------------------------- BOOTSTRAP ---------------------------- */
-
 .btn-outline-primary
 {
   color: #007bff;

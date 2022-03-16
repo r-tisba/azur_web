@@ -32,7 +32,7 @@ class Message extends Modele
     }
     public function recupererMessages($idDiscussion)
     {
-        $requete = $this->getBDD()->prepare("SELECT * FROM messages LEFT JOIN utilisateurs USING(idUtilisateur) LEFT JOIN discussions USING(idDiscussion)  WHERE idDiscussion = ? ORDER BY date ASC");
+        $requete = $this->getBDD()->prepare("SELECT * FROM messages LEFT JOIN utilisateurs USING(idUtilisateur) LEFT JOIN discussions USING(idDiscussion) WHERE idDiscussion = ? ORDER BY date ASC");
         $requete->execute([$idDiscussion]);
         $messages = $requete->fetchAll(PDO::FETCH_ASSOC);
         return $messages;

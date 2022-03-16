@@ -138,6 +138,21 @@ class Discussion extends Modele
         return $requete->fetch(PDO::FETCH_ASSOC);
     }
 
+        
+    // -------------------------------------------------- PAGINATION --------------------------------------------------
+    public function recupererNbDiscussions($idUtilisateur)
+    {
+        // On détermine le nombre total d'articles
+        $sql = "SELECT COUNT(*) AS nb_discussions FROM discussions WHERE idEnvoyeur = ? OR idDestinataire = ?";
+        // On prépare la requête
+        $requete = $this->getBdd()->prepare($sql);
+        // On exécute
+        $requete->execute([$idUtilisateur, $idUtilisateur]);
+        // On récupère le nombre d'articles
+        return $requete->fetch(PDO::FETCH_ASSOC);
+    }
+
+
     public function getIdDiscussion()
     {
         return $this->idDiscussion;

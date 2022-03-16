@@ -97,7 +97,7 @@ if($objetDiscussion->getIdEnvoyeur() != $idUtilisateur && $objetDiscussion->getI
         <div class="card-header headerDiscussion">
             <h1 class="titreDiscussion">En conversation avec <?= $interlocuteur; ?> </h1>
         </div>
-        <div class="card-body bodyDiscussion">
+        <div class="card-body bodyDiscussion" id="fil_messages">
             <?php
             foreach ($messages as $message) {
                 $date = $message["date"];
@@ -159,7 +159,7 @@ if($objetDiscussion->getIdEnvoyeur() != $idUtilisateur && $objetDiscussion->getI
     <!-- INPUT NOUVEAU MESSAGE -->
     <form method="post" action="../../traitements/ajoutMessage.php?id=<?= $idDiscussion; ?>">
         <div class="form-group">
-            <textarea class="form-control" name="contenu" id="contenu" placeholder="Envoyer un message à <?php echo $interlocuteur; ?>" rows="6"></textarea>
+            <textarea class="form-control dark" name="contenu" id="contenu" placeholder="Envoyer un message à <?php echo $interlocuteur; ?>" rows="6"></textarea>
         </div>
 
         <div class="form-group text-center">
@@ -167,5 +167,9 @@ if($objetDiscussion->getIdEnvoyeur() != $idUtilisateur && $objetDiscussion->getI
         </div>
     </form>
 </div>
+<script>
+    // Par défaut la scrollbar sera positionné le plus bas possible
+    document.getElementById('fil_messages').scrollTop = document.getElementById('fil_messages').scrollHeight;
+</script>
 <?php
 require_once "pied.php";

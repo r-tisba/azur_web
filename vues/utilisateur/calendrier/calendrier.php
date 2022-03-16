@@ -7,6 +7,10 @@ $identifiantCreateur = $objetUtilisateur->getIdentifiant();
 ?>
 <script>
     $(document).ready(function() {
+
+        $('select[name=select_participant]').val(1);
+        $('.selectpicker').selectpicker('refresh');
+
         let participants = []
         let participantsSave = []
         var calendrier = $('#calendrier').fullCalendar({
@@ -55,6 +59,7 @@ $identifiantCreateur = $objetUtilisateur->getIdentifiant();
 
             /* ----------------------------- CLICK GRID ----------------------------- */
             select: function(start, end, jsEvent) {
+
                 endtime = $.fullCalendar.moment(end).format('H:mm');
                 starttime = $.fullCalendar.moment(start).format('dddd, Do MMMM YYYY, H:mm');
                 var mywhen = starttime + ' - ' + endtime;
@@ -353,7 +358,7 @@ $identifiantCreateur = $objetUtilisateur->getIdentifiant();
                     <div class="mb-4">
                         <h5 id="participants" class="modal-couleur p_infos_evenements m-0"></h5>
                         <label class="control-label mr-3" for="inputPatient">Participants :</label>
-                        <select class="form-control darker" name="select_participant" id="select_participant">
+                        <select class="form-control selectpicker darker" name="select_participant" id="select_participant" data-live-search="true" title="Par défaut, tout les utilisateurs participent">
                             <option selected disabled hidden> Par défaut, tout les utilisateurs participent</option>
                             <?php
                             $utilisateurs = $objetUtilisateur->recupererUtilisateurs();
