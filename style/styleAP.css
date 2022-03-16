@@ -227,6 +227,7 @@ input#identifiant:hover, input#mdp:hover, input#verifMdp:hover
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
 /* ---------------- BOUTON CUSTOM ---------------- */
 .button {
   display: inline-block;
@@ -546,6 +547,11 @@ input#identifiant:hover, input#mdp:hover, input#verifMdp:hover
   font-size: 0.8rem;
 }
 /* --------------------------------------------- APERCU MESSAGE --------------------------------------------- */
+.bodyDiscussion
+{
+  max-height: 32rem;
+  overflow: overlay;
+}
 .card_apercu_perso
 {
   color: white;

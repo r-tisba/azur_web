@@ -91,6 +91,16 @@ if(strpos($_SERVER["REQUEST_URI"], "utilisateur/validationMdp") == false && $_SE
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
 
   <link rel="stylesheet" href="../../style/styleAP.css">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DDJTSHSV11"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-DDJTSHSV11');
+  </script>
 </head>
 
 <body>

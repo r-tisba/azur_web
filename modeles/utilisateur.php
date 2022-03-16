@@ -57,22 +57,28 @@ class Utilisateur extends Modele
       $requete->execute();
       return $requete->fetchAll(PDO::FETCH_ASSOC);
    }
-   public function creerUtilisateur($nom, $prenom, $poste, $mdp)
-   {
-      $role = "Utilisateur";
-      $identifiant = strtolower($prenom) . "." . strtolower($nom);
+   // public function creerUtilisateur($nom, $prenom, $poste, $mdp)
+   // {
+   //    $role = "Utilisateur";
+   //    $identifiant = strtolower($prenom) . "." . strtolower($nom);
 
-      $requete = $this->getBDD()->prepare("INSERT INTO utilisateurs(nom, prenom, poste, identifiant, mdp, role) VALUES(?, ?, ?, ?, ?, ?)");
-      $requete->execute([$nom, $prenom, $poste, $identifiant, $mdp, $role]);
-      return true;
-   }
-   public function modifierUtilisateur($idUtilisateur, $nom, $prenom, $poste, $idEquipe, $role)
-   {
-      $identifiant = strtolower($prenom) . "." . strtolower($nom);
-      $requete = $this->getBDD()->prepare("UPDATE utilisateurs SET nom = ?, prenom = ?, poste = ?, idEquipe = ?, identifiant=?, role=? WHERE idUtilisateur = ?");
-      $requete->execute([$nom, $prenom, $poste, $idEquipe, $identifiant, $role, $idUtilisateur]);
-      return true;
-   }
+   //    $requete = $this->getBDD()->prepare("INSERT INTO utilisateurs(nom, prenom, poste, identifiant, mdp, role) VALUES(?, ?, ?, ?, ?, ?)");
+   //    $requete->execute([$nom, $prenom, $poste, $identifiant, $mdp, $role]);
+   //    return true;
+   // }
+   // public function modifierUtilisateur($idUtilisateur, $nom, $prenom, $poste, $idEquipe, $role)
+   // {
+   //    $identifiant = strtolower($prenom) . "." . strtolower($nom);
+   //    $requete = $this->getBDD()->prepare("UPDATE utilisateurs SET nom = ?, prenom = ?, poste = ?, idEquipe = ?, identifiant=?, role=? WHERE idUtilisateur = ?");
+   //    $requete->execute([$nom, $prenom, $poste, $idEquipe, $identifiant, $role, $idUtilisateur]);
+   //    return true;
+   // }
+   // public function supprimerUtilisateur($idUtilisateur)
+   // {
+   //    $requete = $this->getBDD()->prepare("DELETE FROM utilisateurs WHERE idUtilisateur = ?");
+   //    $requete->execute([$idUtilisateur]);
+   //    return true;
+   // }
    public function modifierAvatar($avatar, $idUtilisateur)
    {
       $requete = $this->getBDD()->prepare("UPDATE utilisateurs SET avatar = ? WHERE idUtilisateur = ?");
@@ -89,12 +95,6 @@ class Utilisateur extends Modele
       $requete->execute([$mdp, $validation, $idUtilisateur]);
       return true;
    }
-   public function supprimerUtilisateur($idUtilisateur)
-   {
-      $requete = $this->getBDD()->prepare("DELETE FROM utilisateurs WHERE idUtilisateur = ?");
-      $requete->execute([$idUtilisateur]);
-      return true;
-   }
    public function recupererUtilisateursRolesCompositionViaEquipe($idEquipe)
    {
       $requete = $this->getBDD()->prepare("SELECT * FROM equipes INNER JOIN composition_equipes USING(idEquipe) INNER JOIN utilisateurs USING(idUtilisateur) INNER JOIN roles ON utilisateurs.role = roles.nomRole WHERE idEquipe=?");
@@ -103,6 +103,7 @@ class Utilisateur extends Modele
    }
    public function recupererInterlocuteurProcedure($idDiscussion)
    {
+      $_SESSION['idUtilisateur'] = isset($_SESSION['idUtilisateur']) ? $_SESSION['idUtilisateur'] : 1;
       $idUtilisateur = $_SESSION["idUtilisateur"];
       $requete = $this->getBDD()->prepare("CALL recupererInterlocuteur(?, ?)");
       $requete->execute([$idDiscussion, $idUtilisateur]);
@@ -226,5 +227,14 @@ class Utilisateur extends Modele
    public function getValidation()
    {
       return $this->validation;
+   }
+
+   public function __set($propriete, $valeur) 
+   {
+      if (property_exists($this, $propriete)) 
+      {
+        $this->$propriete = $valeur;
+      }
+      return $this;
    }
 }

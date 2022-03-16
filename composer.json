@@ -1,0 +1,12 @@
+{
+    "name": "rapha/azur_web",
+    "authors": [
+        {
+            "name": "Raphael",
+            "email": "raphael.tisba@epita.fr"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}

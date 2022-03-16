@@ -33,19 +33,6 @@ class MessageGroupe extends Modele
             }
         }
     }
-    public function ajoutMessage($idEquipe, $idUtilisateur, $contenu)
-    {
-        $requete = $this->getBDD()->prepare("INSERT INTO messages_groupes(idEquipe, idUtilisateur, contenu, date) VALUES(?, ?, ?, ?)");
-        $requete->execute([$idEquipe, $idUtilisateur, $contenu, date("Y-m-d H:i:s")]);
-        return true;
-    }
-    // public function recupererMessagesEquipe($idEquipe)
-    // {
-    //     $requete = $this->getBDD()->prepare("SELECT * FROM messages_groupes LEFT JOIN composition_equipes USING(idEquipe, idUtilisateur) LEFT JOIN equipes USING(idEquipe) LEFT JOIN utilisateurs USING(idUtilisateur) WHERE idEquipe = ? ORDER BY date ASC");
-    //     $requete->execute([$idEquipe]);
-    //     $messages_groupes = $requete->fetchAll(PDO::FETCH_ASSOC);
-    //     return $messages_groupes;
-    // }
     public function recupererMessage($idMessageGroupe)
     {
         $requete = $this->getBDD()->prepare("SELECT * FROM messages_groupes LEFT JOIN utilisateurs USING(idUtilisateur)  WHERE idMessageGroupe = ?");
@@ -60,20 +47,18 @@ class MessageGroupe extends Modele
         $idEquipe = $requete->fetch(PDO::FETCH_ASSOC);
         return $idEquipe;
     }
-    public function recupererDernierMessage($idEquipe)
+    public function recupererDernierMessageGroupeAjoute()
     {
-        $requete = $this->getBDD()->prepare("SELECT t.contenu, max_date FROM messages_groupes t INNER JOIN
-        (SELECT contenu, MAX(date) AS max_date FROM messages_groupes GROUP BY contenu) a ON a.contenu = t.contenu AND a.max_date = date AND idEquipe = ?");
-        $requete->execute([$idEquipe]);
-        return $requete->fetch(PDO::FETCH_ASSOC);
+        $requete = $this->getBDD()->prepare("SELECT idMessageGroupe FROM messages_groupes ORDER BY idMessageGroupe DESC LIMIT 1");
+        $requete->execute();
+        $messages = $requete->fetch(PDO::FETCH_ASSOC);
+        return $messages;
     }
-    public function recupererDernierMessageFull($idEquipe)
+    public function ajoutMessage($idEquipe, $idUtilisateur, $contenu)
     {
-        $requete = $this->getBDD()->prepare("SELECT t.*, u.*, d.* FROM messages_groupes t INNER JOIN
-        (SELECT contenu, MAX(date) AS max_date FROM messages_groupes GROUP BY contenu) a ON a.contenu = t.contenu AND a.max_date = date
-        LEFT JOIN utilisateurs u USING(idUtilisateur) LEFT JOIN discussions_groupe d USING(idEquipe) WHERE idEquipe = ?");
-        $requete->execute([$idEquipe]);
-        return $requete->fetch(PDO::FETCH_ASSOC);
+        $requete = $this->getBDD()->prepare("INSERT INTO messages_groupes(idEquipe, idUtilisateur, contenu, date) VALUES(?, ?, ?, ?)");
+        $requete->execute([$idEquipe, $idUtilisateur, $contenu, date("Y-m-d H:i:s")]);
+        return true;
     }
     public function modifierMessage($contenu, $idMessageGroupe)
     {
@@ -119,5 +104,14 @@ class MessageGroupe extends Modele
     public function getMessages()
     {
         return $this->messages;
+    }
+
+    public function __set($propriete, $valeur) 
+    {
+       if (property_exists($this, $propriete)) 
+       {
+         $this->$propriete = $valeur;
+       }
+       return $this;
     }
 }

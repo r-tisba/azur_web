@@ -56,24 +56,22 @@ class Discussion extends Modele
             
         }
     }
+    // public function initialiserDiscussion($idDiscussion, $idEnvoyeur, $idDestinataire)
+    // {
+    //     $this->idDiscussion = $idDiscussion;
+    //     $this->idEnvoyeur = $idEnvoyeur;
+    //     $this->idDestinataire = $idDestinataire;
 
-    public function initialiserDiscussion($idDiscussion, $idEnvoyeur, $idDestinataire)
-    {
-        $this->idDiscussion = $idDiscussion;
-        $this->idEnvoyeur = $idEnvoyeur;
-        $this->idDestinataire = $idDestinataire;
+    //     $requete = $this->getBdd()->prepare("SELECT idMessage, contenu, date, idUtilisateur FROM messages WHERE idDiscussion = ?");
+    //     $requete->execute([$idDiscussion]);
+    //     $messagesDiscussion = $requete->fetchAll(PDO::FETCH_ASSOC);
 
-        $requete = $this->getBdd()->prepare("SELECT idMessage, contenu, date, idUtilisateur FROM messages WHERE idDiscussion = ?");
-        $requete->execute([$idDiscussion]);
-        $messagesDiscussion = $requete->fetchAll(PDO::FETCH_ASSOC);
-
-        foreach ($messagesDiscussion as $messageDiscussion) {
-            $objetMessage = new Message();
-            $objetMessage->initialiserMessage($messageDiscussion["idMessage"], $messageDiscussion["contenu"], $messageDiscussion["date"], $messageDiscussion["idUtilisateur"]);
-            $this->messages[] = $objetMessage;
-        }
-    }
-
+    //     foreach ($messagesDiscussion as $messageDiscussion) {
+    //         $objetMessage = new Message();
+    //         $objetMessage->initialiserMessage($messageDiscussion["idMessage"], $messageDiscussion["contenu"], $messageDiscussion["date"], $messageDiscussion["idUtilisateur"]);
+    //         $this->messages[] = $objetMessage;
+    //     }
+    // }
     // public function recupererDiscussions()
     // {
     //     $requete = $this->getBDD()->prepare("SELECT * FROM discussions");
@@ -93,16 +91,16 @@ class Discussion extends Modele
         $requete->execute([$idEnvoyeur, $idDestinataire]);
         return true;
     }
+    // public function modifierDiscussion($idEnvoyeur, $idDestinataire, $idDiscussion)
+    // {
+    //     $requete = $this->getBDD()->prepare("UPDATE discussions SET idEnvoyeur=?, idDestinataire=? WHERE idDiscussion = ?");
+    //     $requete->execute([$idEnvoyeur, $idDestinataire, $idDiscussion]);
+    //     return true;
+    // }
     public function supprimerDiscussion($idDiscussion)
     {
         $requete = $this->getBDD()->prepare("DELETE FROM discussions WHERE idDiscussion = ?");
         $requete->execute([$idDiscussion]);
-        return true;
-    }
-    public function modifierDiscussion($idEnvoyeur, $idDestinataire, $idDiscussion)
-    {
-        $requete = $this->getBDD()->prepare("UPDATE discussions SET idEnvoyeur=?, idDestinataire=? WHERE idDiscussion = ?");
-        $requete->execute([$idEnvoyeur, $idDestinataire, $idDiscussion]);
         return true;
     }
     public function verifierDiscussion($idEnvoyeur, $idDestinataire)
@@ -133,6 +131,12 @@ class Discussion extends Modele
         $requete->execute([$idEnvoyeur, $idDestinataire]);
         return $requete->fetch(PDO::FETCH_ASSOC);
     }
+    public function recupererDerniereDiscussion()
+    {
+        $requete = $this->getBDD()->prepare("SELECT idDiscussion FROM discussions ORDER BY idDiscussion DESC LIMIT 1");
+        $requete->execute();
+        return $requete->fetch(PDO::FETCH_ASSOC);
+    }
 
     public function getIdDiscussion()
     {
@@ -149,5 +153,14 @@ class Discussion extends Modele
     public function getDiscussions()
     {
         return $this->discussions;
+    }
+
+    public function __set($propriete, $valeur) 
+    {
+       if (property_exists($this, $propriete)) 
+       {
+         $this->$propriete = $valeur;
+       }
+       return $this;
     }
 }

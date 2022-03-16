@@ -34,7 +34,8 @@ class Service
 
     public function myRequireOnce($chemin)
     {
-        if (file_exists("../" . $chemin)) { require_once("../" . $chemin); }
+        if (file_exists($chemin)) { require_once($chemin); }
+        else if (file_exists("../" . $chemin)) { require_once("../" . $chemin); }
         else if (file_exists("../../" . $chemin)) { require_once("../../" . $chemin); }
         else if (file_exists("../../../" . $chemin)) { require_once("../../../" . $chemin); }
         else if (file_exists("../../../../" . $chemin)) { require_once("../../../../" . $chemin); }

@@ -43,4 +43,13 @@ class Equipe extends Modele
     {
         return $this->image;
     }
+
+    public function __set($propriete, $valeur) 
+    {
+       if (property_exists($this, $propriete)) 
+       {
+         $this->$propriete = $valeur;
+       }
+       return $this;
+    }
 }

@@ -112,4 +112,13 @@ class Projet extends Modele
     {
         return $this->etapes;
     }
+
+    public function __set($propriete, $valeur) 
+    {
+       if (property_exists($this, $propriete)) 
+       {
+         $this->$propriete = $valeur;
+       }
+       return $this;
+    }
 }

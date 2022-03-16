@@ -31,13 +31,18 @@ class Etape extends Modele
         $requete->execute([$idEtape]);
         return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
-
-    public function creerEtape($idProjet, $dateDebut, $dateFin, $nomEtape)
+    public function recupererDerniereEtape()
     {
-        $requete= $this->getBdd()->prepare("INSERT INTO etapes(idProjet, dateDebut, dateFin, nomEtape) VALUES(?, ?, ?, ?)");
-        $requete->execute([$idProjet, $dateDebut, $dateFin, $nomEtape]);
-        return true;
+        $requete = $this->getBDD()->prepare("SELECT idEtape FROM etapes ORDER BY idEtape DESC LIMIT 1");
+        $requete->execute();
+        return $requete->fetch(PDO::FETCH_ASSOC);
     }
+    // public function creerEtape($idProjet, $dateDebut, $dateFin, $nomEtape)
+    // {
+    //     $requete= $this->getBdd()->prepare("INSERT INTO etapes(idProjet, dateDebut, dateFin, nomEtape) VALUES(?, ?, ?, ?)");
+    //     $requete->execute([$idProjet, $dateDebut, $dateFin, $nomEtape]);
+    //     return true;
+    // }
     public function validerEtape($idEtape)
     {
         $requete = $this->getBdd()->prepare("UPDATE etapes SET etatEtape=1 WHERE idEtape=?");
@@ -46,11 +51,12 @@ class Etape extends Modele
     }
     public function invaliderEtape($idEtape)
     {
-        $requete = $this->getBdd()->prepare("ALTER TABLE etapes SET etatEtape=0 WHERE idEtape=?");
+        $requete = $this->getBdd()->prepare("UPDATE etapes SET etatEtape=0 WHERE idEtape=?");
         $requete->execute([$idEtape]);
         return true;
     }
 
+    // Compte toutes les étapes du projet
     public function barreProgression($idProjet)
     {
         $requete = $this->getBdd()->prepare("SELECT COUNT(*) FROM etapes WHERE idProjet=?");
@@ -58,6 +64,7 @@ class Etape extends Modele
         $barreProgression=$requete->fetch(PDO::FETCH_ASSOC);
         return $barreProgression;
     }
+    // Compte toutes les étapes terminées du projet
     public function progression($idProjet)
     {
         $requete = $this->getBdd()->prepare("SELECT COUNT(*) FROM etapes WHERE idProjet=? AND etatEtape=1");
@@ -65,6 +72,7 @@ class Etape extends Modele
         $progression=$requete->fetch(PDO::FETCH_ASSOC);
         return $progression;
     }
+    // Vérifie que l'étape soit non-terminée et que la date actuelle est postérieur à celle de début mais antérieure à celle de fin (si cette dernière existe)
     public function etapeEnCours($idEtape)
     {
         $requete = $this->getBdd()->prepare("SELECT * FROM etapes
@@ -97,5 +105,14 @@ class Etape extends Modele
     public function getEtatEtape()
     {
         return $this->etatEtape;
+    }
+
+    public function __set($propriete, $valeur) 
+    {
+       if (property_exists($this, $propriete)) 
+       {
+         $this->$propriete = $valeur;
+       }
+       return $this;
     }
 }
