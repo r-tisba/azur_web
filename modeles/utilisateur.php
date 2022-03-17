@@ -51,6 +51,23 @@ class Utilisateur extends Modele
       $requete->execute([$identifiant]);
       return $requete;
    }
+   public function recupererIpAutoriseesUtilisateur($idUtilisateur)
+   {
+      $requete = $this->getBDD()->prepare("SELECT ip FROM ip_admins WHERE idUtilisateur = ?");
+      $requete->execute([$idUtilisateur]);
+      return $requete->fetchAll(PDO::FETCH_ASSOC);
+   }
+   public function verifierBannissementUtilisateur($ip)
+   {
+      $requete = $this->getBDD()->prepare("SELECT * FROM ip_bannies WHERE ip = ?");
+      $requete->execute([$ip]);
+      // fetchColumn() est comme rowCount() mais il fonctionne
+      $rows = $requete->fetchColumn();
+      if($rows > 0) { // Utilisateur banni
+         return true; }
+      else {  // Utilisateur non banni
+         return false; }
+   }
    public function recupererIdentifiantsUtilisateurs()
    {
       $requete = $this->getBDD()->prepare("SELECT identifiant FROM utilisateurs");
@@ -148,6 +165,14 @@ class Utilisateur extends Modele
       $requete->execute([$idEvenement]);
       $utilisateur = $requete->fetchAll(PDO::FETCH_ASSOC);
       return $utilisateur;
+   }
+   public function ajoutLogConnexion($idUtilisateur)
+   {
+      $date = date("Y-m-d H:i:s");
+      $ip = $_SERVER['REMOTE_ADDR'];
+      $requete = $this->getBDD()->prepare("INSERT INTO logs(idUtilisateur, date, ip) VALUES(?, ?, ?)");
+      $requete->execute([$idUtilisateur, $date, $ip]);
+      return true;
    }
 
    /* ------------------------------------- TOKEN ------------------------------------- */

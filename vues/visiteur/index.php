@@ -7,7 +7,7 @@ $service->myRequireOnce("modeles/modele.php");
 
 if ($_SERVER["REQUEST_URI"] != "/visiteur/index.php") {
     if (!empty($_SESSION["identifiant"])) {
-      $service->redirectNow("../utilisateur/index.php");
+        $service->redirectNow("../utilisateur/index.php");
     }
 }
 ?>
@@ -22,28 +22,33 @@ if ($_SERVER["REQUEST_URI"] != "/visiteur/index.php") {
     </div>
 </section>
 <!-- MESSAGE POST-CONNEXION -->
-<?php if (!empty($_GET["success"]))
-{
-    if ($_GET["success"] == "connexion")
-    {
-    ?>
+<?php if (!empty($_GET["success"])) {
+    if ($_GET["success"] == "connexion") {
+?>
         <div class="alert alert-success alert_connexion mt-3">Vous avez bien été connecté <br>
             Vous allez être redirigé vers la page d'accueil<br>
             <a href="../utilisateur/index.php">Cliquez ici pour une redirection manuelle</a>
         </div>
-    <?php
+<?php
         $service->redirect("../utilisateur/index.php");
     }
 }
 ?>
 <?php if (!empty($_GET["error"])) {
 ?>
-    <div class="alert alert-danger alert_connexion mt-3">
+    <div class="alert alert-danger alert_connexion mt-3 col-11 col-md-12">
         <?php switch ($_GET["error"]) {
+            case "invalidip2": ?>
+                <?php echo "L'adresse IP Admin de ce compte n'a pas été enregistrée. <br/> 
+                Vous pouvez le faire dans la table 'id_admins' de la base de données avec votre ID Utilisateur et votre adresse IP. <br/>
+                Votre adresse IP : " . $_SERVER['REMOTE_ADDR']; ?>
+            <?php break;
+            case "invalidip3": ?>
+                <?php echo "Votre adresse IP a été bannie"; ?>
+            <?php break;
             case "falselogin": ?>
                 <?php echo "Identifiant ou mot de passe incorrect"; ?>
-                <?php break; ?>
-            <?php
+            <?php break;
             case "missing": ?>
                 <?php echo "Au moins un champ n'a pas été saisi"; ?>
                 <?php break; ?>
@@ -57,15 +62,14 @@ if ($_SERVER["REQUEST_URI"] != "/visiteur/index.php") {
 
 <!-- MESSAGE SI TOKEN -->
 <?php
-if($tokenBool == true)
-{
-    ?>
+if ($tokenBool == true) {
+?>
     <div class="alert alert-success alert_connexion mt-3">Vous avez été connecté automatiquement via les cookies<br>
         Vous pouvez supprimer les cookies dans votre onglet Profil<br>
         Vous allez être redirigé vers la page d'accueil<br>
         <a href="../utilisateur/index.php">Cliquez ici pour une redirection manuelle</a>
     </div>
-    <?php
+<?php
     $service->redirect("../utilisateur/index.php");
 }
 ?>
@@ -76,21 +80,19 @@ if($tokenBool == true)
         <div class="card card_connexion">
             <div class="card-body">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="identifiant" id="identifiant" placeholder="Identifiant"
-                    value="<?= $tokenBool == true ? htmlspecialchars($identifiant, ENT_QUOTES) : "" ?>" required />
+                    <input type="text" class="form-control" name="identifiant" id="identifiant" placeholder="Identifiant" value="<?= $tokenBool == true ? htmlspecialchars($identifiant, ENT_QUOTES) : "" ?>" required />
                 </div>
                 <div class="form-group mb-3">
-                    <input type="password" class="form-control" name="mdp" id="mdp" placeholder="Mot de passe"
-                    value="" required />
+                    <input type="password" class="form-control" name="mdp" id="mdp" placeholder="Mot de passe" value="" required />
                 </div>
                 <div class="form-group mb-3">
                     <div class="form-check">
 
-                    <label class="containerCheck">
-                        <input type="checkbox" class="form-check-input hidden" name="checkbox_token" id="checkbox_token" value="true">
-                        <span class="checkmark"></span>
-                        <label class="form-check-label" for="checkbox_token">Rester connecté</label>
-                    </label>
+                        <label class="containerCheck">
+                            <input type="checkbox" class="form-check-input hidden" name="checkbox_token" id="checkbox_token" value="true">
+                            <span class="checkmark"></span>
+                            <label class="form-check-label" for="checkbox_token">Rester connecté</label>
+                        </label>
 
                     </div>
                 </div>

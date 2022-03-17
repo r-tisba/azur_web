@@ -286,14 +286,14 @@ a:hover {
 }
 .text-petit
 {
-  color: #50575d ;
+  color: #2f3337;
 }
 input#identifiant, input#mdp, input#verifMdp
 {
   width: 25rem;
   text-align: center;
   color: white;
-  background: rgba(5, 145, 152, 0.4);
+  background: rgba(255,255,255,0.4);
   backdrop-filter: blur(5px);
   border: none;
   border-radius: 25px;
@@ -1279,8 +1279,8 @@ div.div_avatar:hover img
 {
   margin-top: 0vh;
   margin-bottom: 2vh;
-  background-color: #e2e2e2;
-  /* background-color: #272727; */
+  color: white;
+  background-color: #272727;
   padding: 2%;
   border-radius: 0.25rem;
 }

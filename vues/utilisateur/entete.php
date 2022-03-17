@@ -143,14 +143,14 @@ if(strpos($_SERVER["REQUEST_URI"], "utilisateur/validationMdp") == false && $_SE
   </nav>
   <div class="container0 mt-4">
     <?php
-    if ($_SERVER["REQUEST_URI"] != "/utilisateur/mentions-legales.php" && $_SERVER["REQUEST_URI"] != "/utilisateur/deconnexion.php") {
+    if ($_SERVER["REQUEST_URI"] != "/vues/utilisateur/mentions-legales.php" && $_SERVER["REQUEST_URI"] != "/vues/utilisateur/deconnexion.php") {
     ?>
       <!-- Modal Cookie -->
       <div class="modal fade" id="modalCookie" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content dark">
             <div class="modal-header align-items-center px-3 py-1">
-              <h5 class="modal-title titreOutil">Azur</h5>
+              <h5 class="modal-title titreOutil"><span class="bleu_azur">Azur</span></h5>
               <button type="button" class="close blanc py-0" data-dismiss="modal" aria-label="Fermer">
                 <span aria-hidden="true">&times;</span>
               </button>

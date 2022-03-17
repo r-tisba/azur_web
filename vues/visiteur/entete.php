@@ -3,10 +3,8 @@ require_once "../../services/fonctions.php";
 $service = new Service();
 $service->myRequireOnce("modeles/modele.php");
 session_start();
-
 $tokenBool = false;
 ?>
-
 <!-- ------------------------- GESTION COOKIE ------------------------- -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -74,7 +72,6 @@ $tokenBool = false;
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Azur</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="../../style/styleAP.css">
   <link rel="shortcut icon" href="../../images/design/logo.png" type="image/x-icon">
 
   <link rel="stylesheet" href="../../style/fontawesome/css/all.css">
@@ -86,11 +83,9 @@ $tokenBool = false;
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> -->
 
-
   <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
-
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
@@ -98,6 +93,8 @@ $tokenBool = false;
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <!-- Permet la lecture de cookie via JQuery -->
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <link rel="stylesheet" href="../../style/styleAP.css">
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DDJTSHSV11"></script>
@@ -127,7 +124,7 @@ $tokenBool = false;
 
   <?php
   // Gestion du cookie id-token
-  if (isset($_COOKIE["id-token"]))
+  if (isset($_COOKIE["id-token"]) && !isset($_SESSION['identifiant']))
   {
     $id_token = $_COOKIE["id-token"];
     $valeurCookieToken = explode("-", $id_token);
@@ -142,35 +139,36 @@ $tokenBool = false;
       $_SESSION["role"] = $objetUtilisateur->getRole();
       $_SESSION["idUtilisateur"] = $idUtilisateur;
 
-      $identifiant = $objetUtilisateur["identifiant"];
-      $mdp = $objetUtilisateur["mdp"];
+      // Ajout de la connexion dans les logs
+      $objetUtilisateur->ajoutLogConnexion($_SESSION["idUtilisateur"]);
+
+      $identifiant = $objetUtilisateur->getIdentifiant();
+      $mdp = $objetUtilisateur->getMdp();
       $tokenBool = true;
     }
   }
 
     ?>
-  <div class="container0 mt-5">
+  <div class="container0 mt-4">
 
     <?php
-    if ($_SERVER["REQUEST_URI"] != "/visiteur/mentions-legales.php" && $_SERVER["REQUEST_URI"] != "/utilisateur/deconnexion.php") {
+    if ($_SERVER["REQUEST_URI"] != "/vues/visiteur/mentions-legales.php" && $_SERVER["REQUEST_URI"] != "/vues/utilisateur/deconnexion.php") {
     ?>
       <!-- Modal Cookie -->
       <div class="modal fade" id="modalCookie" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
-
-            <div class="modal-header">
-              <h5 class="modal-title titre">Azur</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+          <div class="modal-content dark">
+            <div class="modal-header align-items-center px-3 py-1">
+              <h5 class="modal-title titreOutil"><span class="bleu_azur">Azur</span></h5>
+              <button type="button" class="close blanc py-0" data-dismiss="modal" aria-label="Fermer">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-
             <div class="modal-body">
               Ce site web utilise les cookies pour facilier votre navigation.
             </div>
 
-            <div class="modal-footer">
+            <div class="modal-footer px-1 py-2">
               <button type="button" class="btn btn-outline-primary" id="cookieInfosButton">Plus d'informations</button>
               <button type="button" class="btn btn-outline-success" id="cookieAcceptButton">J'accepte</button>
             </div>
