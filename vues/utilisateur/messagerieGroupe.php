@@ -61,7 +61,7 @@ if($verification == false) { $service->redirectNow("../utilisateur/listeEquipes.
                     <?php break; ?>
                 <?php
                 case "post": ?>
-                    <?php echo "Une erreur s'est produite lors de l'envoie du formulaire vérifier que votre message ne soit pas vide"; ?>
+                    <?php echo "Une erreur s'est produite lors de l'envoi du formulaire vérifier que votre message ne soit pas vide"; ?>
                     <?php break; ?>
                 <?php
                 case "fonction": ?>
@@ -141,7 +141,7 @@ if($verification == false) { $service->redirectNow("../utilisateur/listeEquipes.
     <!-- INPUT NOUVEAU MESSAGE -->
     <form method="post" action="../../traitements/ajoutMessageGroupe.php?id=<?= $idEquipe; ?>">
         <div class="form-group">
-            <textarea class="form-control" name="contenu" id="contenu" placeholder="Envoyer un message au groupe <?= $nomGroupe; ?>" rows="6"></textarea>
+            <textarea class="form-control dark" name="contenu" id="contenu" placeholder="Envoyer un message au groupe <?= $nomGroupe; ?>" rows="6"></textarea>
         </div>
 
         <div class="form-group text-center">

@@ -106,7 +106,7 @@ $page_last  = $page < $nbPages ? $nbPages : '';
                                         {
                                             foreach ($etapes as $etape)
                                             {
-                                                $idProjet = $objetEtape->recupererProjetViaEtape($etape["idEtape"]);
+                                                // $idProjet = $objetEtape->recupererProjetViaEtape($etape["idEtape"]);
 
                                                 if($objetEtape->etapeEnCours($etape["idEtape"]) == true)
                                                 {
@@ -156,10 +156,10 @@ $page_last  = $page < $nbPages ? $nbPages : '';
             ?>
             <div class="div_pagination">
                 <div class="apercu_pagination mb-2">
-                    <a href="listeProjets?id=<?= $idUtilisateur; ?>&page=<?php echo $page_first; ?>">« Premier</a>
-                    <a href="listeProjets?id=<?= $idUtilisateur; ?>&page=<?php echo $page_prev; ?>">Précédant</a>
-                    <a href="listeProjets?id=<?= $idUtilisateur; ?>&page=<?php echo $page_next; ?>">Suivant</a>
-                    <a href="listeProjets?id=<?= $idUtilisateur; ?>&page=<?php echo $page_last; ?>">Dernier »</a>
+                    <a href="listeProjets.php?id=<?= $idEquipe; ?>&page=<?php echo $page_first; ?>">« Premier</a>
+                    <a href="listeProjets.php?id=<?= $idEquipe; ?>&page=<?php echo $page_prev; ?>">Précédant</a>
+                    <a href="listeProjets.php?id=<?= $idEquipe; ?>&page=<?php echo $page_next; ?>">Suivant</a>
+                    <a href="listeProjets.php?id=<?= $idEquipe; ?>&page=<?php echo $page_last; ?>">Dernier »</a>
                 </div>
                 <div class="">Page <?= $page; ?> sur <?= $nbPages; ?></div>
             </div>

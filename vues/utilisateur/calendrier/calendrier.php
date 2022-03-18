@@ -94,7 +94,7 @@ $identifiantCreateur = $objetUtilisateur->getIdentifiant();
 
                 $('#modalParticipants').html("<ul>");
 
-                var stringParticipants = "<ul class = 'liste'>"
+                var stringParticipants = "<ul class='ul_participant liste'>"
                 Object.values(event.participants).forEach(participant => {
                     stringParticipants = stringParticipants.concat("<li>" + participant + "</li>")
                 });
@@ -442,17 +442,9 @@ $identifiantCreateur = $objetUtilisateur->getIdentifiant();
 
                         <div class="div_modal_description mb-0">
                             <label class="control-label" for="inputPatient">Participants :</label>
-                            <h5 id="modalParticipants" class="modal-participants p_infos_evenements m-0">
-                                <?php
-                                // var_dump($_POST['id']);
-                                // if (isset($_POST['id'])) {
-                                //     $idEvenement = $_POST['id'];
-
-                                //     $participants = $objetUtilisateur->recupererParticipantsViaIdEvenement($idEvenement);
-                                //     var_dump($participants);
-                                // }
-                                ?>
-                            </h5>
+                            <div class="div_liste_participants">
+                                <h5 id="modalParticipants" class="modal-participants p_infos_evenements m-0"></h5>
+                            </div>
                         </div>
                     </div>
                 </div>

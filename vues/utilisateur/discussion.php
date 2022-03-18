@@ -107,11 +107,12 @@ if($objetDiscussion->getIdEnvoyeur() != $idUtilisateur && $objetDiscussion->getI
                 <div class="card-header">
                     <div class="media flex-wrap w-100 align-items-center">
                         <div class="avatar">
-                            <img src="../<?= $message["avatar"]; ?>" class="d-block ui-w-40 rounded-circle avatar">
+                            <img src="../../<?= $message["avatar"]; ?>" class="d-block ui-w-40 rounded-circle avatar">
                         </div>
                         <div class="media-body ml-3">
-                            <a><?= $message["prenom"]; ?></a>
-                            <a><?= $message["nom"]; ?></a>
+                            <div>
+                                <span><?= $message["prenom"] . " " . $message["nom"]; ?></span>
+                            </div>
 
                             <div class="text-muted small"><?= $service->dateFrAvecHeure($date); ?></div>
                         </div>

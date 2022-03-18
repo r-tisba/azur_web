@@ -1,23 +1,29 @@
 <?php
 require_once "../vues/utilisateur/entete.php";
 $idUtilisateur = $_SESSION["idUtilisateur"];
-$objetDiscussion = new Discussion();
-$objetMessage = new Message();
 
 if(!empty($_GET["idDiscussion"]))
 {
     $idDiscussion = $_GET["idDiscussion"];
-    if($objetDiscussion->supprimerDiscussion($idDiscussion) == true)
+    $objetDiscussion = new Discussion($idDiscussion);
+    $objetMessage = new Message();
+    
+    if($objetDiscussion->getIdEnvoyeur() == $idUtilisateur || $objetDiscussion->getIdDestinataire() == $idUtilisateur)
     {
-        if($objetMessage->supprimerMessagesDiscussion($idDiscussion) == true)
+        if($objetDiscussion->supprimerDiscussion($idDiscussion) == true)
         {
-            $service->redirectNow("../vues/utilisateur/listeDiscussions.php?id=$idDiscussion&success=suppression");
+            if($objetMessage->supprimerMessagesDiscussion($idDiscussion) == true)
+            {
+                $service->redirectNow("../vues/utilisateur/listeDiscussions.php?id=$idDiscussion&success=suppression");
+            } else {
+                $service->redirectNow("../vues/utilisateur/listeDiscussions.php?id=$idDiscussion&error=suppressionMessage");
+            }
         } else {
-            $service->redirectNow("../vues/utilisateur/listeDiscussions.php?id=$idDiscussion&error=suppressionMessage");
-        }
+            $service->redirectNow("../vues/utilisateur/listeDiscussions.php?id=$idDiscussion&error=suppression");
+        }         
     } else {
-        $service->redirectNow("../vues/utilisateur/listeDiscussions.php?id=$idDiscussion&error=suppression");
+        $service->redirectNow("../vues/utilisateur/listeDiscussions.php");
     }
 } else {
-    $service->redirectNow("../vues/utilisateur/listeDiscussions.php?id=$idDiscussion&error=idMessage");
+    $service->redirectNow("../vues/utilisateur/listeDiscussions.php?error=idMessage");
 }

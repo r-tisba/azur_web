@@ -264,6 +264,14 @@ body
   content: ' *';
   display: inline;
 }
+.div_liste_participants 
+{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+}
 .liste li
 {
   font-size: 1.15rem;
@@ -275,7 +283,6 @@ body
 }
 
 /* --------------------------------------------- SELECTPICKER --------------------------------------------- */
-
 .btn-light
 {
   color: white !important;
@@ -317,7 +324,7 @@ body
   background-color: rgb(91, 98, 101);
 }
 /* SCROLLBAR CALENDRIER */
-.fc-scroller::-webkit-scrollbar {
+.div_liste_participants::-webkit-scrollbar {
   width: 20px;
 }
 .fc-scroller::-webkit-scrollbar-track {
@@ -331,6 +338,22 @@ body
 }
 .fc-scroller::-webkit-scrollbar-thumb:hover {
   background-color: #454d54;
+}
+/* SCROLLBAR MODAL */
+.div_liste_participants::-webkit-scrollbar {
+  width: 20px;
+}
+.div_liste_participants::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.div_liste_participants::-webkit-scrollbar-thumb {
+  background-color: #545d65;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+.div_liste_participants::-webkit-scrollbar-thumb:hover {
+  background-color: #6b757d;
 }
 
 /* ---------------------------- BOOTSTRAP ---------------------------- */

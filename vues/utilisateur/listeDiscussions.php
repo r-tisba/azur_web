@@ -1,7 +1,7 @@
 <?php
 require_once "../utilisateur/entete.php";
 $idUtilisateur = $_SESSION["idUtilisateur"];
-$objetDiscussion = new Discussion($idUtilisateur);
+$objetDiscussion = new Discussion();
 $objetUtilisateur = new Utilisateur($idUtilisateur);
 $objetMessage = new Message();
 $service = new Service();
@@ -58,6 +58,10 @@ if (!empty($_GET['select'])) {
             <?php switch ($_GET["error"]) {
                 case "missing": ?>
                     <?php echo "Veuillez indiquer un destinataire"; ?>
+                    <?php break; ?>
+                <?php
+                case "idMessage": ?>
+                    <?php echo "Une erreur s'est produite lors de la récuperation de la discussion"; ?>
                     <?php break; ?>
                 <?php
                 case "post": ?>
@@ -204,10 +208,10 @@ if (!empty($_GET['select'])) {
                 ?>
                     <div class="div_pagination">
                         <div class="apercu_pagination mb-2">
-                            <a href="listeDiscussions?page=<?php echo $page_first; ?>">« Premier</a>
-                            <a href="listeDiscussions?page=<?php echo $page_prev; ?>">Précédant</a>
-                            <a href="listeDiscussions?page=<?php echo $page_next; ?>">Suivant</a>
-                            <a href="listeDiscussions?page=<?php echo $page_last; ?>">Dernier »</a>
+                            <a href="listeDiscussions.php?page=<?php echo $page_first; ?>">« Premier</a>
+                            <a href="listeDiscussions.php?page=<?php echo $page_prev; ?>">Précédant</a>
+                            <a href="listeDiscussions.php?page=<?php echo $page_next; ?>">Suivant</a>
+                            <a href="listeDiscussions.php?page=<?php echo $page_last; ?>">Dernier »</a>
                         </div>
                         <div class="">Page <?= $page; ?> sur <?= $nbPages; ?></div>
                     </div>

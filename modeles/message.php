@@ -18,6 +18,7 @@ class Message extends Modele
 
             $this->idMessage = $idMessage;
             $this->idDiscussion = $message["idDiscussion"];
+            $this->idUtilisateur = $message["idUtilisateur"];
             $this->contenu = $message["contenu"];
             $this->date = $message["date"];
             $this->dateModif = $message["dateModif"];

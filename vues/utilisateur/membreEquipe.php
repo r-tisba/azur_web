@@ -96,10 +96,10 @@ $page_last  = $page < $nbPages ? $nbPages : '';
                             ?>
                             <div class="div_pagination clair">
                                 <div class="apercu_pagination mb-2">
-                                    <a href="membreEquipe?id=<?= $idEquipe; ?>&page=<?php echo $page_first; ?>">« Premier</a>
-                                    <a href="membreEquipe?id=<?= $idEquipe; ?>&page=<?php echo $page_prev; ?>">Précédant</a>
-                                    <a href="membreEquipe?id=<?= $idEquipe; ?>&page=<?php echo $page_next; ?>">Suivant</a>
-                                    <a href="membreEquipe?id=<?= $idEquipe; ?>&page=<?php echo $page_last; ?>">Dernier »</a>
+                                    <a href="membreEquipe.php?id=<?= $idEquipe; ?>&page=<?php echo $page_first; ?>">« Premier</a>
+                                    <a href="membreEquipe.php?id=<?= $idEquipe; ?>&page=<?php echo $page_prev; ?>">Précédant</a>
+                                    <a href="membreEquipe.php?id=<?= $idEquipe; ?>&page=<?php echo $page_next; ?>">Suivant</a>
+                                    <a href="membreEquipe.php?id=<?= $idEquipe; ?>&page=<?php echo $page_last; ?>">Dernier »</a>
                                 </div>
                                 <div class="">Page <?= $page; ?> sur <?= $nbPages; ?></div>
                             </div>

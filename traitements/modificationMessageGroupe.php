@@ -8,12 +8,20 @@ if (!empty($_GET["idMessage"])) {
     $idMessage = $_GET["idMessage"];
 }
 
+$idUtilisateur = $_SESSION['idUtilisateur'];
 $service = new Service();
 $objetMessage = new MessageGroupe();
 $message = $objetMessage->recupererMessage($idMessage);
+
+// Vérification de l'auteur du message à modifier
 $idEquipe = $objetMessage->recupereridEquipeViaMessage($idMessage);
 $idEquipe = $idEquipe["idEquipe"];
+if($message['idUtilisateur'] != $idUtilisateur) { $service->redirectNow("../vues/utilisateur/messagerieGroupe.php?id=$idEquipe"); }
 $date = $message["date"];
+
+?>
+<div class="container">
+<?php
 
 if (!empty($_POST["inputModifMessage"])) {
     $contenu = $_POST["inputModifMessage"];
@@ -50,12 +58,12 @@ if (!empty($_POST["inputModifMessage"])) {
                             </div>
                         </div>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body p-2 pl-3">
                         <form method="post">
                             <div class="form-group">
-                                <textarea class="form-control" name="inputModifMessage" id="inputModifMessage" placeholder="Saisissez le message" rows="1"><?php echo $service->gererGuillemets($message["contenu"]); ?></textarea>
+                                <textarea class="form-control dark" name="inputModifMessage" id="inputModifMessage" placeholder="Saisissez le message" rows="1"><?php echo $service->gererGuillemets($message["contenu"]); ?></textarea>
                             </div>
-                            <div class="form-group text-center">
+                            <div class="form-group text-center m-0">
                                 <button type="submit" class="btn btn-outline-primary">Modifier le message</button>
                             </div>
                         </form>

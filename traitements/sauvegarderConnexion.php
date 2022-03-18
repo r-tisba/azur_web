@@ -25,8 +25,9 @@ if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
                 if ($utilisateur["role"] == "Admin" || $utilisateur["role"] == "SuperAdmin") {
                     $ipAutorisees = $objetUtilisateur->recupererIpAutoriseesUtilisateur($utilisateur["idUtilisateur"]);
                     $ipValide = 2;
+
                     foreach ($ipAutorisees as $ipAutorisee) {
-                        $ipAutorisee['ip'] == $_SERVER['REMOTE_ADDR'] ? $ipValide = 1 : $ipValide = 2;
+                        $ipAutorisee['ip'] == $_SERVER['REMOTE_ADDR'] ? $ipValide = 1 : '';
                     }
                 }
                 // Vérifier que l'ip n'est pas bannie
