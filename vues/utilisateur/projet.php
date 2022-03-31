@@ -103,6 +103,38 @@ $premier = true;
                             }
                             ?>
                         </div>
+                        <!-- ------------------------------ ETAPES DEPASSEES ------------------------------ -->
+                        <div class="div_etapes_depassees">
+                            <?php
+                            foreach ($etapes as $etape)
+                            {
+                            ?>
+                                <?php
+                                if ($etape["etatEtape"] == 0 && $objetEtape->etapeEnCours($etape["idEtape"]) == false)
+                                {
+                                    if ($premier == false) { ?> <div class="hr_rouge"></div> <?php }
+                                    else { $premier = false; } ?>
+
+                                    <div class="div_etape_projet d-flex">
+                                        <div class="div_etat_nom col-6 col-md-6 col-lg-7">
+                                            <i class="far fa-times-circle icone_depassees"></i>
+                                            <?= $etape["nomEtape"]; ?>
+                                        </div>
+                                        <div class="div_dates_debut_fin col-6 col-md-6 col-lg-5">
+                                            Du <?= $service->dateFr($etape["dateDebut"]); ?> au
+                                            <?php
+                                            if (!empty($etape["dateFin"])) { echo $service->dateFr($etape["dateFin"]); }
+                                            else { ?> Date non spécifié <?php } ?>
+                                        </div>
+                                    </div>
+
+                                <?php
+                                }
+                                ?>
+                            <?php
+                            }
+                            ?>
+                        </div>
                         <!-- ------------------------------ ETAPES EN COURS ------------------------------ -->
                         <div class="div_etapes_encours">
                             <?php
@@ -142,7 +174,7 @@ $premier = true;
                             {
                             ?>
                                 <?php
-                                if ($etape["etatEtape"] == 0 && !($objetEtape->etapeEnCours($etape["idEtape"])))
+                                if ($etape["etatEtape"] == 0 && $objetEtape->etapeFutures($etape["idEtape"]))
                                 {
                                     if ($premier == false) { ?> <div class="hr_gris"></div> <?php }
                                     else { $premier = false; } ?>

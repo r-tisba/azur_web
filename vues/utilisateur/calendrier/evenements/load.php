@@ -12,6 +12,12 @@ if (file_exists("../../../../services/fonctions.php")) {
 $service = new Service();
 $service->myRequireOnce("modeles/modele.php");
 
+// Vérifie si l'utilisateur tente d'accéder à cette page via l'url
+if(!isset($_SERVER['HTTP_REFERER'])){
+    $service->redirectNow('../calendrier.php');
+    exit;
+}
+
 $objetUtilisateur = new Utilisateur();
 session_start();
 

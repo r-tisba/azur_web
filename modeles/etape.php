@@ -82,6 +82,16 @@ class Etape extends Modele
         if(empty($etape)) { return false; }
         else { return true; }
     }
+     // Vérifie que l'étape soit non-terminée et que la date actuelle est antérieure à celle de début
+    public function etapeFutures($idEtape)
+    {
+        $requete = $this->getBdd()->prepare("SELECT * FROM etapes
+        WHERE idEtape = ? AND etatEtape = 0 AND ((NOW() < dateDebut AND NOW() < dateFin) OR NOW() < dateDebut AND ISNULL(dateFin))");
+        $requete->execute([$idEtape]);
+        $etape = $requete->fetch(PDO::FETCH_ASSOC);
+        if(empty($etape)) { return false; }
+        else { return true; }
+    }
     public function getIdEtape()
     {
         return $this->idEtape;

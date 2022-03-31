@@ -9,6 +9,12 @@ else if(file_exists("../../../../../services/fonctions.php")) { require_once "..
 $service = new Service();
 $service->myRequireOnce("modeles/modele.php");
 
+// Vérifie si l'utilisateur tente d'accéder à cette page via l'url
+if(!isset($_SERVER['HTTP_REFERER'])){
+    $service->redirectNow('../calendrier.php');
+    exit;
+}
+
 session_start();
 $idCreateur = $_SESSION["idUtilisateur"];
 $objetUtilisateur = new Utilisateur();

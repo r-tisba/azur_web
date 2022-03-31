@@ -89,6 +89,17 @@ textarea.form-control:hover, textarea.form-control:focus
 {
   border: 1px solid white !important;
 }
+/* ---------------- AUTOFILL INPUT COLOR ---------------- */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+  transition: background-color 5000000s ease-in-out 0s;
+  font-family: Lato;
+}
+input:-webkit-autofill{
+  -webkit-text-fill-color: rgb(255, 255, 255) !important;
+}
 /* ---------------- SCROLLBAR ---------------- */
 ::-webkit-scrollbar {
   width: 17px;
@@ -1039,7 +1050,31 @@ input#identifiant:hover, input#mdp:hover, input#verifMdp:hover
     padding: 0;
   }
 }
-
+.div_etapes_depassees
+{
+  font-size: 1.2rem;
+}
+@media screen and (max-width: 768px)
+{
+  .div_etapes_depassees
+  {
+    font-size: 1rem;
+  }
+}
+.icone_depassees
+{
+  color: #dc3545;
+  font-size: 1.8rem;
+  margin-right: 20px;
+}
+.hr_rouge
+{
+  border-left: 6px solid #dc3545;
+  height: 45px;
+  margin-left: 0.7rem;
+  margin-top: 0.1rem;
+  margin-bottom: 0.2rem;
+}
 .div_etapes_encours
 {
   font-size: 1.2rem;
