@@ -42,13 +42,19 @@ if ($_SERVER["REQUEST_URI"] != "/visiteur/index.php") {
                 <?php echo "L'adresse IP Admin de ce compte n'a pas été enregistrée. <br/> 
                 Vous pouvez le faire dans la table 'id_admins' de la base de données avec votre ID Utilisateur et votre adresse IP. <br/>
                 Votre adresse IP : " . $_SERVER['REMOTE_ADDR']; ?>
-            <?php break;
+                <?php break;
             case "invalidip3": ?>
                 <?php echo "Votre adresse IP a été bannie"; ?>
-            <?php break;
+                <?php break;
             case "falselogin": ?>
                 <?php echo "Identifiant ou mot de passe incorrect"; ?>
-            <?php break;
+                <?php break;
+            case "falsecaptcha": ?>
+                <?php echo "Le reCAPTCHA doit être rempli"; ?>
+                <?php break;
+            case "nocaptcha": ?>
+                <?php echo "La vérification reCAPTCHA a echoué"; ?>
+                <?php break;
             case "missing": ?>
                 <?php echo "Au moins un champ n'a pas été saisi"; ?>
                 <?php break; ?>
@@ -75,7 +81,7 @@ if ($tokenBool == true) {
 ?>
 
 <!-- FORMULAIRE DE CONNEXION -->
-<form method="post" action="../../traitements/sauvegarderConnexion.php">
+<form method="post" action="../../traitements/sauvegarderConnexion.php" id="connexionForm">
     <div class="col-12 text-center mb-4">
         <div class="card card_connexion">
             <div class="card-body">
@@ -87,21 +93,37 @@ if ($tokenBool == true) {
                 </div>
                 <div class="form-group mb-3">
                     <div class="form-check">
-
                         <label class="containerCheck">
                             <input type="checkbox" class="form-check-input hidden" name="checkbox_token" id="checkbox_token" value="true">
                             <span class="checkmark"></span>
                             <label class="form-check-label" for="checkbox_token">Rester connecté</label>
                         </label>
-
                     </div>
                 </div>
+                <div class="form-group mb-3 d-flex justify-content-center">
+                    <div class="g-recaptcha" data-sitekey="
+                    <?php if($_SERVER['REMOTE_ADDR'] == "::1") { echo "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"; }
+                    else { echo "6Lel-lAfAAAAALp8EZinxQ_APOWrVWVev0yiefCP"; } ?>" 
+                    data-callback="enableBtn"></div>
+                </div>
                 <div class="form-group text-center m-0">
-                    <button type="submit" class="button bouton_custom" name="envoi" id="envoi" value="1">Connexion</button>
+                    <button type="submit" class="button bouton_custom disabled" name="envoi" id="envoi" value="1" disabled="disabled">Connexion</button>
                 </div>
             </div>
         </div>
     </div>
 </form>
+
+<script>
+function enableBtn(){
+   document.getElementById("envoi").disabled = false;
+   document.getElementById("envoi").classList.remove("disabled");
+ }
+
+ document.addEventListener('DOMContentLoaded', (event) => {
+  const recaptcha = document.querySelector('.g-recaptcha');
+  recaptcha.setAttribute("data-theme", "dark");
+});
+</script>
 <?php
 require_once "../visiteur/pied.php";

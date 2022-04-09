@@ -59,6 +59,12 @@ class Modele
 }
 
 
+        // INITIALISATION DE LA CONNEXION A LA BDD
+        // LOCAL
+        
+        return new PDO('mysql:host=localhost;dbname=gestion;charset=UTF8', 'root', '', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+
+
 if (file_exists("services/fonctions.php")) {
     require_once "services/fonctions.php";
 }

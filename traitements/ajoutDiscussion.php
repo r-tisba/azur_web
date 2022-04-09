@@ -18,7 +18,7 @@ if (!empty($_POST["idDestinataire"]))
         {
             $verif = $objetDiscussion->verifierDiscussion($_SESSION["idUtilisateur"], $idDestinataire);
             $idDiscussion = $verif["idDiscussion"];
-            if ($objetMessage->ajoutMessage($idDiscussion, $contenu, $idUtilisateur) == true)
+            if ($objetMessage->ajoutMessage($idDiscussion, htmlspecialchars($contenu), $idUtilisateur) == true)
             {
                 $service->redirectNow("../vues/utilisateur/discussion.php?id=$idDiscussion");
             } else {

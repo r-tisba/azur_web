@@ -4,6 +4,7 @@ else if(file_exists("../../services/fonctions.php")) { require_once "../../servi
 $service = new Service();
 $service->myRequireOnce("modeles/modele.php");
 session_start();
+date_default_timezone_set('Europe/Paris');
 $idUtilisateur = $_SESSION["idUtilisateur"];
 $objetUtilisateur = new Utilisateur($idUtilisateur);
 $validation = $objetUtilisateur->getValidation();

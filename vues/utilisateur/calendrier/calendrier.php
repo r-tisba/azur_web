@@ -25,7 +25,9 @@ $identifiantCreateur = $objetUtilisateur->getIdentifiant();
             slotLabelFormat: ['H:mm'],
             weekNumberCalculation: 'ISO',
 
-            plugins: ['dayGrid', 'timeGrid', 'list', 'interaction'],
+            plugins: ['dayGrid', 'timeGrid', 'list', 'interaction', 'bootstrap'],
+
+            themeSystem: 'bootstrap',
 
             header: {
                 left: 'prev,next today',
@@ -323,7 +325,7 @@ $identifiantCreateur = $objetUtilisateur->getIdentifiant();
 </script>
 </head>
 
-<body>
+<body class="dark-mode">
     <!-- ----------------------------- NAVBAR ----------------------------- -->
     <?php
     require_once "navbar.php";

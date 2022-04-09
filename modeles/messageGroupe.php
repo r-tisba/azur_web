@@ -56,8 +56,9 @@ class MessageGroupe extends Modele
     }
     public function ajoutMessage($idEquipe, $idUtilisateur, $contenu)
     {
+        $dateAuj = date("Y-m-d H:i:s");
         $requete = $this->getBDD()->prepare("INSERT INTO messages_groupes(idEquipe, idUtilisateur, contenu, date) VALUES(?, ?, ?, ?)");
-        $requete->execute([$idEquipe, $idUtilisateur, $contenu, date("Y-m-d H:i:s")]);
+        $requete->execute([$idEquipe, $idUtilisateur, $contenu, $dateAuj]);
         return true;
     }
     public function modifierMessage($contenu, $idMessageGroupe)

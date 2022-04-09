@@ -25,7 +25,7 @@ $date = $message["date"];
 
 if (!empty($_POST["inputModifMessage"])) {
     $contenu = $_POST["inputModifMessage"];
-    $objetMessage->modifierMessage($contenu, $idMessage);
+    $objetMessage->modifierMessage(htmlspecialchars($contenu), $idMessage);
 ?>
         <div class="alert alert-success mt-2">Message modifié</div>
 <?php
