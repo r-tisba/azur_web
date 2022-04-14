@@ -25,8 +25,10 @@ class Projet extends Modele
             $this->dateFin = $projet["dateFin"];
             $this->etatProjet = $projet["etatProjet"];
             $this->nomProjet = $projet["nomProjet"];
+            $this->intitule = $projet["intitule"];
+            $this->contexte = $projet["contexte"];
 
-            $requete = $this->getBdd()->prepare("SELECT idProjet, idEtape, nomEtape, e.dateDebut, e.dateFin, etatEtape, nomProjet, contexte FROM etapes e INNER JOIN projets p USING(idProjet) WHERE idProjet = ?");
+            $requete = $this->getBdd()->prepare("SELECT idProjet, idEtape, nomEtape, e.dateDebut, e.dateFin, etatEtape, nomProjet, intitule, contexte FROM etapes e INNER JOIN projets p USING(idProjet) WHERE idProjet = ?");
             $requete->execute([$this->idProjet]);
             $etapesArray = $requete->fetchAll(PDO::FETCH_ASSOC);
 

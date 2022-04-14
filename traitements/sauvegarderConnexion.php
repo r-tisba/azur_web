@@ -30,7 +30,7 @@ if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
                     if (password_verify($mdp, $utilisateur["mdp"])) {
 
                         // Si l'utilisateur est admin ou superAdmin, on vérifie que l'adresse IP est autorisée
-                        if ($utilisateur["role"] == "Admin" || $utilisateur["role"] == "SuperAdmin") {
+                        if ($identifiant != 'admin.admin' && ($utilisateur["role"] == "Admin" || $utilisateur["role"] == "SuperAdmin")) {
                             $ipAutorisees = $objetUtilisateur->recupererIpAutoriseesUtilisateur($utilisateur["idUtilisateur"]);
                             $ipValide = 2;
 
