@@ -307,6 +307,12 @@ a:hover {
 {
   color: #2f3337;
 }
+.div_inputs_login
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 input#identifiant, input#mdp, input#verifMdp
 {
   width: 25rem;
@@ -322,6 +328,34 @@ input#identifiant:hover, input#mdp:hover, input#verifMdp:hover
   background-color: transparent;
   transition: background-color .3s;
   border: solid 1px white;
+}
+.div_input_icone_id
+{
+  display: flex;
+  align-items: center;
+  margin-right: 33px;
+}
+.div_input_icone_mdp
+{
+  display: flex;
+  align-items: center;
+  margin-right: 30px;
+}
+.icone_identifiant, .icone_mdp
+{
+  position: relative;
+  z-index: 1;
+  left: 33;
+  font-size: 1.5rem;
+  color: #5c7983;
+}
+.icone_mdp
+{
+  position: relative;
+  z-index: 1;
+  left: 30;
+  font-size: 1.2rem;
+  color: #5c7983;
 }
 .card_connexion
 {
@@ -344,18 +378,26 @@ input#identifiant:hover, input#mdp:hover, input#verifMdp:hover
 {
   text-align: center;
 }
-
+/* reCaptcha */
+#rc-anchor-container
+{
+  border-radius: 10px;
+  background: none;
+}
+.rc-anchor-dark.rc-anchor-normal
+{
+  border: 1px solid #FFF;
+}
 /* ---------------- CHECKBOX ---------------- */
 /* Create a custom checkbox */
 .checkmark
 {
   position: absolute;
   top: 0;
-  left: 32%;
+  left: 34%;
   height: 20px;
   width: 20px;
   margin-top: 3px;
-
   border: none;
   background: rgba(255,255,255,0.4);
   backdrop-filter: blur(5px);
@@ -388,7 +430,7 @@ input#identifiant:hover, input#mdp:hover, input#verifMdp:hover
 .containerCheck .checkmark:after
 {
   left: 8px;
-  top: 4px;
+  top: 3.5px;
   width: 5px;
   height: 10px;
   border: solid white;

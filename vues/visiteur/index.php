@@ -79,12 +79,20 @@ if ($tokenBool == true) {
     <div class="col-12 text-center mb-4">
         <div class="card card_connexion">
             <div class="card-body">
+            <div class="div_inputs_login">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="identifiant" id="identifiant" placeholder="Identifiant" value="<?= $tokenBool == true ? htmlspecialchars($identifiant, ENT_QUOTES) : "" ?>" required />
+                    <div class="div_input_icone_id">
+                        <i class="far fa-user-circle icone_identifiant"></i>
+                        <input type="text" class="form-control" name="identifiant" id="identifiant" placeholder="Identifiant" value="<?= $tokenBool == true ? htmlspecialchars($identifiant, ENT_QUOTES) : "" ?>" required />
+                    </div>
                 </div>
                 <div class="form-group mb-3">
-                    <input type="password" class="form-control" name="mdp" id="mdp" placeholder="Mot de passe" value="" required />
+                    <div class="div_input_icone_mdp">
+                        <i class="fas fa-lock icone_mdp"></i>
+                        <input type="password" class="form-control" name="mdp" id="mdp" placeholder="Mot de passe" value="" required />
+                    </div>
                 </div>
+            </div>
                 <div class="form-group mb-3">
                     <div class="form-check">
 

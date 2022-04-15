@@ -5,6 +5,14 @@ require_once "../../../services/fonctions.php";
 $service = new Service();
 $service->myRequireOnce("modeles/modele.php");
 
+// Vérification protocole HTTPS
+if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === "off") {
+    $location = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    header('HTTP/1.1 301 Moved Permanently');
+    header('Location: ' . $location);
+    exit;
+}
+
 if (empty($_SESSION["identifiant"])) {
     $service->redirectNow("../../../index.php");
 }
@@ -16,6 +24,8 @@ if (empty($_SESSION["identifiant"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Azur est un outil professionnel de messagerie, d'agenda et de gestion de projets">
+
     <title>Azur - EDT</title>
     <link rel="shortcut icon" href="../../../images/design/logo.png" type="image/x-icon">
 

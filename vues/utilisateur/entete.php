@@ -8,6 +8,14 @@ $idUtilisateur = $_SESSION["idUtilisateur"];
 $objetUtilisateur = new Utilisateur($idUtilisateur);
 $validation = $objetUtilisateur->getValidation();
 
+// Vérification protocole HTTPS
+if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === "off") {
+  $location = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+  header('HTTP/1.1 301 Moved Permanently');
+  header('Location: ' . $location);
+  exit;
+}
+
 if (!isset($_SESSION["identifiant"]))
 {
   $service->redirectNow("../visiteur/index.php");
@@ -93,7 +101,6 @@ if(strpos($_SERVER["REQUEST_URI"], "utilisateur/validationMdp") == false && $_SE
   <!-- SELECT PICKER -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.18/dist/css/bootstrap-select.min.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.18/dist/js/bootstrap-select.min.js"></script>
-  
 
   <link rel="stylesheet" href="../../style/styleAP.css">
 
@@ -111,7 +118,7 @@ if(strpos($_SERVER["REQUEST_URI"], "utilisateur/validationMdp") == false && $_SE
 <body>
   <nav class="navbar navbar-dark navbar-expand-md bg-dark">
     <a class="navbar-brand titre" href="./index.php">
-      <img src="../../images/design/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+      <img src="../../images/design/logo_30x30.png" class="d-inline-block align-top" alt="">
       <span class="bleu_azur">Azur</span>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
