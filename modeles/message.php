@@ -72,16 +72,15 @@ class Message extends Modele
     // Sélectionne le dernier message envoyé dans la discussion
     public function recupererDernierMessage($idDiscussion)
     {
-        $requete = $this->getBDD()->prepare("SELECT t.contenu, max_date FROM messages t INNER JOIN
-        (SELECT contenu, MAX(date) AS max_date FROM messages GROUP BY contenu) a ON a.contenu = t.contenu AND a.max_date = date AND idDiscussion = ?");
+        $requete = $this->getBDD()->prepare("SELECT t.contenu, max_date FROM messages t INNER JOIN (SELECT contenu, MAX(date) AS max_date FROM messages GROUP BY contenu ORDER BY max_date DESC) a ON a.contenu = t.contenu AND a.max_date = date AND idDiscussion = ? LIMIT 1;");
         $requete->execute([$idDiscussion]);
         return $requete->fetch(PDO::FETCH_ASSOC);
     }
     public function recupererDernierMessageFull($idDiscussion)
     {
         $requete = $this->getBDD()->prepare("SELECT t.*, u.*, d.* FROM messages t INNER JOIN
-        (SELECT contenu, MAX(date) AS max_date FROM messages GROUP BY contenu) a ON a.contenu = t.contenu AND a.max_date = date
-        LEFT JOIN utilisateurs u USING(idUtilisateur) LEFT JOIN discussions d USING(idDiscussion) WHERE idDiscussion = ?");
+        (SELECT contenu, MAX(date) AS max_date FROM messages GROUP BY contenu ORDER BY max_date DESC) a ON a.contenu = t.contenu AND a.max_date = date
+        LEFT JOIN utilisateurs u USING(idUtilisateur) LEFT JOIN discussions d USING(idDiscussion) WHERE idDiscussion = ? LIMIT 1");
         $requete->execute([$idDiscussion]);
         return $requete->fetch(PDO::FETCH_ASSOC);
     }
