@@ -716,7 +716,7 @@ input#identifiant:hover, input#mdp:hover, input#verifMdp:hover
 .cardMessage_perso
 {
   color: white;
-  background: #14E070;
+  background: #20d973;
 }
 .cardMessage_interlocuteur
 {
@@ -784,7 +784,7 @@ input#identifiant:hover, input#mdp:hover, input#verifMdp:hover
 .card_apercu_perso
 {
   color: white;
-  background: #14E070 !important;
+  background: #20d973 !important;
   border: 0;
 }
 .card_apercu_interlocuteur
