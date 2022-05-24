@@ -6,12 +6,14 @@ $service = new Service();
 $service->myRequireOnce("modeles/modele.php");
 
 // Vérification protocole HTTPS
-// if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === "off") {
-//     $location = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-//     header('HTTP/1.1 301 Moved Permanently');
-//     header('Location: ' . $location);
-//     exit;
-// }
+if($_SERVER['REMOTE_ADDR'] != "::1") {
+  if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === "off") {
+    $location = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    header('HTTP/1.1 301 Moved Permanently');
+    header('Location: ' . $location);
+    exit;
+  }
+}
 
 if (empty($_SESSION["identifiant"])) {
     $service->redirectNow("../../../index.php");
