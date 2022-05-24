@@ -87,8 +87,9 @@ class Message extends Modele
     }
     public function ajoutMessage($idDiscussion, $contenu, $idUtilisateur)
     {
+        $dateAuj = date("Y-m-d H:i:s");
         $requete = $this->getBDD()->prepare("INSERT INTO messages(idDiscussion, contenu, date, idUtilisateur) VALUES(?, ?, ?, ?)");
-        $requete->execute([$idDiscussion, $contenu, date("Y-m-d H:i:s"), $idUtilisateur]);
+        $requete->execute([$idDiscussion, $contenu, $dateAuj, $idUtilisateur]);
         return true;
     }
     public function modifierMessage($contenu, $idMessage)

@@ -89,7 +89,7 @@ textarea.form-control:hover, textarea.form-control:focus
 {
   border: 1px solid white !important;
 }
-/* ---------------- AUTOFILL INPUT COLOR ---------------- */
+/* ---------------- INPUT AUTOFILL CHROME ---------------- */
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus, 
@@ -382,11 +382,12 @@ input#identifiant:hover, input#mdp:hover, input#verifMdp:hover
 #rc-anchor-container
 {
   border-radius: 10px;
-  background: none;
 }
-.rc-anchor-dark.rc-anchor-normal
+.rc-anchor-dark
 {
   border: 1px solid #FFF;
+  background: none;
+  border-radius: 10px;
 }
 /* ---------------- CHECKBOX ---------------- */
 /* Create a custom checkbox */
@@ -403,7 +404,7 @@ input#identifiant:hover, input#mdp:hover, input#verifMdp:hover
   backdrop-filter: blur(5px);
   border-radius: 25px;
 }
-/* On mouse-over, add a grey background color */
+/* On mouse-over, change background color */
 .containerCheck:hover input ~ .checkmark
 {
   background-color: transparent;
@@ -509,6 +510,21 @@ input#identifiant:hover, input#mdp:hover, input#verifMdp:hover
 	-webkit-transform: scale3d(1, 1, 1);
 	transform: scale3d(1, 1, 1);
 	opacity: 1;
+}
+.disabled
+{
+  opacity: 0.5;
+}
+.disabled:hover
+{
+  background: #007bff;
+	color: #fff;
+  opacity: 0.5;
+  border: none;
+}
+.disabled::before
+{
+  border: none;
 }
 /* --------------------------------------------- VALIDATION --------------------------------------------- */
 .card_text
@@ -1432,32 +1448,32 @@ textarea
 /*-----------------Cookies----------------------*/
 .cookie{
 	width: 420px;
-    height: 95px;
-    background-color: #fff;
-    position: fixed;
-    bottom: 88px;
-    border-radius: 10px;
+  height: 95px;
+  background-color: #fff;
+  position: fixed;
+  bottom: 88px;
+  border-radius: 10px;
 	left: 5%;
 	padding: 10px 20px;
 }
 
 .cookie .txt{
 	float: left;
-    width: 65%;
+  width: 65%;
 }
 .txt p{
 	color:#1D2D35;
 }
 
 .cookie .accept {
-    background-color: #40CC79;
-    color: #fff !important;
-    border-radius: 32px;
-    padding: 3px 23px;
-    /* align-self: center; */
-    font-size: 19px;
-    margin-top: 2.5%;
-    margin-left: 3%;
+  background-color: #40CC79;
+  color: #fff !important;
+  border-radius: 32px;
+  padding: 3px 23px;
+  /* align-self: center; */
+  font-size: 19px;
+  margin-top: 2.5%;
+  margin-left: 3%;
 
 }
 .cookie .accept:hover {

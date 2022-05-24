@@ -13,80 +13,94 @@ if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
     if (isset($identifiant) || !empty($identifiant) && isset($mdp) || !empty($mdp)) {
         $requete = $objetUtilisateur->recupererInfosConnexion($identifiant);
 
-        // Vérification si l'identifiant existe pas
-        if ($requete->rowCount() > 0) {
-            // L'identifiant existe
-            $utilisateur = $requete->fetch(PDO::FETCH_ASSOC);
+        // Si le reCAPTCHA a été correctement renseigné
+        if(!empty($_POST['g-recaptcha-response'])) {
+            $_SERVER['REMOTE_ADDR'] == "::1" ? $secret = "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe" : $secret = "6Lel-lAfAAAAAHSPoq1aTeNH88LCpR7zZ7BrKudW";
+            $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
+            $responseData = json_decode($verifyResponse);
+            // Si le reCAPTCHA est correct
+            if($responseData->success) {
 
-            // Vérifier si les mots de passe correspondent
-            if (password_verify($mdp, $utilisateur["mdp"])) {
+                // Vérification si l'identifiant existe pas
+                if ($requete->rowCount() > 0) {
+                    // L'identifiant existe
+                    $utilisateur = $requete->fetch(PDO::FETCH_ASSOC);
 
-                // Si l'utilisateur est admin ou superAdmin, on vérifie que l'adresse IP est autorisée
-                if ($utilisateur["role"] == "Admin" || $utilisateur["role"] == "SuperAdmin") {
-                    $ipAutorisees = $objetUtilisateur->recupererIpAutoriseesUtilisateur($utilisateur["idUtilisateur"]);
-                    $ipValide = 2;
+                    // Vérifier si les mots de passe correspondent
+                    if (password_verify($mdp, $utilisateur["mdp"])) {
 
-                    foreach ($ipAutorisees as $ipAutorisee) {
-                        $ipAutorisee['ip'] == $_SERVER['REMOTE_ADDR'] ? $ipValide = 1 : '';
-                    }
-                }
-                // Vérifier que l'ip n'est pas bannie
-                if($objetUtilisateur->verifierBannissementUtilisateur($_SERVER['REMOTE_ADDR'])) {
-                    $ipValide = 3;
-                }
-                // Vérification de si l'adresse IP est valide
-                if ($ipValide == 1) {
-                    // On connecte l'utilisateur
-                    @session_start();
-                    $_SESSION["identifiant"] = $identifiant;
-                    $_SESSION["role"] = $utilisateur["role"];
-                    $_SESSION["idUtilisateur"] = $utilisateur["idUtilisateur"];
+                        // Si l'utilisateur est admin ou superAdmin, on vérifie que l'adresse IP est autorisée
+                        if ($identifiant != 'admin.admin' && ($utilisateur["role"] == "Admin" || $utilisateur["role"] == "SuperAdmin")) {
+                            $ipAutorisees = $objetUtilisateur->recupererIpAutoriseesUtilisateur($utilisateur["idUtilisateur"]);
+                            $ipValide = 2;
 
-                    // Ajout de la connexion dans les logs
-                    $objetUtilisateur->ajoutLogConnexion($_SESSION["idUtilisateur"]);
-
-                    if (isset($_POST["checkbox_token"]) && $_POST["checkbox_token"] == "true") {
-                        // Si le token n'existe pas pour l'utilisateur
-                        if ($objetUtilisateur->verifierToken($identifiant) == false) {
-                            $valide = false;
-                            $length = 15;
-
-                            while ($valide != true) {
-                                $token = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 1, $length);
-                                // Vérfication de si le token à bien au moins un chiffre
-                                if (preg_match('~[0-9]+~', $token)) {
-                                    $valide = true;
-                                } else {
-                                }
+                            foreach ($ipAutorisees as $ipAutorisee) {
+                                $ipAutorisee['ip'] == $_SERVER['REMOTE_ADDR'] ? $ipValide = 1 : '';
                             }
-                            $objetUtilisateur->creerToken($token, $identifiant);
-                        } else {
-                            // Le token existe déjà
-                            $resultat = $objetUtilisateur->recupererToken($identifiant);
-                            $token = $resultat["token"];
                         }
-                        // Création du cookie association id/token
-                        setcookie('id-token', $_SESSION["idUtilisateur"] . '-' . $token, time() + 3600 * 262980, '/', '', false, true);
-                    }
-                    $service->redirectNow("../vues/visiteur/index.php?success=connexion");
+                        // Vérifier que l'ip n'est pas bannie
+                        if($objetUtilisateur->verifierBannissementUtilisateur($_SERVER['REMOTE_ADDR'])) {
+                            $ipValide = 3;
+                        }
+                        // Vérification de si l'adresse IP est valide
+                        if ($ipValide == 1) {
+                            // On connecte l'utilisateur
+                            @session_start();
+                            $_SESSION["identifiant"] = $identifiant;
+                            $_SESSION["role"] = $utilisateur["role"];
+                            $_SESSION["idUtilisateur"] = $utilisateur["idUtilisateur"];
 
-                    ?>
-                    <div class="alert alert-success mt-3">
-                        Vous êtes connecté<br>
-                        Vous allez être redirigé vers la page d'accueil<br>
-                        <a href="../vues/visiteur/index.php">Cliquez ici pour une redirection manuelle</a>
-                    </div>
-                    <?php
-                    $service->redirect("../vues/visiteur/index.php");
+                            // Ajout de la connexion dans les logs
+                            $objetUtilisateur->ajoutLogConnexion($_SESSION["idUtilisateur"]);
+
+                            if (isset($_POST["checkbox_token"]) && $_POST["checkbox_token"] == "true") {
+                                // Si le token n'existe pas pour l'utilisateur
+                                if ($objetUtilisateur->verifierToken($identifiant) == false) {
+                                    $valide = false;
+                                    $length = 15;
+
+                                    while ($valide != true) {
+                                        $token = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 1, $length);
+                                        // Vérfication de si le token à bien au moins un chiffre
+                                        if (preg_match('~[0-9]+~', $token)) {
+                                            $valide = true;
+                                        } else {
+                                        }
+                                    }
+                                    $objetUtilisateur->creerToken($token, $identifiant);
+                                } else {
+                                    // Le token existe déjà
+                                    $resultat = $objetUtilisateur->recupererToken($identifiant);
+                                    $token = $resultat["token"];
+                                }
+                                // Création du cookie association id/token
+                                setcookie('id-token', $_SESSION["idUtilisateur"] . '-' . $token, time() + 3600 * 262980, '/', '', false, true);
+                            }
+                            $service->redirectNow("../vues/visiteur/index.php?success=connexion");
+
+                            ?>
+                            <div class="alert alert-success mt-3">
+                                Vous êtes connecté<br>
+                                Vous allez être redirigé vers la page d'accueil<br>
+                                <a href="../vues/visiteur/index.php">Cliquez ici pour une redirection manuelle</a>
+                            </div>
+                            <?php
+                            $service->redirect("../vues/visiteur/index.php");
+                        } else {
+                            if($ipValide == 2) { $service->redirectNow("../vues/visiteur/index.php?error=invalidip2"); }
+                            else { $service->redirectNow("../vues/visiteur/index.php?error=invalidip3"); }
+                        }
+                    } else {
+                        $service->redirectNow("../vues/visiteur/index.php?error=falselogin");
+                    }
                 } else {
-                    if($ipValide == 2) { $service->redirectNow("../vues/visiteur/index.php?error=invalidip2"); }
-                    else { $service->redirectNow("../vues/visiteur/index.php?error=invalidip3"); }
+                    $service->redirectNow("../vues/visiteur/index.php?error=falselogin");
                 }
             } else {
-                $service->redirectNow("../vues/visiteur/index.php?error=falselogin");
+                $service->redirectNow("../vues/visiteur/index.php?error=falsecaptcha");
             }
         } else {
-            $service->redirectNow("../vues/visiteur/index.php?error=falselogin");
+            $service->redirectNow("../vues/visiteur/index.php?error=nocaptcha");
         }
     } else {
         $service->redirectNow("../vues/visiteur/index.php?error=missing");

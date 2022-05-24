@@ -10,7 +10,7 @@ if (($_GET["id"])) {
     if (!empty($_POST["contenu"])) {
         extract($_POST);
 
-        if ($objetMessage->ajoutMessage($idEquipe, $contenu, $idUtilisateur) == true)
+        if ($objetMessage->ajoutMessage($idEquipe, htmlspecialchars($contenu), $idUtilisateur) == true)
         {
             $service->redirectNow("../vues/utilisateur/messagerieGroupe.php?id=$idEquipe");
         } else {

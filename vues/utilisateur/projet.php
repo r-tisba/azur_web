@@ -110,7 +110,7 @@ $premier = true;
                             {
                             ?>
                                 <?php
-                                if ($etape["etatEtape"] == 0 && $objetEtape->etapeEnCours($etape["idEtape"]) == false)
+                                if ($etape["etatEtape"] == 0 && $objetEtape->etapeEnCours($etape["idEtape"]) == false && $objetEtape->etapeFutures($etape["idEtape"]) == false)
                                 {
                                     if ($premier == false) { ?> <div class="hr_rouge"></div> <?php }
                                     else { $premier = false; } ?>

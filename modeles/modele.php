@@ -61,8 +61,7 @@ class Modele
 
 if (file_exists("services/fonctions.php")) {
     require_once "services/fonctions.php";
-}
-else if (file_exists("../services/fonctions.php")) {
+} else if (file_exists("../services/fonctions.php")) {
     require_once "../services/fonctions.php";
 } else if (file_exists("../../services/fonctions.php")) {
     require_once "../../services/fonctions.php";

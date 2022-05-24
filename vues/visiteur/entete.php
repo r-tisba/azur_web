@@ -6,12 +6,12 @@ session_start();
 $tokenBool = false;
 
 // Vérification protocole HTTPS
-if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === "off") {
-  $location = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-  header('HTTP/1.1 301 Moved Permanently');
-  header('Location: ' . $location);
-  exit;
-}
+// if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === "off") {
+//   $location = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+//   header('HTTP/1.1 301 Moved Permanently');
+//   header('Location: ' . $location);
+//   exit;
+// }
 ?>
 <!-- ------------------------- GESTION COOKIE ------------------------- -->
 
@@ -106,6 +106,8 @@ if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === "off") {
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DDJTSHSV11"></script>
+  <!-- reCAPTCHA -->
+  <script src='https://www.google.com/recaptcha/api.js'></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
